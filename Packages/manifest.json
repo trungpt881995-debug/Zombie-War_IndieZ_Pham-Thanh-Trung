@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.inputsystem": "1.20.0",
     "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.19.0"
   }
 }

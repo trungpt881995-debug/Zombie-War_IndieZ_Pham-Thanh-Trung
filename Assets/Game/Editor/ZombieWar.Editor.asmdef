@@ -2,7 +2,8 @@
   "name": "ZombieWar.Editor",
   "rootNamespace": "ZombieWar.Editor",
   "references": [
-    "ZombieWar.Bootstrap"
+    "ZombieWar.Bootstrap",
+    "VContainer"
   ],
   "includePlatforms": [
     "Editor"
