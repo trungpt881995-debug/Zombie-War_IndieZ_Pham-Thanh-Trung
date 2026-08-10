@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Bootstrap",
+  "rootNamespace": "ZombieWar.Bootstrap",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.GameFlow",
+    "ZombieWar.Infrastructure.Unity",
+    "VContainer"
+  ],
+  "autoReferenced": true
+}

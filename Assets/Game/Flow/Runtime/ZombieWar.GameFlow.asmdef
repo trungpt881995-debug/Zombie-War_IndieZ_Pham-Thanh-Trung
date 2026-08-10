@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.GameFlow",
+  "rootNamespace": "ZombieWar.GameFlow",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

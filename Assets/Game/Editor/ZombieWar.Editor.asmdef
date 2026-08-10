@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Editor",
+  "rootNamespace": "ZombieWar.Editor",
+  "references": [
+    "ZombieWar.Bootstrap"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "GameplayCore",
+  "rootNamespace": "GameplayCore",
+  "references": [
+    "GeneralCore"
+  ],
+  "autoReferenced": true
+}
