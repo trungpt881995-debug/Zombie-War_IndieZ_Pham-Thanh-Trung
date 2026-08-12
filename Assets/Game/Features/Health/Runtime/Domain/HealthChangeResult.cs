@@ -8,12 +8,7 @@ namespace ZombieWar.Features.Health.Domain
         public bool Changed { get; }
         public bool BecameDepleted { get; }
 
-        public HealthChangeResult(
-            float previousHealth,
-            float currentHealth,
-            float appliedAmount,
-            bool changed,
-            bool becameDepleted)
+        public HealthChangeResult(float previousHealth, float currentHealth, float appliedAmount, bool changed, bool becameDepleted)
         {
             PreviousHealth = previousHealth;
             CurrentHealth = currentHealth;
@@ -24,12 +19,7 @@ namespace ZombieWar.Features.Health.Domain
 
         public static HealthChangeResult NoChange(float currentHealth)
         {
-            return new HealthChangeResult(
-                currentHealth,
-                currentHealth,
-                0f,
-                false,
-                false);
+            return new HealthChangeResult(currentHealth, currentHealth, 0f, false, false);
         }
     }
 }

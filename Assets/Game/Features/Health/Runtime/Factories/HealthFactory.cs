@@ -19,18 +19,11 @@ namespace ZombieWar.Features.Health.Factories
             _eventBus = eventBus ?? throw new System.ArgumentNullException(nameof(eventBus));
         }
 
-        public HealthController Create(
-            EntityId ownerId,
-            float maxHealth,
-            IHealthView view = null)
+        public HealthController Create(EntityId ownerId, float maxHealth, IHealthView view = null)
         {
             var model = new HealthModel(maxHealth);
 
-            return new HealthController(
-                ownerId,
-                model,
-                view ?? NullHealthView.Instance,
-                _eventBus);
+            return new HealthController(ownerId, model, view ?? NullHealthView.Instance, _eventBus);
         }
     }
 }

@@ -23,10 +23,7 @@ namespace ZombieWar.Features.Health.Model
         {
             if (float.IsNaN(maxHealth) || float.IsInfinity(maxHealth) || maxHealth <= 0f)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(maxHealth),
-                    maxHealth,
-                    "Max health must be a finite value greater than zero.");
+                throw new ArgumentOutOfRangeException(nameof(maxHealth), maxHealth, "Max health must be a finite value greater than zero.");
             }
 
             _maxHealth = maxHealth;
@@ -47,12 +44,7 @@ namespace ZombieWar.Features.Health.Model
             var appliedAmount = previousHealth - _currentHealth;
             var becameDepleted = previousHealth > 0f && _currentHealth <= 0f;
 
-            return new HealthChangeResult(
-                previousHealth,
-                _currentHealth,
-                appliedAmount,
-                appliedAmount > 0f,
-                becameDepleted);
+            return new HealthChangeResult(previousHealth, _currentHealth, appliedAmount, appliedAmount > 0f, becameDepleted);
         }
 
         public HealthChangeResult Reset()
@@ -65,12 +57,7 @@ namespace ZombieWar.Features.Health.Model
             var previousHealth = _currentHealth;
             _currentHealth = _maxHealth;
 
-            return new HealthChangeResult(
-                previousHealth,
-                _currentHealth,
-                _currentHealth - previousHealth,
-                true,
-                false);
+            return new HealthChangeResult(previousHealth, _currentHealth, _currentHealth - previousHealth, true, false);
         }
     }
 }

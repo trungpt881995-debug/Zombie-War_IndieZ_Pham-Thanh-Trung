@@ -11,11 +11,7 @@ namespace ZombieWar.Features.Health.Events
         public float MaxHealth { get; }
         public float NormalizedHealth { get; }
 
-        public HealthChangedEvent(
-            EntityId ownerId,
-            float previousHealth,
-            float currentHealth,
-            float maxHealth)
+        public HealthChangedEvent(EntityId ownerId, float previousHealth, float currentHealth, float maxHealth)
         {
             OwnerId = ownerId;
             PreviousHealth = previousHealth;

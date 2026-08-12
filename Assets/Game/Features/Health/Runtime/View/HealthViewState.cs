@@ -10,12 +10,7 @@ namespace ZombieWar.Features.Health.View
         public bool IsAlive { get; }
         public HealthState State { get; }
 
-        public HealthViewState(
-            float currentHealth,
-            float maxHealth,
-            float normalizedHealth,
-            bool isAlive,
-            HealthState state)
+        public HealthViewState(float currentHealth, float maxHealth, float normalizedHealth, bool isAlive, HealthState state)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;

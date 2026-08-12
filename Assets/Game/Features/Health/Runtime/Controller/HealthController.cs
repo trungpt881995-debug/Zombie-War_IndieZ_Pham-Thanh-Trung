@@ -34,11 +34,7 @@ namespace ZombieWar.Features.Health.Controller
         public bool IsDepleted => _model.IsDepleted;
         public HealthState State => _model.State;
 
-        public HealthController(
-            EntityId ownerId,
-            HealthModel model,
-            IHealthView view,
-            IEventBus eventBus)
+        public HealthController(EntityId ownerId, HealthModel model, IHealthView view, IEventBus eventBus)
         {
             _ownerId = ownerId;
             _model = model ?? throw new System.ArgumentNullException(nameof(model));
@@ -83,22 +79,12 @@ namespace ZombieWar.Features.Health.Controller
 
         private void PublishChanged(in HealthChangeResult result)
         {
-            _eventBus.Publish(
-                new HealthChangedEvent(
-                    _ownerId,
-                    result.PreviousHealth,
-                    result.CurrentHealth,
-                    _model.MaxHealth));
+            _eventBus.Publish(new HealthChangedEvent(_ownerId,result.PreviousHealth, result.CurrentHealth, _model.MaxHealth));
         }
 
         private void Render()
         {
-            var state = new HealthViewState(
-                _model.CurrentHealth,
-                _model.MaxHealth,
-                _model.NormalizedHealth,
-                _model.IsAlive,
-                _model.State);
+            var state = new HealthViewState(_model.CurrentHealth, _model.MaxHealth, _model.NormalizedHealth, _model.IsAlive, _model.State);
 
             _view.Render(in state);
         }

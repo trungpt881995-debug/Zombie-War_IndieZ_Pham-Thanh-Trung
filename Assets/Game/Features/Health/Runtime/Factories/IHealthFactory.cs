@@ -6,9 +6,6 @@ namespace ZombieWar.Features.Health.Factories
 {
     public interface IHealthFactory
     {
-        HealthController Create(
-            EntityId ownerId,
-            float maxHealth,
-            IHealthView view = null);
+        HealthController Create(EntityId ownerId, float maxHealth, IHealthView view = null);
     }
 }
