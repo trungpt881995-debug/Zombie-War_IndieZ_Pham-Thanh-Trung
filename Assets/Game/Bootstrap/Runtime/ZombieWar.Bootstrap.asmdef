@@ -6,6 +6,7 @@
     "GameplayCore",
     "ZombieWar.Health",
     "ZombieWar.Damage",
+    "ZombieWar.Control",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
     "VContainer"

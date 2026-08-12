@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Control",
+  "rootNamespace": "ZombieWar.Features.Control",
+  "references": [
+    "GeneralCore",
+    "UnityEngine.UI"
+  ],
+  "autoReferenced": true
+}

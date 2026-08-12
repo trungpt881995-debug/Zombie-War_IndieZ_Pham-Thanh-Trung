@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GeneralCore.AnalyticsDiagnostics;
 using GeneralCore.Architecture;
+using GeneralCore.UIInput;
 using GameplayCore.Damage;
 using GameplayCore.Entities;
 using GameplayCore.Levels;
@@ -18,6 +19,8 @@ using ZombieWar.GameFlow.Model;
 using ZombieWar.GameFlow.StateMachine;
 using ZombieWar.GameFlow.States;
 using ZombieWar.GameFlow.View;
+using ZombieWar.Features.Control.Input;
+using ZombieWar.Features.Control.Ports;
 using ZombieWar.Features.Damage.Controller;
 using ZombieWar.Features.Damage.Model;
 using ZombieWar.Features.Damage.View;
@@ -52,8 +55,15 @@ namespace ZombieWar.Bootstrap
             builder.Register<IGameplayRandom, XorShiftGameplayRandom>(Lifetime.Singleton);
             builder.Register<IGameplayRuntimeState, GameplayRuntimeState>(Lifetime.Singleton);
 
+            // Global gameplay-input gate. GameState/Pause can depend only on GeneralCore.UIInput.IInputGate.
+            // ControlController observes the same instance via IGameplayInputState and immediately cancels active input when disabled.
+            var inputGate = new GameplayInputGate(true);
+            builder.RegisterInstance(inputGate).As<IInputGate>().As<IGameplayInputState>();
+
+            // Temporary output until Soldier Feature provides the real MovementIntent -> CommandBus adapter.
+            builder.RegisterInstance(NullMovementIntentSink.Instance).As<IMovementIntentSink>();
+
             // Zombie War game-specific Damage implementation.
-            // Gameplay Features still depend only on GameplayCore.Damage.IDamageService.
             builder.Register<DamageModel>(Lifetime.Singleton);
             builder.RegisterInstance(NullDamageView.Instance).As<IDamageView>();
             builder.Register<DamageController>(Lifetime.Singleton).As<IDamageService>();
