@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Integration.Camera.Map",
+  "rootNamespace": "ZombieWar.Integration.Camera.Map",
+  "references": [
+    "ZombieWar.Camera",
+    "ZombieWar.Map"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,15 @@
+{
+  "name": "ZombieWar.Camera.Tests",
+  "rootNamespace": "ZombieWar.Features.Camera.Tests",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Camera"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

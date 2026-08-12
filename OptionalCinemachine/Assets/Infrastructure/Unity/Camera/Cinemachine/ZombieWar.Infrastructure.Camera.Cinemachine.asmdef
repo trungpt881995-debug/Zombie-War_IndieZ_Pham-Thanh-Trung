@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Infrastructure.Camera.Cinemachine",
+  "rootNamespace": "ZombieWar.Infrastructure.Camera.Cinemachine",
+  "references": [
+    "ZombieWar.Camera",
+    "ZombieWar.Camera.Unity",
+    "Unity.Cinemachine"
+  ],
+  "autoReferenced": true
+}

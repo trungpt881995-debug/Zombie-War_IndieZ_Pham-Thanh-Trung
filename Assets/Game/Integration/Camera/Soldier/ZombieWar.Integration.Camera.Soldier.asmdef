@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.Camera.Soldier",
+  "rootNamespace": "ZombieWar.Integration.Camera.Soldier",
+  "references": [
+    "ZombieWar.Camera",
+    "ZombieWar.Camera.Unity",
+    "ZombieWar.Soldier"
+  ],
+  "autoReferenced": true
+}

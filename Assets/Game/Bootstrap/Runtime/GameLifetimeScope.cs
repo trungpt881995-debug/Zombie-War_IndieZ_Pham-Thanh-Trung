@@ -45,7 +45,11 @@ using ZombieWar.Features.Weapon.View;
 using ZombieWar.Features.Zombie.Factories;
 using ZombieWar.Features.Zombie.Ports;
 using ZombieWar.Features.Map.Services;
+using ZombieWar.Features.Camera.Commands;
+using ZombieWar.Features.Camera.Ports;
+using ZombieWar.Features.Camera.Services;
 using ZombieWar.Integration.Zombie;
+using ZombieWar.Integration.Camera.Map;
 using ZombieWar.Integration.Weapon;
 using ZombieWar.Integration.Soldier;
 using ZombieWar.Infrastructure.Unity;
@@ -115,6 +119,15 @@ namespace ZombieWar.Bootstrap
             builder.Register<MapRuntime>(Lifetime.Singleton)
                 .As<IMapRuntime>()
                 .As<IMapRuntimeConfigurator>();
+
+            // Camera runtime is feature-isolated. Map bounds are adapted through a pure
+            // cross-feature provider; Soldier target + concrete Camera rig remain scene-specific.
+            builder.Register<MapCameraBoundsProvider>(Lifetime.Singleton)
+                .As<ICameraBoundsProvider>();
+            builder.Register<CameraRuntime>(Lifetime.Singleton)
+                .As<ICameraRuntime>()
+                .As<ICameraRuntimeConfigurator>();
+            builder.Register<RequestCameraShakeCommandHandler>(Lifetime.Singleton);
 
 
             // Shared Targeting services. TargetingController itself is intentionally NOT
@@ -203,6 +216,7 @@ namespace ZombieWar.Bootstrap
 
             builder.RegisterEntryPoint<UnityGameplayClockDriver>();
             builder.RegisterEntryPoint<WeaponCommandRegistration>();
+            builder.RegisterEntryPoint<CameraCommandRegistration>();
             builder.RegisterEntryPoint<GameBootstrap>();
         }
     }

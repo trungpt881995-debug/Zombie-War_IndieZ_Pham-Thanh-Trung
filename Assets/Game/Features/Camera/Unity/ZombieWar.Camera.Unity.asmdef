@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Camera.Unity",
+  "rootNamespace": "ZombieWar.Features.Camera.Unity",
+  "references": [
+    "ZombieWar.Camera"
+  ],
+  "autoReferenced": true
+}

@@ -18,7 +18,9 @@
     "ZombieWar.Map",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
-    "VContainer"
+    "VContainer",
+    "ZombieWar.Camera",
+    "ZombieWar.Integration.Camera.Map"
   ],
   "autoReferenced": true
 }
