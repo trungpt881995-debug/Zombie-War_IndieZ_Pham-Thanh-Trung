@@ -5,6 +5,7 @@
     "GeneralCore",
     "GameplayCore",
     "ZombieWar.Health",
+    "ZombieWar.Damage",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
     "VContainer"

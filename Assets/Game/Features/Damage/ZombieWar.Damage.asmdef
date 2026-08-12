@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Damage",
+  "rootNamespace": "ZombieWar.Features.Damage",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

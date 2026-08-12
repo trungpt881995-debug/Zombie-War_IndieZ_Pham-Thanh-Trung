@@ -18,6 +18,9 @@ using ZombieWar.GameFlow.Model;
 using ZombieWar.GameFlow.StateMachine;
 using ZombieWar.GameFlow.States;
 using ZombieWar.GameFlow.View;
+using ZombieWar.Features.Damage.Controller;
+using ZombieWar.Features.Damage.Model;
+using ZombieWar.Features.Damage.View;
 using ZombieWar.Features.Health.Factories;
 using ZombieWar.Infrastructure.Unity;
 
@@ -25,7 +28,6 @@ namespace ZombieWar.Bootstrap
 {
     public sealed class GameLifetimeScope : LifetimeScope
     {
-
         protected override void Awake()
         {
             base.Awake();
@@ -49,7 +51,13 @@ namespace ZombieWar.Bootstrap
             builder.Register<ILevelLifecycle, LevelLifecycle>(Lifetime.Singleton);
             builder.Register<IGameplayRandom, XorShiftGameplayRandom>(Lifetime.Singleton);
             builder.Register<IGameplayRuntimeState, GameplayRuntimeState>(Lifetime.Singleton);
-            builder.Register<IDamageService, DamageService>(Lifetime.Singleton);
+
+            // Zombie War game-specific Damage implementation.
+            // Gameplay Features still depend only on GameplayCore.Damage.IDamageService.
+            builder.Register<DamageModel>(Lifetime.Singleton);
+            builder.RegisterInstance(NullDamageView.Instance).As<IDamageView>();
+            builder.Register<DamageController>(Lifetime.Singleton).As<IDamageService>();
+
             builder.Register<IHealthFactory, HealthFactory>(Lifetime.Singleton);
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);

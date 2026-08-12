@@ -1,0 +1,17 @@
+{
+  "name": "ZombieWar.Damage.Tests",
+  "rootNamespace": "ZombieWar.Features.Damage.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Damage",
+    "ZombieWar.Health"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}
