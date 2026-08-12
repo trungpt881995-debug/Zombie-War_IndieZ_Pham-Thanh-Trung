@@ -1,0 +1,15 @@
+{
+  "name": "ZombieWar.Map.Tests",
+  "rootNamespace": "ZombieWar.Features.Map.Tests",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Map"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Infrastructure.Map.Addressables",
+  "rootNamespace": "ZombieWar.Infrastructure.Map.Addressables",
+  "references": [
+    "ZombieWar.Map",
+    "ZombieWar.Map.Unity",
+    "Unity.Addressables",
+    "Unity.ResourceManager"
+  ],
+  "autoReferenced": true
+}

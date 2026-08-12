@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Map.Unity",
+  "rootNamespace": "ZombieWar.Features.Map.Unity",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Map"
+  ],
+  "autoReferenced": true
+}

@@ -44,6 +44,7 @@ using ZombieWar.Features.Weapon.Strategies;
 using ZombieWar.Features.Weapon.View;
 using ZombieWar.Features.Zombie.Factories;
 using ZombieWar.Features.Zombie.Ports;
+using ZombieWar.Features.Map.Services;
 using ZombieWar.Integration.Zombie;
 using ZombieWar.Integration.Weapon;
 using ZombieWar.Integration.Soldier;
@@ -108,6 +109,12 @@ namespace ZombieWar.Bootstrap
                 .As<IZombieAttackBinding>();
             builder.RegisterInstance(NullZombieFeedbackPort.Instance).As<IZombieFeedbackPort>();
             builder.Register<IZombieFactory, ZombieFactory>(Lifetime.Singleton);
+
+            // Map runtime owns current-map lifecycle and immutable spatial context.
+            // Scene-specific MapCatalogConfig/MapAssetLoaderBehaviour are bound by MapRuntimeRoot.
+            builder.Register<MapRuntime>(Lifetime.Singleton)
+                .As<IMapRuntime>()
+                .As<IMapRuntimeConfigurator>();
 
 
             // Shared Targeting services. TargetingController itself is intentionally NOT
