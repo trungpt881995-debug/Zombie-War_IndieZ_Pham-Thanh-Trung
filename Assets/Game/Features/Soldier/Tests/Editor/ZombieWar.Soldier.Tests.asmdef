@@ -1,0 +1,19 @@
+{
+  "name": "ZombieWar.Soldier.Tests",
+  "rootNamespace": "ZombieWar.Features.Soldier.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Control",
+    "ZombieWar.Targeting",
+    "ZombieWar.Soldier",
+    "ZombieWar.Integration.Soldier"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

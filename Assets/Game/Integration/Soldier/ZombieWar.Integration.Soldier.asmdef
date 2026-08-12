@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Soldier",
+  "rootNamespace": "ZombieWar.Integration.Soldier",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Control",
+    "ZombieWar.Targeting",
+    "ZombieWar.Soldier"
+  ],
+  "autoReferenced": true
+}

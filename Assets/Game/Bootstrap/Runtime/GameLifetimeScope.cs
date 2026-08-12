@@ -30,6 +30,10 @@ using ZombieWar.Features.Damage.Controller;
 using ZombieWar.Features.Damage.Model;
 using ZombieWar.Features.Damage.View;
 using ZombieWar.Features.Health.Factories;
+using ZombieWar.Features.Soldier.Factories;
+using ZombieWar.Features.Soldier.Movement;
+using ZombieWar.Features.Soldier.Ports;
+using ZombieWar.Integration.Soldier;
 using ZombieWar.Infrastructure.Unity;
 
 namespace ZombieWar.Bootstrap
@@ -65,8 +69,13 @@ namespace ZombieWar.Bootstrap
             var inputGate = new GameplayInputGate(true);
             builder.RegisterInstance(inputGate).As<IInputGate>().As<IGameplayInputState>();
 
-            // Temporary output until Soldier Feature provides the real MovementIntent -> CommandBus adapter.
-            builder.RegisterInstance(NullMovementIntentSink.Instance).As<IMovementIntentSink>();
+            // Shared Soldier movement-input buffer. Control writes through an Integration adapter;
+            // Soldier Group reads the latest intent when its runtime is ticking.
+            var soldierInputBuffer = new SoldierGroupInputBuffer();
+            builder.RegisterInstance(soldierInputBuffer).As<ISoldierGroupInputBuffer>();
+
+            builder.Register<ControlMovementIntentToSoldierAdapter>(Lifetime.Singleton)
+                .As<IMovementIntentSink>();
 
             // Zombie War game-specific Damage implementation.
             builder.Register<DamageModel>(Lifetime.Singleton);
@@ -84,6 +93,27 @@ namespace ZombieWar.Bootstrap
                 .As<ITargetSelector<TargetingContext, ITargetCandidate>>();
             builder.Register<ITargetValidator, TargetValidator>(Lifetime.Singleton);
             builder.Register<ITargetingFactory, TargetingFactory>(Lifetime.Singleton);
+
+            // Soldier runtime remains feature-isolated. Cross-feature Targeting and Control
+            // translations live in ZombieWar.Integration.Soldier.
+            builder.Register<TargetingToSoldierAdapter>(Lifetime.Singleton)
+                .As<ISoldierTargetingPort>();
+
+            // Weapon Feature is not implemented yet, so attack and TargetRange remain Null Objects.
+            builder.RegisterInstance(NullSoldierAttackPort.Instance)
+                .As<ISoldierAttackPort>();
+
+            builder.RegisterInstance(NullTargetRangeProvider.Instance)
+                .As<ITargetRangeProvider>();
+
+            builder.Register<ISoldierMovementSolver, SoldierMovementSolver>(
+                Lifetime.Singleton);
+
+            builder.Register<ISoldierFactory, SoldierFactory>(
+                Lifetime.Singleton);
+
+            builder.Register<ISoldierGroupFactory, SoldierGroupFactory>(
+                Lifetime.Singleton);
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);
             builder.RegisterInstance(new NullGameFlowView()).As<IGameFlowView>();

@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Soldier",
+  "rootNamespace": "ZombieWar.Features.Soldier",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

@@ -8,6 +8,8 @@
     "ZombieWar.Damage",
     "ZombieWar.Control",
     "ZombieWar.Targeting",
+    "ZombieWar.Soldier",
+    "ZombieWar.Integration.Soldier",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
     "VContainer"
