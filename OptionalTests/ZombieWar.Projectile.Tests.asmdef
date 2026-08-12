@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Projectile.Tests",
+  "rootNamespace": "ZombieWar.Features.Projectile.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Projectile"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

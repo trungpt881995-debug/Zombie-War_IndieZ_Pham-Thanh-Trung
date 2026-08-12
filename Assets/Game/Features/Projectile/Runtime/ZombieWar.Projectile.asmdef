@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Projectile",
+  "rootNamespace": "ZombieWar.Features.Projectile",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

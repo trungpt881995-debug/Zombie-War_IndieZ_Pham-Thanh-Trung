@@ -9,6 +9,7 @@
     "ZombieWar.Control",
     "ZombieWar.Targeting",
     "ZombieWar.Soldier",
+    "ZombieWar.Projectile",
     "ZombieWar.Integration.Soldier",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",

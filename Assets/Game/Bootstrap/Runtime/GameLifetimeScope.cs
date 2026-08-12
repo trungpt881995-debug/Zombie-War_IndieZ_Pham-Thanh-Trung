@@ -33,6 +33,9 @@ using ZombieWar.Features.Health.Factories;
 using ZombieWar.Features.Soldier.Factories;
 using ZombieWar.Features.Soldier.Movement;
 using ZombieWar.Features.Soldier.Ports;
+using ZombieWar.Features.Projectile.Factories;
+using ZombieWar.Features.Projectile.Impact;
+using ZombieWar.Features.Projectile.Ports;
 using ZombieWar.Integration.Soldier;
 using ZombieWar.Infrastructure.Unity;
 
@@ -113,6 +116,19 @@ namespace ZombieWar.Bootstrap
                 Lifetime.Singleton);
 
             builder.Register<ISoldierGroupFactory, SoldierGroupFactory>(
+                Lifetime.Singleton);
+
+            // Projectile core remains feature-isolated. Scene-specific ProjectilePool/Driver
+            // are composed by ProjectileRuntimeRoot; shared factories/policies live in DI.
+            builder.Register<IProjectileImpactPolicyProvider, ProjectileImpactPolicyProvider>(
+                Lifetime.Singleton);
+            builder.RegisterInstance(NullProjectileExplosionPort.Instance)
+                .As<IProjectileExplosionPort>();
+            builder.RegisterInstance(NullProjectileFeedbackPort.Instance)
+                .As<IProjectileFeedbackPort>();
+            builder.Register<IProjectileControllerFactory, ProjectileControllerFactory>(
+                Lifetime.Singleton);
+            builder.Register<IProjectileLauncherFactory, ProjectileLauncherFactory>(
                 Lifetime.Singleton);
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);
