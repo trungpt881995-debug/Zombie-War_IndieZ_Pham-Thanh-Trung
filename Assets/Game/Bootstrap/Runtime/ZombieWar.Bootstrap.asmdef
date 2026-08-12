@@ -7,6 +7,7 @@
     "ZombieWar.Health",
     "ZombieWar.Damage",
     "ZombieWar.Control",
+    "ZombieWar.Targeting",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
     "VContainer"

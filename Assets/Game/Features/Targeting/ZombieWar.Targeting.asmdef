@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Targeting",
+  "rootNamespace": "ZombieWar.Features.Targeting",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

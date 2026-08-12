@@ -9,6 +9,11 @@ using GameplayCore.Random;
 using GameplayCore.RuntimeState;
 using GameplayCore.Session;
 using GameplayCore.Time;
+using GameplayCore.Targeting;
+using ZombieWar.Features.Targeting.Domain;
+using ZombieWar.Features.Targeting.Factories;
+using ZombieWar.Features.Targeting.Registry;
+using ZombieWar.Features.Targeting.Selection;
 using VContainer;
 using VContainer.Unity;
 using UnityEngine;
@@ -69,6 +74,16 @@ namespace ZombieWar.Bootstrap
             builder.Register<DamageController>(Lifetime.Singleton).As<IDamageService>();
 
             builder.Register<IHealthFactory, HealthFactory>(Lifetime.Singleton);
+
+
+            // Shared Targeting services. TargetingController itself is intentionally NOT
+            // registered as a singleton: ITargetingFactory creates one independent session per Soldier.
+            builder.Register<ITargetRegistry, TargetRegistry>(Lifetime.Singleton);
+            builder.Register<IDistanceMetric, PlanarXZDistanceMetric>(Lifetime.Singleton);
+            builder.Register<NearestTargetSelector>(Lifetime.Singleton)
+                .As<ITargetSelector<TargetingContext, ITargetCandidate>>();
+            builder.Register<ITargetValidator, TargetValidator>(Lifetime.Singleton);
+            builder.Register<ITargetingFactory, TargetingFactory>(Lifetime.Singleton);
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);
             builder.RegisterInstance(new NullGameFlowView()).As<IGameFlowView>();

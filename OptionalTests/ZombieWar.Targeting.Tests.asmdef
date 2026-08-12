@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Targeting.Tests",
+  "rootNamespace": "ZombieWar.Features.Targeting.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Targeting"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}
