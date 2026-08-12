@@ -4,6 +4,7 @@
   "references": [
     "GeneralCore",
     "GameplayCore",
+    "ZombieWar.Health",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
     "VContainer"

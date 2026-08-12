@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Health",
+  "rootNamespace": "ZombieWar.Features.Health",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

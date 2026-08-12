@@ -1,0 +1,14 @@
+{
+  "name": "ZombieWar.Health.Tests",
+  "rootNamespace": "ZombieWar.Features.Health.Tests",
+  "references": [
+    "ZombieWar.Health"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

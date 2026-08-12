@@ -18,6 +18,7 @@ using ZombieWar.GameFlow.Model;
 using ZombieWar.GameFlow.StateMachine;
 using ZombieWar.GameFlow.States;
 using ZombieWar.GameFlow.View;
+using ZombieWar.Features.Health.Factories;
 using ZombieWar.Infrastructure.Unity;
 
 namespace ZombieWar.Bootstrap
@@ -49,6 +50,7 @@ namespace ZombieWar.Bootstrap
             builder.Register<IGameplayRandom, XorShiftGameplayRandom>(Lifetime.Singleton);
             builder.Register<IGameplayRuntimeState, GameplayRuntimeState>(Lifetime.Singleton);
             builder.Register<IDamageService, DamageService>(Lifetime.Singleton);
+            builder.Register<IHealthFactory, HealthFactory>(Lifetime.Singleton);
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);
             builder.RegisterInstance(new NullGameFlowView()).As<IGameFlowView>();
