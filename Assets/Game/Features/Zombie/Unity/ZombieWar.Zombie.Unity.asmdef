@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Zombie.Unity",
+  "rootNamespace": "ZombieWar.Features.Zombie.Unity",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Zombie"
+  ],
+  "autoReferenced": true
+}

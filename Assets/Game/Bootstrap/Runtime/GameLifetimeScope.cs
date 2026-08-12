@@ -42,6 +42,9 @@ using ZombieWar.Features.Weapon.Ports;
 using ZombieWar.Features.Weapon.Services;
 using ZombieWar.Features.Weapon.Strategies;
 using ZombieWar.Features.Weapon.View;
+using ZombieWar.Features.Zombie.Factories;
+using ZombieWar.Features.Zombie.Ports;
+using ZombieWar.Integration.Zombie;
 using ZombieWar.Integration.Weapon;
 using ZombieWar.Integration.Soldier;
 using ZombieWar.Infrastructure.Unity;
@@ -93,6 +96,18 @@ namespace ZombieWar.Bootstrap
             builder.Register<DamageController>(Lifetime.Singleton).As<IDamageService>();
 
             builder.Register<IHealthFactory, HealthFactory>(Lifetime.Singleton);
+
+            // Normal Zombie AI/lifecycle core. Scene-specific pool, Unity motor/view and
+            // Soldier Transform bindings are composed by ZombieRuntimeRoot.
+            var zombieTargetProvider = new ZombieSoldierTargetProvider();
+            builder.RegisterInstance(zombieTargetProvider)
+                .As<IZombieTargetProvider>()
+                .As<IZombieSoldierTargetRegistry>();
+            builder.Register<ZombieAttackDamageAdapter>(Lifetime.Singleton)
+                .As<IZombieAttackPort>()
+                .As<IZombieAttackBinding>();
+            builder.RegisterInstance(NullZombieFeedbackPort.Instance).As<IZombieFeedbackPort>();
+            builder.Register<IZombieFactory, ZombieFactory>(Lifetime.Singleton);
 
 
             // Shared Targeting services. TargetingController itself is intentionally NOT

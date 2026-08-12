@@ -13,6 +13,8 @@
     "ZombieWar.Integration.Weapon",
     "ZombieWar.Weapon",
     "ZombieWar.Integration.Soldier",
+    "ZombieWar.Zombie",
+    "ZombieWar.Integration.Zombie",
     "ZombieWar.GameFlow",
     "ZombieWar.Infrastructure.Unity",
     "VContainer"
