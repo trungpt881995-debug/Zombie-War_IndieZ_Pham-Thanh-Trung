@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Weapon.Unity",
+  "rootNamespace": "ZombieWar.Features.Weapon.Unity",
+  "references": [
+    "ZombieWar.Weapon"
+  ],
+  "autoReferenced": true
+}

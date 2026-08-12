@@ -36,6 +36,13 @@ using ZombieWar.Features.Soldier.Ports;
 using ZombieWar.Features.Projectile.Factories;
 using ZombieWar.Features.Projectile.Impact;
 using ZombieWar.Features.Projectile.Ports;
+using ZombieWar.Features.Weapon.Commands;
+using ZombieWar.Features.Weapon.Factories;
+using ZombieWar.Features.Weapon.Ports;
+using ZombieWar.Features.Weapon.Services;
+using ZombieWar.Features.Weapon.Strategies;
+using ZombieWar.Features.Weapon.View;
+using ZombieWar.Integration.Weapon;
 using ZombieWar.Integration.Soldier;
 using ZombieWar.Infrastructure.Unity;
 
@@ -102,11 +109,32 @@ namespace ZombieWar.Bootstrap
             builder.Register<TargetingToSoldierAdapter>(Lifetime.Singleton)
                 .As<ISoldierTargetingPort>();
 
-            // Weapon Feature is not implemented yet, so attack and TargetRange remain Null Objects.
-            builder.RegisterInstance(NullSoldierAttackPort.Instance)
-                .As<ISoldierAttackPort>();
+            // Weapon core is shared by the whole Soldier Group, while WeaponAttackService
+            // owns independent per-Soldier fire sessions. Runtime config/projectile binding
+            // is completed by WeaponRuntimeRoot in the Gameplay Scene.
+            builder.RegisterInstance(NullWeaponView.Instance).As<IWeaponView>();
+            builder.RegisterInstance(NullWeaponFlamePort.Instance).As<IWeaponFlamePort>();
+            builder.RegisterInstance(NullWeaponFeedbackPort.Instance).As<IWeaponFeedbackPort>();
+            builder.Register<WeaponRuntime>(Lifetime.Singleton).As<IWeaponRuntime>();
 
-            builder.RegisterInstance(NullTargetRangeProvider.Instance)
+            var weaponMuzzleRegistry = new WeaponMuzzleRegistry();
+            builder.RegisterInstance(weaponMuzzleRegistry)
+                .As<IWeaponMuzzleProvider>()
+                .As<IWeaponMuzzleRegistry>();
+
+            var weaponProjectileAdapter = new WeaponToProjectileAdapter();
+            builder.RegisterInstance(weaponProjectileAdapter)
+                .As<IWeaponProjectilePort>()
+                .As<IWeaponProjectileBinding>();
+
+            builder.Register<IWeaponFireStrategyProvider, WeaponFireStrategyProvider>(Lifetime.Singleton);
+            builder.Register<IWeaponFireSessionFactory, WeaponFireSessionFactory>(Lifetime.Singleton);
+            builder.Register<IWeaponAttackService, WeaponAttackService>(Lifetime.Singleton);
+            builder.Register<SelectWeaponCommandHandler>(Lifetime.Singleton);
+
+            builder.Register<WeaponToSoldierAttackAdapter>(Lifetime.Singleton)
+                .As<ISoldierAttackPort>();
+            builder.Register<WeaponTargetRangeProvider>(Lifetime.Singleton)
                 .As<ITargetRangeProvider>();
 
             builder.Register<ISoldierMovementSolver, SoldierMovementSolver>(
@@ -152,6 +180,7 @@ namespace ZombieWar.Bootstrap
             builder.Register<ChangeGameFlowStateCommandHandler>(Lifetime.Singleton);
 
             builder.RegisterEntryPoint<UnityGameplayClockDriver>();
+            builder.RegisterEntryPoint<WeaponCommandRegistration>();
             builder.RegisterEntryPoint<GameBootstrap>();
         }
     }

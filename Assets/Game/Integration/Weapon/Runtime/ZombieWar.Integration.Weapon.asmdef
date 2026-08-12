@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Integration.Weapon",
+  "rootNamespace": "ZombieWar.Integration.Weapon",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Weapon",
+    "ZombieWar.Soldier",
+    "ZombieWar.Projectile"
+  ],
+  "autoReferenced": true
+}

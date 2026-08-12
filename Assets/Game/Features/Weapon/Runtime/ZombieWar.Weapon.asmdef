@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Weapon",
+  "rootNamespace": "ZombieWar.Features.Weapon",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}
