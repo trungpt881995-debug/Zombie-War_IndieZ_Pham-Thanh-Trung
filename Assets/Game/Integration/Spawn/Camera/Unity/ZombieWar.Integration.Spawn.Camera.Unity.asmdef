@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Integration.Spawn.Camera.Unity",
+  "rootNamespace": "ZombieWar.Integration.Spawn.Camera.Unity",
+  "references": [
+    "ZombieWar.Spawn"
+  ],
+  "autoReferenced": true
+}

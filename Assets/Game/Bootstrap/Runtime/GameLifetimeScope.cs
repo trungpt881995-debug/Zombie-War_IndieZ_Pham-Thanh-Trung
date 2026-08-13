@@ -48,6 +48,11 @@ using ZombieWar.Features.Map.Services;
 using ZombieWar.Features.Camera.Commands;
 using ZombieWar.Features.Camera.Ports;
 using ZombieWar.Features.Camera.Services;
+using ZombieWar.Features.Spawn.Commands;
+using ZombieWar.Features.Spawn.Ports;
+using ZombieWar.Features.Spawn.Services;
+using ZombieWar.Integration.Spawn.Map;
+using ZombieWar.Integration.Spawn.Runtime;
 using ZombieWar.Integration.Zombie;
 using ZombieWar.Integration.Camera.Map;
 using ZombieWar.Integration.Weapon;
@@ -128,6 +133,16 @@ namespace ZombieWar.Bootstrap
                 .As<ICameraRuntime>()
                 .As<ICameraRuntimeConfigurator>();
             builder.Register<RequestCameraShakeCommandHandler>(Lifetime.Singleton);
+
+            // Spawn runtime orchestrates cadence/placement/capacity. Map geometry and GameplayRandom
+            // are adapted through DI; Camera visibility, NavMesh and ZombieRuntime are scene-specific.
+            builder.Register<MapSpawnSectorProvider>(Lifetime.Singleton).As<ISpawnSectorProvider>();
+            builder.Register<MapGameplayBoundsQuery>(Lifetime.Singleton).As<ISpawnGameplayBoundsQuery>();
+            builder.Register<GameplayRandomSpawnAdapter>(Lifetime.Singleton).As<ISpawnRandom>();
+            builder.Register<SpawnRuntime>(Lifetime.Singleton).As<ISpawnRuntime>().As<ISpawnRuntimeConfigurator>();
+            builder.Register<StartZombieSpawningCommandHandler>(Lifetime.Singleton);
+            builder.Register<StopZombieSpawningCommandHandler>(Lifetime.Singleton);
+            builder.Register<SetSpawnDifficultyCommandHandler>(Lifetime.Singleton);
 
 
             // Shared Targeting services. TargetingController itself is intentionally NOT
@@ -217,6 +232,7 @@ namespace ZombieWar.Bootstrap
             builder.RegisterEntryPoint<UnityGameplayClockDriver>();
             builder.RegisterEntryPoint<WeaponCommandRegistration>();
             builder.RegisterEntryPoint<CameraCommandRegistration>();
+            builder.RegisterEntryPoint<SpawnCommandRegistration>();
             builder.RegisterEntryPoint<GameBootstrap>();
         }
     }

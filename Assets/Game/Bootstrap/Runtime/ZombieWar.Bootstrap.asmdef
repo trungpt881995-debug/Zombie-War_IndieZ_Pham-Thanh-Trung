@@ -20,7 +20,10 @@
     "ZombieWar.Infrastructure.Unity",
     "VContainer",
     "ZombieWar.Camera",
-    "ZombieWar.Integration.Camera.Map"
+    "ZombieWar.Integration.Camera.Map",
+    "ZombieWar.Spawn",
+    "ZombieWar.Integration.Spawn.Map",
+    "ZombieWar.Integration.Spawn.Runtime"
   ],
   "autoReferenced": true
 }

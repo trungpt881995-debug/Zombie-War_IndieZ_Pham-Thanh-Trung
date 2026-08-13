@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Spawn.Unity",
+  "rootNamespace": "ZombieWar.Features.Spawn.Unity",
+  "references": [
+    "ZombieWar.Spawn"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Integration.Spawn.Navigation.Unity",
+  "rootNamespace": "ZombieWar.Integration.Spawn.Navigation.Unity",
+  "references": [
+    "ZombieWar.Spawn"
+  ],
+  "autoReferenced": true
+}

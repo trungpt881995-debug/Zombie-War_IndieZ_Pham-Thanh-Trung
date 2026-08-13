@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Integration.Spawn.Map",
+  "rootNamespace": "ZombieWar.Integration.Spawn.Map",
+  "references": [
+    "ZombieWar.Spawn",
+    "ZombieWar.Map"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Spawn",
+  "rootNamespace": "ZombieWar.Features.Spawn",
+  "references": [
+    "GeneralCore"
+  ],
+  "autoReferenced": true
+}

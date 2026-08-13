@@ -1,0 +1,15 @@
+{
+  "name": "ZombieWar.Spawn.Tests",
+  "rootNamespace": "ZombieWar.Features.Spawn.Tests",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Spawn"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

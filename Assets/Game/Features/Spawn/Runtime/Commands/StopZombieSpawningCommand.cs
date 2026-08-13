@@ -1,0 +1,1 @@
+using GeneralCore.Architecture; using ZombieWar.Features.Spawn.Domain; namespace ZombieWar.Features.Spawn.Commands { public readonly struct StopZombieSpawningCommand : ICommand { public SpawnStopReason Reason { get; } public StopZombieSpawningCommand(SpawnStopReason reason)=>Reason=reason; } }

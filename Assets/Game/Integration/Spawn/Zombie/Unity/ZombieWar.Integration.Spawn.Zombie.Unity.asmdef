@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.Spawn.Zombie.Unity",
+  "rootNamespace": "ZombieWar.Integration.Spawn.Zombie.Unity",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Spawn",
+    "ZombieWar.Integration.Zombie.Unity"
+  ],
+  "autoReferenced": true
+}

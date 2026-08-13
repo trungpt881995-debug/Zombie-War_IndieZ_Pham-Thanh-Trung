@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Integration.Spawn.Runtime",
+  "rootNamespace": "ZombieWar.Integration.Spawn.Runtime",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Spawn"
+  ],
+  "autoReferenced": true
+}
