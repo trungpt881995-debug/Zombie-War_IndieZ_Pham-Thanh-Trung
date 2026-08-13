@@ -1,0 +1,1 @@
+using GeneralCore.Architecture; using ZombieWar.Features.Level.Domain; namespace ZombieWar.Features.Level.Events { public readonly struct GameCompletedEvent:IEvent { public GameLevelId FinalGameLevel{get;} public GameCompletedEvent(GameLevelId gl){FinalGameLevel=gl;} } }

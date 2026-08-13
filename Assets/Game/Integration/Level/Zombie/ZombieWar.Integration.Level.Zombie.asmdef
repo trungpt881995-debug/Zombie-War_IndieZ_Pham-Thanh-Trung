@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Level.Zombie",
+  "rootNamespace": "ZombieWar.Integration.Level.Zombie",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Level",
+    "ZombieWar.Zombie",
+    "VContainer"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Level.Unity",
+  "rootNamespace": "ZombieWar.Features.Level.Unity",
+  "references": [
+    "ZombieWar.Level"
+  ],
+  "autoReferenced": true
+}

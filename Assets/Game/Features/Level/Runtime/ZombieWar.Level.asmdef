@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Level",
+  "rootNamespace": "ZombieWar.Features.Level",
+  "references": [
+    "GeneralCore"
+  ],
+  "autoReferenced": true
+}

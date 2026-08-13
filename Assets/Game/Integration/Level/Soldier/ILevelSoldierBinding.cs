@@ -1,0 +1,1 @@
+using ZombieWar.Features.Soldier.Domain; namespace ZombieWar.Integration.Level.Soldier { public interface ILevelSoldierBinding { void Bind(ISoldierGroupRuntime runtime); void Unbind(ISoldierGroupRuntime runtime); } }

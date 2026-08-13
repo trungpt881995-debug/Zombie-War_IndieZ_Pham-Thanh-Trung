@@ -51,6 +51,11 @@ using ZombieWar.Features.Camera.Services;
 using ZombieWar.Features.Spawn.Commands;
 using ZombieWar.Features.Spawn.Ports;
 using ZombieWar.Features.Spawn.Services;
+using ZombieWar.Features.Level.Commands;
+using ZombieWar.Features.Level.Services;
+using ZombieWar.Integration.Level.Zombie;
+using ZombieWar.Integration.Level.Spawn;
+using ZombieWar.Integration.Level.Soldier;
 using ZombieWar.Integration.Spawn.Map;
 using ZombieWar.Integration.Spawn.Runtime;
 using ZombieWar.Integration.Zombie;
@@ -145,6 +150,22 @@ namespace ZombieWar.Bootstrap
             builder.Register<SetSpawnDifficultyCommandHandler>(Lifetime.Singleton);
 
 
+            // Level runtime is the single source of truth for Game Level progression,
+            // Soldier Group Level, Normal Zombie Kill Count and Boss Phase. Execution remains
+            // in Soldier/Spawn/Boss/GameFlow integrations.
+            builder.Register<LevelRuntime>(Lifetime.Singleton)
+                .As<ILevelRuntime>()
+                .As<ILevelRuntimeConfigurator>();
+            builder.Register<BeginGameLevelCommandHandler>(Lifetime.Singleton);
+            builder.Register<RegisterNormalZombieKillCommandHandler>(Lifetime.Singleton);
+            builder.Register<RegisterBossDefeatedCommandHandler>(Lifetime.Singleton);
+            builder.Register<SetLevelProgressionEnabledCommandHandler>(Lifetime.Singleton);
+
+            builder.Register<ZombieKillToLevelProgressAdapter>(Lifetime.Singleton);
+            builder.Register<LevelSpawnProgressionBridge>(Lifetime.Singleton);
+            builder.Register<LevelSoldierProgressionBridge>(Lifetime.Singleton)
+                .As<ILevelSoldierBinding>();
+
             // Shared Targeting services. TargetingController itself is intentionally NOT
             // registered as a singleton: ITargetingFactory creates one independent session per Soldier.
             builder.Register<ITargetRegistry, TargetRegistry>(Lifetime.Singleton);
@@ -233,6 +254,10 @@ namespace ZombieWar.Bootstrap
             builder.RegisterEntryPoint<WeaponCommandRegistration>();
             builder.RegisterEntryPoint<CameraCommandRegistration>();
             builder.RegisterEntryPoint<SpawnCommandRegistration>();
+            builder.RegisterEntryPoint<LevelCommandRegistration>();
+            builder.RegisterEntryPoint<ZombieKillToLevelProgressAdapter>();
+            builder.RegisterEntryPoint<LevelSpawnProgressionBridge>();
+            builder.RegisterEntryPoint<LevelSoldierProgressionBridge>();
             builder.RegisterEntryPoint<GameBootstrap>();
         }
     }

@@ -1,0 +1,1 @@
+using GeneralCore.Architecture; using ZombieWar.Features.Level.Domain; namespace ZombieWar.Features.Level.Events { public readonly struct BossObjectiveCompletedEvent:IEvent { public GameLevelId GameLevel{get;} public LevelBossObjectiveId Boss{get;} public BossObjectiveCompletedEvent(GameLevelId gl,LevelBossObjectiveId boss){GameLevel=gl;Boss=boss;} } }

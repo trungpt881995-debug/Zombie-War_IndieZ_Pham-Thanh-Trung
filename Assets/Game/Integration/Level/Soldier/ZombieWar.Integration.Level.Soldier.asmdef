@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Level.Soldier",
+  "rootNamespace": "ZombieWar.Integration.Level.Soldier",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Level",
+    "ZombieWar.Soldier",
+    "VContainer"
+  ],
+  "autoReferenced": true
+}

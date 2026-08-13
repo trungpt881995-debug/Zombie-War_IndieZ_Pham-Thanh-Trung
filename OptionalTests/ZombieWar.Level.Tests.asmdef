@@ -1,0 +1,15 @@
+{
+  "name": "ZombieWar.Level.Tests",
+  "rootNamespace": "ZombieWar.Features.Level.Tests",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Level"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

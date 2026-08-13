@@ -23,7 +23,11 @@
     "ZombieWar.Integration.Camera.Map",
     "ZombieWar.Spawn",
     "ZombieWar.Integration.Spawn.Map",
-    "ZombieWar.Integration.Spawn.Runtime"
+    "ZombieWar.Integration.Spawn.Runtime",
+    "ZombieWar.Level",
+    "ZombieWar.Integration.Level.Zombie",
+    "ZombieWar.Integration.Level.Spawn",
+    "ZombieWar.Integration.Level.Soldier"
   ],
   "autoReferenced": true
 }
