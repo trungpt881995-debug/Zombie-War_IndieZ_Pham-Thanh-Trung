@@ -1,0 +1,14 @@
+{
+  "name": "ZombieWar.VFX.Tests",
+  "rootNamespace": "ZombieWar.Features.VFX.Tests",
+  "references": [
+    "ZombieWar.VFX"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

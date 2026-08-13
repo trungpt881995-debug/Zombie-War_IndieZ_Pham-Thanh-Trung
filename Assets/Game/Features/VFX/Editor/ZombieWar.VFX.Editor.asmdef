@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.VFX.Editor",
+  "rootNamespace": "ZombieWar.Features.VFX.Editor",
+  "references": [
+    "ZombieWar.VFX",
+    "ZombieWar.VFX.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

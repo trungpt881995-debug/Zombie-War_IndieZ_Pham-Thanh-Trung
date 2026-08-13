@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.VFX",
+  "rootNamespace": "ZombieWar.Features.VFX",
+  "references": [
+    "GeneralCore"
+  ],
+  "autoReferenced": true
+}

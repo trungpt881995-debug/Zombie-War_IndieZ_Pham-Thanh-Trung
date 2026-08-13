@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.VFX.Weapon",
+  "rootNamespace": "ZombieWar.Integration.VFX.Weapon",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.VFX",
+    "ZombieWar.Weapon"
+  ],
+  "autoReferenced": true
+}

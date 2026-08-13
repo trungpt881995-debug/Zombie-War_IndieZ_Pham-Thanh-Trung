@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.VFX.Projectile",
+  "rootNamespace": "ZombieWar.Integration.VFX.Projectile",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.VFX",
+    "ZombieWar.Projectile"
+  ],
+  "autoReferenced": true
+}

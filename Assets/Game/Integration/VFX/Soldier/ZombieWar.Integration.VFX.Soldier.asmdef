@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.VFX.Soldier",
+  "rootNamespace": "ZombieWar.Integration.VFX.Soldier",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.VFX",
+    "ZombieWar.Health"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.VFX.Boss",
+  "rootNamespace": "ZombieWar.Integration.VFX.Boss",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.VFX",
+    "ZombieWar.Boss"
+  ],
+  "autoReferenced": true
+}

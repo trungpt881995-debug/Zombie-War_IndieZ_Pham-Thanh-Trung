@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.VFX.GameState",
+  "rootNamespace": "ZombieWar.Integration.VFX.GameState",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.VFX",
+    "ZombieWar.GameState"
+  ],
+  "autoReferenced": true
+}

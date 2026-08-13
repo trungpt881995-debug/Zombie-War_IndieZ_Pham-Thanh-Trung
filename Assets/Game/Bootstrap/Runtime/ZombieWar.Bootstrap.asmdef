@@ -44,7 +44,14 @@
         "ZombieWar.Integration.UI.Health",
         "ZombieWar.Integration.UI.Level",
         "ZombieWar.Integration.UI.Score",
-        "ZombieWar.Integration.UI.Weapon"
+        "ZombieWar.Integration.UI.Weapon",
+        "ZombieWar.VFX",
+        "ZombieWar.Integration.VFX.Boss",
+        "ZombieWar.Integration.VFX.GameState",
+        "ZombieWar.Integration.VFX.Projectile",
+        "ZombieWar.Integration.VFX.Soldier",
+        "ZombieWar.Integration.VFX.Weapon",
+        "ZombieWar.Integration.VFX.Zombie"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

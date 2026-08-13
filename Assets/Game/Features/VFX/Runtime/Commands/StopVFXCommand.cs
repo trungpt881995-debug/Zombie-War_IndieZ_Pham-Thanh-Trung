@@ -1,0 +1,1 @@
+using GeneralCore.Architecture; using ZombieWar.Features.VFX.Domain; namespace ZombieWar.Features.VFX.Commands { public readonly struct StopVFXCommand:ICommand { public VFXHandle Handle{get;} public StopVFXCommand(VFXHandle handle){Handle=handle;} } }

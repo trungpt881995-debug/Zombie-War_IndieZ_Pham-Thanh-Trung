@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.VFX.Zombie",
+  "rootNamespace": "ZombieWar.Integration.VFX.Zombie",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.VFX",
+    "ZombieWar.Zombie"
+  ],
+  "autoReferenced": true
+}

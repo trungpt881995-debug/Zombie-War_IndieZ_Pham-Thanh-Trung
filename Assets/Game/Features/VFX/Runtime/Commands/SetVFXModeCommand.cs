@@ -1,0 +1,1 @@
+using GeneralCore.Architecture; using ZombieWar.Features.VFX.Domain; namespace ZombieWar.Features.VFX.Commands { public readonly struct SetVFXModeCommand:ICommand { public VFXGameplayMode Mode{get;} public SetVFXModeCommand(VFXGameplayMode mode){Mode=mode;} } }

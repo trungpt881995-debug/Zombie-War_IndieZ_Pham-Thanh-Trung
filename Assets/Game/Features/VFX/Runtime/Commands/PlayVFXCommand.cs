@@ -1,0 +1,1 @@
+using GeneralCore.Architecture; using ZombieWar.Features.VFX.Domain; namespace ZombieWar.Features.VFX.Commands { public readonly struct PlayVFXCommand:ICommand { public VFXRequest Request{get;} public PlayVFXCommand(in VFXRequest request){Request=request;} } }

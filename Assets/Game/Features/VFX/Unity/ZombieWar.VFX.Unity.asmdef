@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.VFX.Unity",
+  "rootNamespace": "ZombieWar.Features.VFX.Unity",
+  "references": [
+    "ZombieWar.VFX"
+  ],
+  "autoReferenced": true
+}
