@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.GameState.Level",
+  "rootNamespace": "ZombieWar.Integration.GameState.Level",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.GameState",
+    "ZombieWar.Level"
+  ],
+  "autoReferenced": true
+}

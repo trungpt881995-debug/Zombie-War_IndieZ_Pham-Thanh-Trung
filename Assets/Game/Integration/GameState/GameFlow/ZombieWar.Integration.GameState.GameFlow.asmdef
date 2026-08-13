@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.GameState.GameFlow",
+  "rootNamespace": "ZombieWar.Integration.GameState.GameFlow",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.GameState",
+    "ZombieWar.GameFlow",
+    "ZombieWar.Integration.GameState.Runtime"
+  ],
+  "autoReferenced": true
+}

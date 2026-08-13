@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.GameState.Unity",
+  "rootNamespace": "ZombieWar.Integration.GameState.Unity",
+  "references": [
+    "ZombieWar.GameState.Unity",
+    "ZombieWar.Integration.GameState.Runtime",
+    "ZombieWar.Integration.Zombie.Unity",
+    "ZombieWar.Projectile.Unity"
+  ],
+  "autoReferenced": true
+}

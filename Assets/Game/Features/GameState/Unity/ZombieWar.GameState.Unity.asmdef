@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.GameState.Unity",
+  "rootNamespace": "ZombieWar.Features.GameState.Unity",
+  "references": [
+    "ZombieWar.GameState",
+    "ZombieWar.Integration.GameState.Runtime"
+  ],
+  "autoReferenced": true
+}

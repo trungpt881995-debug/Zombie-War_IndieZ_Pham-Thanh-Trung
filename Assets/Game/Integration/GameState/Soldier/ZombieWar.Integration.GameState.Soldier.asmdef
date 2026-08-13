@@ -1,0 +1,13 @@
+{
+  "name": "ZombieWar.Integration.GameState.Soldier",
+  "rootNamespace": "ZombieWar.Integration.GameState.Soldier",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.GameState",
+    "ZombieWar.Health",
+    "ZombieWar.Soldier",
+    "ZombieWar.Integration.GameState.Runtime"
+  ],
+  "autoReferenced": true
+}

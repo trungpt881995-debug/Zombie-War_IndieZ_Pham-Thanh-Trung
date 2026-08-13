@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.GameState",
+  "rootNamespace": "ZombieWar.Features.GameState",
+  "references": [
+    "GeneralCore"
+  ],
+  "autoReferenced": true
+}

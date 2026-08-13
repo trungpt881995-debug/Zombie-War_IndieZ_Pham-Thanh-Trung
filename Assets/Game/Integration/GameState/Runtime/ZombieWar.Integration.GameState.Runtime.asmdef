@@ -1,0 +1,14 @@
+{
+  "name": "ZombieWar.Integration.GameState.Runtime",
+  "rootNamespace": "ZombieWar.Integration.GameState.Runtime",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.GameState",
+    "ZombieWar.Spawn",
+    "ZombieWar.Boss",
+    "ZombieWar.Level",
+    "ZombieWar.Score"
+  ],
+  "autoReferenced": true
+}
