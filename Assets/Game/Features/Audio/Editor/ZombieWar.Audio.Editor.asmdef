@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Audio.Editor",
+  "rootNamespace": "ZombieWar.Features.Audio.Editor",
+  "references": [
+    "ZombieWar.Audio",
+    "ZombieWar.Audio.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

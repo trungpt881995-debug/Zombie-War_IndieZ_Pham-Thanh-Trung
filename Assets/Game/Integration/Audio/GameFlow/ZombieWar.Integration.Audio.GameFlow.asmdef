@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Integration.Audio.GameFlow",
+  "rootNamespace": "ZombieWar.Integration.Audio.GameFlow",
+  "references": [
+    "ZombieWar.Audio",
+    "ZombieWar.GameFlow"
+  ],
+  "autoReferenced": true
+}

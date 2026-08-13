@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Audio.Weapon",
+  "rootNamespace": "ZombieWar.Integration.Audio.Weapon",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Audio",
+    "ZombieWar.Weapon",
+    "ZombieWar.Integration.Feedback.Weapon"
+  ],
+  "autoReferenced": true
+}

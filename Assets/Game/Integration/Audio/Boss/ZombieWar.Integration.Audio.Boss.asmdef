@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Audio.Boss",
+  "rootNamespace": "ZombieWar.Integration.Audio.Boss",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Audio",
+    "ZombieWar.Boss",
+    "ZombieWar.Integration.Feedback.Boss"
+  ],
+  "autoReferenced": true
+}

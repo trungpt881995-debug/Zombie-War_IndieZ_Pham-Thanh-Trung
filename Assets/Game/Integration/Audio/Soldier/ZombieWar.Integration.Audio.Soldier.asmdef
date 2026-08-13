@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Audio.Soldier",
+  "rootNamespace": "ZombieWar.Integration.Audio.Soldier",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Audio",
+    "ZombieWar.Health"
+  ],
+  "autoReferenced": true
+}

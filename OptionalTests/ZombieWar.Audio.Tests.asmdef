@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Audio.Tests",
+  "rootNamespace": "ZombieWar.Features.Audio.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Audio"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

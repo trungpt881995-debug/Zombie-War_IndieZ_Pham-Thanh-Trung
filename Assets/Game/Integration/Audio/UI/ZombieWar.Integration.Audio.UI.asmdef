@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.Integration.Audio.UI",
+  "rootNamespace": "ZombieWar.Integration.Audio.UI",
+  "references": [
+    "ZombieWar.Audio"
+  ],
+  "autoReferenced": true
+}

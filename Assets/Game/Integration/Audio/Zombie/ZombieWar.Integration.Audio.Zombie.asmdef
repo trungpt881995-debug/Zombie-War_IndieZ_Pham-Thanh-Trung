@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Audio.Zombie",
+  "rootNamespace": "ZombieWar.Integration.Audio.Zombie",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Audio",
+    "ZombieWar.Zombie",
+    "ZombieWar.Integration.VFX.Zombie"
+  ],
+  "autoReferenced": true
+}

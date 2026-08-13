@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.Audio.GameState",
+  "rootNamespace": "ZombieWar.Integration.Audio.GameState",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Audio",
+    "ZombieWar.GameState"
+  ],
+  "autoReferenced": true
+}

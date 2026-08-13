@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.Audio.Level",
+  "rootNamespace": "ZombieWar.Integration.Audio.Level",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Audio",
+    "ZombieWar.Level"
+  ],
+  "autoReferenced": true
+}

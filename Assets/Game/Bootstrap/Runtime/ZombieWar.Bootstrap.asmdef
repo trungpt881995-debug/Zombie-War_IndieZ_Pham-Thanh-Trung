@@ -59,7 +59,17 @@
         "ZombieWar.Integration.Feedback.Level",
         "ZombieWar.Integration.Feedback.Projectile",
         "ZombieWar.Integration.Feedback.Soldier",
-        "ZombieWar.Integration.Feedback.Weapon"
+        "ZombieWar.Integration.Feedback.Weapon",
+        "ZombieWar.Audio",
+        "ZombieWar.Integration.Audio.Boss",
+        "ZombieWar.Integration.Audio.GameFlow",
+        "ZombieWar.Integration.Audio.GameState",
+        "ZombieWar.Integration.Audio.Level",
+        "ZombieWar.Integration.Audio.Projectile",
+        "ZombieWar.Integration.Audio.Soldier",
+        "ZombieWar.Integration.Audio.UI",
+        "ZombieWar.Integration.Audio.Weapon",
+        "ZombieWar.Integration.Audio.Zombie"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
