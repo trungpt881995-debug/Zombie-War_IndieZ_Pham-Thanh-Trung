@@ -1,0 +1,2 @@
+using System; using GeneralCore.Architecture; using ZombieWar.Features.Score.Services;
+namespace ZombieWar.Features.Score.Commands { public sealed class AwardScoreCommandHandler:ICommandHandler<AwardScoreCommand>{private readonly IScoreRuntime _runtime; public AwardScoreCommandHandler(IScoreRuntime runtime)=>_runtime=runtime??throw new ArgumentNullException(nameof(runtime)); public void Handle(AwardScoreCommand command)=>_runtime.Award(command.ActionId,command.SourceEntityId);} }

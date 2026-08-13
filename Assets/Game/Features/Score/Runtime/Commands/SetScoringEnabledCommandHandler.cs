@@ -1,0 +1,2 @@
+using System; using GeneralCore.Architecture; using ZombieWar.Features.Score.Services;
+namespace ZombieWar.Features.Score.Commands { public sealed class SetScoringEnabledCommandHandler:ICommandHandler<SetScoringEnabledCommand>{private readonly IScoreRuntime _runtime; public SetScoringEnabledCommandHandler(IScoreRuntime runtime)=>_runtime=runtime??throw new ArgumentNullException(nameof(runtime)); public void Handle(SetScoringEnabledCommand command)=>_runtime.SetScoringEnabled(command.Enabled);} }

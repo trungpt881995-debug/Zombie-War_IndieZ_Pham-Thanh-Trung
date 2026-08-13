@@ -1,0 +1,2 @@
+using System; using GeneralCore.Architecture; using ZombieWar.Features.Score.Services;
+namespace ZombieWar.Features.Score.Commands { public sealed class ReplayScoreLevelCommandHandler:ICommandHandler<ReplayScoreLevelCommand>{private readonly IScoreRuntime _runtime; public ReplayScoreLevelCommandHandler(IScoreRuntime runtime)=>_runtime=runtime??throw new ArgumentNullException(nameof(runtime)); public void Handle(ReplayScoreLevelCommand command)=>_runtime.ReplayCurrentLevel();} }

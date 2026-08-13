@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Score.Tests",
+  "rootNamespace": "ZombieWar.Features.Score.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Score"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

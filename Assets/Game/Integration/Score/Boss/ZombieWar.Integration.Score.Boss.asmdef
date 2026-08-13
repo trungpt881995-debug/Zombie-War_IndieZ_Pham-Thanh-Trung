@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Integration.Score.Boss",
+  "rootNamespace": "ZombieWar.Integration.Score.Boss",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Score",
+    "ZombieWar.Boss",
+    "VContainer"
+  ],
+  "autoReferenced": true
+}

@@ -30,7 +30,11 @@
         "ZombieWar.Integration.Level.Soldier",
         "ZombieWar.Boss",
         "ZombieWar.Integration.Boss",
-        "ZombieWar.Integration.Boss.Level"
+        "ZombieWar.Integration.Boss.Level",
+        "ZombieWar.Score",
+        "ZombieWar.Integration.Score.Zombie",
+        "ZombieWar.Integration.Score.Level",
+        "ZombieWar.Integration.Score.Boss"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

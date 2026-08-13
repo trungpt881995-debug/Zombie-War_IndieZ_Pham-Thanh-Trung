@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Score.Unity",
+  "rootNamespace": "ZombieWar.Features.Score.Unity",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Score"
+  ],
+  "autoReferenced": true
+}
