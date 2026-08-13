@@ -1,0 +1,8 @@
+{
+  "name": "ZombieWar.UI",
+  "rootNamespace": "ZombieWar.Features.UI",
+  "references": [
+    "GeneralCore"
+  ],
+  "autoReferenced": true
+}

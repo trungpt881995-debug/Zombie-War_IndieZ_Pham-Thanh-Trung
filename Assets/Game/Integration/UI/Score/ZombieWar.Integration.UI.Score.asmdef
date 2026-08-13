@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.UI.Score",
+  "rootNamespace": "ZombieWar.Integration.UI.Score",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.UI",
+    "ZombieWar.Score"
+  ],
+  "autoReferenced": true
+}

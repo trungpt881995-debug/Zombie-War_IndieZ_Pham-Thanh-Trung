@@ -39,7 +39,12 @@
         "ZombieWar.Integration.GameState.GameFlow",
         "ZombieWar.Integration.GameState.Level",
         "ZombieWar.Integration.GameState.Runtime",
-        "ZombieWar.Integration.GameState.Soldier"
+        "ZombieWar.Integration.GameState.Soldier",
+        "ZombieWar.Integration.UI.GameFlow",
+        "ZombieWar.Integration.UI.Health",
+        "ZombieWar.Integration.UI.Level",
+        "ZombieWar.Integration.UI.Score",
+        "ZombieWar.Integration.UI.Weapon"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

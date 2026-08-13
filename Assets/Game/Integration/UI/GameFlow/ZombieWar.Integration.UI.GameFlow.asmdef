@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Integration.UI.GameFlow",
+  "rootNamespace": "ZombieWar.Integration.UI.GameFlow",
+  "references": [
+    "ZombieWar.UI",
+    "ZombieWar.GameFlow"
+  ],
+  "autoReferenced": true
+}

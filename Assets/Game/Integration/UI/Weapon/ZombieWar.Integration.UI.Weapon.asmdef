@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.UI.Weapon",
+  "rootNamespace": "ZombieWar.Integration.UI.Weapon",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.UI",
+    "ZombieWar.Weapon"
+  ],
+  "autoReferenced": true
+}

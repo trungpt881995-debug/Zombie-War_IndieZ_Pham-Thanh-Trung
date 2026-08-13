@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.UI.Level",
+  "rootNamespace": "ZombieWar.Integration.UI.Level",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.UI",
+    "ZombieWar.Level"
+  ],
+  "autoReferenced": true
+}

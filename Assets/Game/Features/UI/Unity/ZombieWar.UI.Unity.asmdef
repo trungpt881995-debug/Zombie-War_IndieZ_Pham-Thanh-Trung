@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.UI.Unity",
+  "rootNamespace": "ZombieWar.Features.UI.Unity",
+  "references": [
+    "ZombieWar.UI",
+    "UnityEngine.UI",
+    "Unity.TextMeshPro"
+  ],
+  "autoReferenced": true
+}

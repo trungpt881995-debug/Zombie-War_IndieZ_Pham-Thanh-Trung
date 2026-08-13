@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.UI.GameState",
+  "rootNamespace": "ZombieWar.Integration.UI.GameState",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.UI",
+    "ZombieWar.GameState"
+  ],
+  "autoReferenced": true
+}

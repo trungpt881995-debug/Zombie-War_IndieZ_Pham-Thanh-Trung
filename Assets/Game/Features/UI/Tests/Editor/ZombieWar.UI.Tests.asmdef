@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.UI.Tests",
+  "rootNamespace": "ZombieWar.Features.UI.Tests",
+  "references": [
+    "ZombieWar.UI"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

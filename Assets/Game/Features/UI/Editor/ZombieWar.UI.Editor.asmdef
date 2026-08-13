@@ -1,0 +1,14 @@
+{
+  "name": "ZombieWar.UI.Editor",
+  "rootNamespace": "ZombieWar.Features.UI.Editor",
+  "references": [
+    "ZombieWar.UI",
+    "ZombieWar.UI.Unity",
+    "UnityEngine.UI",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

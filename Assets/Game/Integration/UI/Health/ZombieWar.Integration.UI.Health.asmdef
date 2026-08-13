@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.UI.Health",
+  "rootNamespace": "ZombieWar.Integration.UI.Health",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.UI",
+    "ZombieWar.Health"
+  ],
+  "autoReferenced": true
+}
