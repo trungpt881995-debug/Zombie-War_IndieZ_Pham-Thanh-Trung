@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Feedback.Soldier",
+  "rootNamespace": "ZombieWar.Integration.Feedback.Soldier",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Feedback",
+    "ZombieWar.Health"
+  ],
+  "autoReferenced": true
+}

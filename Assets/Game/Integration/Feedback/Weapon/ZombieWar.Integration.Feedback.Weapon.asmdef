@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Feedback.Weapon",
+  "rootNamespace": "ZombieWar.Integration.Feedback.Weapon",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Feedback",
+    "ZombieWar.Weapon",
+    "ZombieWar.Integration.VFX.Weapon"
+  ],
+  "autoReferenced": true
+}

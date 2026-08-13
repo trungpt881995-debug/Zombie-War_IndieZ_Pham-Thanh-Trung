@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.Feedback.GameState",
+  "rootNamespace": "ZombieWar.Integration.Feedback.GameState",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Feedback",
+    "ZombieWar.GameState"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ZombieWar.Integration.Feedback.Level",
+  "rootNamespace": "ZombieWar.Integration.Feedback.Level",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Feedback",
+    "ZombieWar.Level"
+  ],
+  "autoReferenced": true
+}

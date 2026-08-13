@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Feedback.Projectile",
+  "rootNamespace": "ZombieWar.Integration.Feedback.Projectile",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Feedback",
+    "ZombieWar.Projectile",
+    "ZombieWar.Integration.VFX.Projectile"
+  ],
+  "autoReferenced": true
+}

@@ -51,7 +51,15 @@
         "ZombieWar.Integration.VFX.Projectile",
         "ZombieWar.Integration.VFX.Soldier",
         "ZombieWar.Integration.VFX.Weapon",
-        "ZombieWar.Integration.VFX.Zombie"
+        "ZombieWar.Integration.VFX.Zombie",
+        "ZombieWar.Feedback",
+        "ZombieWar.Integration.Feedback.Boss",
+        "ZombieWar.Integration.Feedback.Camera",
+        "ZombieWar.Integration.Feedback.GameState",
+        "ZombieWar.Integration.Feedback.Level",
+        "ZombieWar.Integration.Feedback.Projectile",
+        "ZombieWar.Integration.Feedback.Soldier",
+        "ZombieWar.Integration.Feedback.Weapon"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

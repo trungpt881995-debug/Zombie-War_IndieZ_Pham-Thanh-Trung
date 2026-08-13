@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Integration.Feedback.Camera",
+  "rootNamespace": "ZombieWar.Integration.Feedback.Camera",
+  "references": [
+    "ZombieWar.Feedback",
+    "ZombieWar.Camera"
+  ],
+  "autoReferenced": true
+}

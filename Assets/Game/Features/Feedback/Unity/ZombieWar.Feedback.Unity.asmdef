@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Feedback.Unity",
+  "rootNamespace": "ZombieWar.Features.Feedback.Unity",
+  "references": [
+    "ZombieWar.Feedback",
+    "UnityEngine.UI"
+  ],
+  "autoReferenced": true
+}

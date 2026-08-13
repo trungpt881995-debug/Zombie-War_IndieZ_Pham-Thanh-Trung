@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Feedback.Boss",
+  "rootNamespace": "ZombieWar.Integration.Feedback.Boss",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Feedback",
+    "ZombieWar.Boss",
+    "ZombieWar.Integration.VFX.Boss"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Feedback.Tests",
+  "rootNamespace": "ZombieWar.Features.Feedback.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Feedback"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}
