@@ -1,0 +1,2 @@
+using GameplayCore.Time; using UnityEngine; using ZombieWar.Features.Boss.Registry;
+namespace ZombieWar.Integration.Boss.Unity { [DisallowMultipleComponent] public sealed class BossSimulationDriver:MonoBehaviour { private IActiveBossRegistry _registry;private IGameplayClock _clock;public void Initialize(IActiveBossRegistry registry,IGameplayClock clock){_registry=registry;_clock=clock;}private void Update(){if(_registry==null||_clock==null)return;float dt=_clock.DeltaTime;var active=_registry.Active;for(int i=active.Count-1;i>=0;i--)active[i].Tick(dt);} } }

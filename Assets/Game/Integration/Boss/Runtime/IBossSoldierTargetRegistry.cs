@@ -1,0 +1,1 @@
+using GameplayCore.Entities; namespace ZombieWar.Integration.Boss { public interface IBossSoldierTargetRegistry { bool Register(EntityId soldierId,IBossTargetSource source); bool Unregister(EntityId soldierId); void Clear(); } }

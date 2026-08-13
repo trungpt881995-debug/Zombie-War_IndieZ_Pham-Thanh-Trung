@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Integration.Boss",
+  "rootNamespace": "ZombieWar.Integration.Boss",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Boss",
+    "ZombieWar.Health",
+    "ZombieWar.Targeting"
+  ],
+  "autoReferenced": true
+}

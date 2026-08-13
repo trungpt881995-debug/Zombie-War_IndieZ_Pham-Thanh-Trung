@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Integration.Boss.Level",
+  "rootNamespace": "ZombieWar.Integration.Boss.Level",
+  "references": [
+    "GeneralCore",
+    "ZombieWar.Boss",
+    "ZombieWar.Level",
+    "ZombieWar.Map",
+    "VContainer"
+  ],
+  "autoReferenced": true
+}

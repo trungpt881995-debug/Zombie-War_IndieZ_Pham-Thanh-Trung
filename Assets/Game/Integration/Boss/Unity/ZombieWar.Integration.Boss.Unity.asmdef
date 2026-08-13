@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Integration.Boss.Unity",
+  "rootNamespace": "ZombieWar.Integration.Boss.Unity",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Boss",
+    "ZombieWar.Boss.Unity",
+    "ZombieWar.Health",
+    "ZombieWar.Targeting",
+    "ZombieWar.Soldier",
+    "ZombieWar.Projectile.Unity",
+    "ZombieWar.Integration.Boss"
+  ],
+  "autoReferenced": true
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ZombieWar.Boss",
+  "rootNamespace": "ZombieWar.Features.Boss",
+  "references": [
+    "GeneralCore",
+    "GameplayCore"
+  ],
+  "autoReferenced": true
+}

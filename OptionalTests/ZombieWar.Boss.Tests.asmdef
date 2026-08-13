@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Boss.Tests",
+  "rootNamespace": "ZombieWar.Features.Boss.Tests",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Boss"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

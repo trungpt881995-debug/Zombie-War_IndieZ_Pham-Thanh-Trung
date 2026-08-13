@@ -1,0 +1,2 @@
+using GameplayCore.Entities; using ZombieWar.Features.Boss.Domain; using ZombieWar.Features.Boss.Ports;
+namespace ZombieWar.Integration.Boss.Unity { public sealed class BossPoolReturnAdapter:IBossPoolReturnPort { private readonly BossPoolRegistry _pool;private readonly BossRuntimeHost _host;public BossPoolReturnAdapter(BossPoolRegistry pool,BossRuntimeHost host){_pool=pool;_host=host;}public void Return(EntityId id,BossReleaseReason reason)=>_pool.Release(_host,id); } }
