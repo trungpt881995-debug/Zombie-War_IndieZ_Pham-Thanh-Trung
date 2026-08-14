@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc41abbfa7bf8491fb07ac1fba0742d8, type: 3}
+  m_Name: UIConfig
+  m_EditorClassIdentifier: ZombieWar.UI.Unity::ZombieWar.Features.UI.Unity.Config.UIConfig
+  gameTitle: ZOMBIE WAR
+  showEndGameReplay: 1
+  logo: {fileID: 21300000, guid: 15cde02fa7cc544f5b0e27589b751935, type: 3}
+  mainMenuLandscape: {fileID: 21300000, guid: 0026c1ae62b9b444d855d7dcddedc852, type: 3}
+  mainMenuPortrait: {fileID: 21300000, guid: 9c6084396dadf4896986a4d50ea6b5c0, type: 3}
+  commonPanel: {fileID: 21300000, guid: f21356514eea348cd8b7e9e77645db32, type: 3}
+  commonButton: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  pauseIcon: {fileID: 21300000, guid: 6721db0eff58b4a26a19fbfd8d62140b, type: 3}
+  font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

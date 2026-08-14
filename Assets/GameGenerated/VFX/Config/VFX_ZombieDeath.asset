@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8855053aaff7b4286a7117eee75f4117, type: 3}
+  m_Name: VFX_ZombieDeath
+  m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
+  id: 24
+  prefab: {fileID: 6824574487864300429, guid: 4069efb94254a49b59a8c329eccb8c24, type: 3}
+  lifetime: 0
+  duration: 0.8
+  allowDuringTerminalDrain: 1
+  prewarmCount: 12
+  maxCapacity: 32
+  allowGrowth: 1
+  defaultScale: 1

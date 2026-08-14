@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0713c182d984e8781ae0eb7cb27d26, type: 3}
+  m_Name: Audio_GameOver
+  m_EditorClassIdentifier: ZombieWar.Audio.Unity::ZombieWar.Features.Audio.Unity.Config.AudioConfig
+  id: 80
+  clips:
+  - {fileID: 8300000, guid: 2796ae4f3659f453d9eee5ce6ef48427, type: 3}
+  category: 1
+  lifetimeMode: 0
+  spatialMode: 0
+  priority: 3
+  maxConcurrent: 1
+  baseVolume: 1
+  minPitch: 1
+  maxPitch: 1
+  minDistance: 0
+  maxDistance: 0
+  allowDuringTerminalDrain: 1
+  outputMixerGroup: {fileID: 0}

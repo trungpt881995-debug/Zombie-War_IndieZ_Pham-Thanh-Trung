@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c6a44aa4e8b4914a58963f908bfc4f, type: 3}
+  m_Name: BossCatalogConfig
+  m_EditorClassIdentifier: ZombieWar.Boss.Unity::ZombieWar.Features.Boss.Unity.Config.BossCatalogConfig
+  bosses:
+  - {fileID: 11400000, guid: e89db1d46ae5146e296c1a405322356e, type: 2}
+  - {fileID: 11400000, guid: 0b5aadbad3ef744f8881e28ee3568876, type: 2}
+  - {fileID: 11400000, guid: 985bf2ca4d8ad47858ad97e55c583902, type: 2}

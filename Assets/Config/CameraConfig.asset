@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2deac925800714c4e85a9aeadcba9cea, type: 3}
+  m_Name: CameraConfig
+  m_EditorClassIdentifier: ZombieWar.Camera.Unity::ZombieWar.Features.Camera.Unity.Config.CameraConfig
+  projectionMode: 0
+  fieldOfView: 50
+  orthographicSize: 10
+  nearClip: 0.1
+  farClip: 300
+  pitch: 55
+  yaw: 45
+  roll: 0
+  followOffset: {x: 0, y: 12, z: -10}
+  positionDamping: {x: 0.3, y: 0.3, z: 0.3}
+  startGameplayEnabled: 0
+  snapOnInitialize: 1
+  shakes: []

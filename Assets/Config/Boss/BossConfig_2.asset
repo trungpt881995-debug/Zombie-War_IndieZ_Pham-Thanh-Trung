@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c324946b34b4885ae528844023eba4, type: 3}
+  m_Name: BossConfig_2
+  m_EditorClassIdentifier: ZombieWar.Boss.Unity::ZombieWar.Features.Boss.Unity.Config.BossConfig
+  bossId: 2
+  maxHealth: 2000
+  moveSpeed: 2
+  rotationSpeed: 360
+  scale: 2.5
+  attackDamage: 25
+  attackRange: 2
+  attackExitRangeBonus: 0.3
+  attackCooldown: 1.5
+  attackAnimationTimeout: 2
+  attackType: 0
+  aiDecisionInterval: 0.1
+  spawnDuration: 1
+  hitReactionDuration: 0.12
+  hitReactionMinInterval: 0.35
+  deathDuration: 2
+  spawnOffset: {x: 0, y: 0, z: 0}
+  rewardScore: 1000

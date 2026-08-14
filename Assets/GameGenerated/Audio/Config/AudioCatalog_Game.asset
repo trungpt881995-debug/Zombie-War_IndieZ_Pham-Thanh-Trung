@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1531eb0aca5374fea859b900ae66b1a6, type: 3}
+  m_Name: AudioCatalog_Game
+  m_EditorClassIdentifier: ZombieWar.Audio.Unity::ZombieWar.Features.Audio.Unity.Config.AudioCatalogConfig
+  entries:
+  - {fileID: 11400000, guid: edd318c7f0fae452589f81131432ea30, type: 2}
+  - {fileID: 11400000, guid: 12194cfa651a84e0097fba51d07dbfa6, type: 2}
+  - {fileID: 11400000, guid: 4aa3d4bc7f8254bc7b23762a1f16cea3, type: 2}
+  - {fileID: 11400000, guid: 0eead215eca854999a7473b2fd1de44c, type: 2}
+  - {fileID: 11400000, guid: aacc957ec10d4459b82c5803d9c0ccbb, type: 2}
+  - {fileID: 11400000, guid: 90ade1b45ad88483b89255b0d3e3a1eb, type: 2}
+  - {fileID: 11400000, guid: 2d540629f16274ac7a1f865b39fb0802, type: 2}
+  - {fileID: 11400000, guid: 91bb6060533d04836ad291f99a78bbbc, type: 2}
+  - {fileID: 11400000, guid: 0d862d783342d43169d082ae250a718d, type: 2}
+  - {fileID: 11400000, guid: 0cfe442bdcbcf426eb58f2fe416cb541, type: 2}
+  - {fileID: 11400000, guid: aac2c97301d054f6c899adb0abba4e25, type: 2}
+  - {fileID: 11400000, guid: 2806fb1407d4a442382776e10dbbf5ad, type: 2}
+  - {fileID: 11400000, guid: 41fcb71742dff4cd48881ebc9153767a, type: 2}
+  - {fileID: 11400000, guid: 83fc9ac8799414134ba9c34f32e86469, type: 2}
+  - {fileID: 11400000, guid: 967284d28c9e74fed8a0bb27e385981b, type: 2}
+  - {fileID: 11400000, guid: 4b445178a2366430e9ed15948c17a8e0, type: 2}
+  - {fileID: 11400000, guid: 7faffbb7c00e146bb9f0d8aff4dff0cd, type: 2}
+  - {fileID: 11400000, guid: 6220a44e1ae1b441fb306bbba41892e0, type: 2}
+  - {fileID: 11400000, guid: f3df1232e8c674c738e48e2c599a5096, type: 2}
+  - {fileID: 11400000, guid: 1f62c96bf83104cc28d1d6724cae45d7, type: 2}
+  - {fileID: 11400000, guid: 53183d379984e40fe968ecc92bfb4432, type: 2}
+  - {fileID: 11400000, guid: 6d40352c5e0b942bc99f183103b43492, type: 2}
+  - {fileID: 11400000, guid: 73847d531d19740409839832525fee97, type: 2}
+  - {fileID: 11400000, guid: 4f2308f361e9d49f3a6e7bdbe932a29d, type: 2}

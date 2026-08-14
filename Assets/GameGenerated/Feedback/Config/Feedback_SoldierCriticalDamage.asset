@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884b56d42a3604bdbaf0b4d15eafce3e, type: 3}
+  m_Name: Feedback_SoldierCriticalDamage
+  m_EditorClassIdentifier: ZombieWar.Feedback.Unity::ZombieWar.Features.Feedback.Unity.Config.FeedbackConfig
+  id: 21
+  priority: 2
+  allowDuringTerminalDrain: 1
+  cameraEnabled: 1
+  cameraCue: 5
+  cameraOccupancyDuration: 0.18
+  hapticEnabled: 1
+  hapticStrength: 3
+  hapticCooldown: 0.18
+  screenEnabled: 1
+  screenKind: 1
+  screenIntensity: 0.45
+  screenDuration: 0.24
+  recoilEnabled: 0
+  recoilStrength: 0
+  recoilDuration: 0

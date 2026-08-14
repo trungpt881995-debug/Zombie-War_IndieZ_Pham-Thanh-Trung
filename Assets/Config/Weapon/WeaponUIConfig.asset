@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b46c33d1aa94a8ea86269049f93d0a, type: 3}
+  m_Name: WeaponUIConfig
+  m_EditorClassIdentifier: ZombieWar.UI.Unity::ZombieWar.Features.UI.Unity.Config.WeaponUIConfig
+  entries:
+  - weapon: 0
+    displayName: Pistol
+    icon: {fileID: 21300000, guid: ba3b08b16cc2b428da84c834ca42ecc7, type: 3}
+  - weapon: 1
+    displayName: AK
+    icon: {fileID: 21300000, guid: 51a83a7b89bc045e299d5669c75b6bf8, type: 3}
+  - weapon: 2
+    displayName: Shotgun
+    icon: {fileID: 21300000, guid: a73c47e26eb61450d80edec81c85c7b0, type: 3}
+  - weapon: 3
+    displayName: Sniper
+    icon: {fileID: 21300000, guid: 7ab24d7fbaf8242e8ac9a48bff827792, type: 3}
+  - weapon: 4
+    displayName: Grenade
+    icon: {fileID: 21300000, guid: 3025413b7241c4f8dac4069a8987f27a, type: 3}
+  - weapon: 5
+    displayName: Flame
+    icon: {fileID: 21300000, guid: a69be31b464994cd7ac3b7feb9090509, type: 3}

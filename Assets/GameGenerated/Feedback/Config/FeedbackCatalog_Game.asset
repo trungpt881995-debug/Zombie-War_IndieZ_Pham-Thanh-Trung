@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58cf92afeb9041dc9c8acc2e8507bb5, type: 3}
+  m_Name: FeedbackCatalog_Game
+  m_EditorClassIdentifier: ZombieWar.Feedback.Unity::ZombieWar.Features.Feedback.Unity.Config.FeedbackCatalogConfig
+  configs:
+  - {fileID: 11400000, guid: 85472b72511a94789b6169a5735bec5a, type: 2}
+  - {fileID: 11400000, guid: 99c6b0a1a8b314c8780bd97473dfa902, type: 2}
+  - {fileID: 11400000, guid: 5f759c3bff56344fa82e5ee9c9674272, type: 2}
+  - {fileID: 11400000, guid: 1bac9c896dad444a395e52119708bbef, type: 2}
+  - {fileID: 11400000, guid: cbdc084302a254144ad992a2ac103de5, type: 2}
+  - {fileID: 11400000, guid: 8d96c138e31c2407bb3607c89a3ee04a, type: 2}
+  - {fileID: 11400000, guid: 4f82cc8af677443c7800d1f8f90a13f7, type: 2}
+  - {fileID: 11400000, guid: e7f303cca3b1e4dc2a4947c4ce84b733, type: 2}
+  - {fileID: 11400000, guid: 4161f45493bbf4038a4956b37a400d91, type: 2}
+  - {fileID: 11400000, guid: dd9f51c8f579a4d9aa80c964a7601d0b, type: 2}
+  - {fileID: 11400000, guid: 13d03eab1b3204fa5a4ae3bf4245cae2, type: 2}
+  - {fileID: 11400000, guid: 3730f33c6b73d4e5b8f1b3ca1ab224f0, type: 2}
+  - {fileID: 11400000, guid: 707ca9a427f3f409a857d1cb05d41214, type: 2}
+  - {fileID: 11400000, guid: 079ca0433a55f49ba8b05018319f32f4, type: 2}
+  - {fileID: 11400000, guid: fc9a4e07a0cfc41e7bd64e658d2b0fa0, type: 2}

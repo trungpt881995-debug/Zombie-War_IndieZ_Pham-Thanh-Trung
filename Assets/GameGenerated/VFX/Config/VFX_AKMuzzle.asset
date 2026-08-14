@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8855053aaff7b4286a7117eee75f4117, type: 3}
+  m_Name: VFX_AKMuzzle
+  m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
+  id: 11
+  prefab: {fileID: 7107478609413635274, guid: 1ebf5ce6e5942434e8e4d2efd08add3f, type: 3}
+  lifetime: 0
+  duration: 0.1
+  allowDuringTerminalDrain: 0
+  prewarmCount: 12
+  maxCapacity: 48
+  allowGrowth: 1
+  defaultScale: 1

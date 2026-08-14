@@ -4,6 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Game/Scenes/ZombieWar_Boot.unity
+    guid: 06c96d85be51a4924a4d9fd4ac96121e
+  - enabled: 1
+    path: Assets/Game/Scenes/ZombieWar_Gameplay.unity
+    guid: 58cc0252f83d74afb8eaa6f8927c5213
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
