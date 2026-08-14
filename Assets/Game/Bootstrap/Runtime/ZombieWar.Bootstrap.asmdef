@@ -69,7 +69,9 @@
         "ZombieWar.Integration.Audio.Soldier",
         "ZombieWar.Integration.Audio.UI",
         "ZombieWar.Integration.Audio.Weapon",
-        "ZombieWar.Integration.Audio.Zombie"
+        "ZombieWar.Integration.Audio.Zombie",
+        "ZombieWar.UI",
+        "ZombieWar.Integration.UI.GameState"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

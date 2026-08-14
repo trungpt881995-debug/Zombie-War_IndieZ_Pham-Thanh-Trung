@@ -33,11 +33,6 @@ namespace ZombieWar.Composition
 
         public bool IsBound => _isBound;
 
-        private void Start()
-        {
-            Bind();
-        }
-
         public void Bind()
         {
             if (_isBound)
