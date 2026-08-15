@@ -10,6 +10,13 @@ namespace ZombieWar.Features.Soldier.Config
         menuName = "Zombie War/Soldier/Soldier Group Config")]
     public sealed class SoldierGroupConfig : ScriptableObject
     {
+        [Header("Shared Health")]
+        [SerializeField, Min(1f)]
+        private float sharedMaxHealth = 100f;
+
+        public float SharedMaxHealth =>
+        Mathf.Max(1f, sharedMaxHealth);
+
         [Header("Formation Level 1 - exactly 1 slot")]
         [SerializeField] private Vector3[] level1Slots = {
             Vector3.zero

@@ -33,6 +33,8 @@ using ZombieWar.Integration.Boss.Unity;
 using ZombieWar.Integration.GameState.Runtime;
 using ZombieWar.Integration.Weapon;
 using ZombieWar.Integration.Weapon.Unity;
+using ZombieWar.Integration.Soldier.Animation;
+using ZombieWar.Integration.Soldier.Animation.Unity;
 using ZombieWar.Integration.Zombie;
 using ZombieWar.Integration.Zombie.Unity;
 
@@ -46,9 +48,9 @@ namespace ZombieWar.Composition
     /// - Bind or initialize scene-specific Unity RuntimeRoot components.
     /// - Reapply the current GameState after all scene gates are available.
     ///
-    /// It intentionally does NOT create the Soldier Group, start a Game Level,
-    /// start spawning, load a Map, or begin gameplay. Those actions belong to
-    /// the loading/game-flow orchestration and Soldier integration phases.
+    /// It creates the scene-owned Soldier Group only after every consumer of
+    /// SoldierAddedEvent (Zombie, Boss and Soldier animation) is initialized.
+    /// Starting a Game Level, spawning and map loading remain game-flow concerns.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class GameplaySceneComposition : MonoBehaviour
@@ -95,6 +97,13 @@ namespace ZombieWar.Composition
         [Header("Presentation Runtime Roots")]
         [SerializeField]
         private VFXRuntimeRoot vfxRuntimeRoot;
+
+        [SerializeField]
+        private SoldierAnimationRuntimeRoot soldierAnimationRuntimeRoot;
+
+        [Header("Soldier Runtime")]
+        [SerializeField]
+        private SoldierRuntimeRoot soldierRuntimeRoot;
 
         private bool _isBound;
 
@@ -168,8 +177,10 @@ namespace ZombieWar.Composition
             InitializeCamera(resolver);
             InitializeSpawn(resolver);
             InitializeWeapon(resolver);
+            InitializeSoldierAnimation(resolver);
             BindVFX(resolver);
             BindGameState(resolver);
+            InitializeSoldierRuntime(resolver);
 
             // The GameState integration entry point may have started before this
             // scene existed. Reapply after scene gates and all runtime roots exist.
@@ -278,6 +289,21 @@ namespace ZombieWar.Composition
                 resolver.Resolve<IEventSubscriber>());
         }
 
+
+        private void InitializeSoldierAnimation(
+            IObjectResolver resolver)
+        {
+            soldierAnimationRuntimeRoot.Initialize(
+                resolver.Resolve<ISoldierWeaponAnimationRegistry>(),
+                resolver.Resolve<IEventSubscriber>());
+        }
+
+        private void InitializeSoldierRuntime(
+            IObjectResolver resolver)
+        {
+            soldierRuntimeRoot.Initialize(resolver);
+        }
+
         private void BindVFX(
             IObjectResolver resolver)
         {
@@ -349,6 +375,14 @@ namespace ZombieWar.Composition
             RequireReference(
                 vfxRuntimeRoot,
                 nameof(vfxRuntimeRoot));
+
+            RequireReference(
+                soldierAnimationRuntimeRoot,
+                nameof(soldierAnimationRuntimeRoot));
+
+            RequireReference(
+                soldierRuntimeRoot,
+                nameof(soldierRuntimeRoot));
         }
 
         private static void RequireReference<T>(

@@ -1,0 +1,12 @@
+{
+  "name": "ZombieWar.Integration.Soldier.Animation.Weapon",
+  "rootNamespace": "ZombieWar.Integration.Soldier.Animation.Weapon",
+  "references": [
+    "GameplayCore",
+    "ZombieWar.Soldier",
+    "ZombieWar.Weapon",
+    "ZombieWar.Integration.Soldier.Animation",
+    "ZombieWar.Integration.Audio.Weapon"
+  ],
+  "autoReferenced": true
+}

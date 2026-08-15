@@ -82,6 +82,8 @@ using ZombieWar.Integration.Zombie;
 using ZombieWar.Integration.Camera.Map;
 using ZombieWar.Integration.Weapon;
 using ZombieWar.Integration.Soldier;
+using ZombieWar.Integration.Soldier.Animation;
+using ZombieWar.Integration.Soldier.Animation.Weapon;
 using ZombieWar.Features.UI.Controller;
 using ZombieWar.Features.UI.Model;
 using ZombieWar.Features.UI.Ports;
@@ -161,7 +163,9 @@ namespace ZombieWar.Bootstrap
             builder.RegisterInstance(entityIdGenerator)
                 .As<IEntityIdGenerator>();
             builder.Register<ILevelLifecycle, LevelLifecycle>(Lifetime.Singleton);
-            builder.Register<IGameplayRandom, XorShiftGameplayRandom>(Lifetime.Singleton);
+            var gameplayRandom =new XorShiftGameplayRandom(123456789);
+
+            builder.RegisterInstance(gameplayRandom).AsSelf().As<IGameplayRandom>();
             builder.Register<IGameplayRuntimeState, GameplayRuntimeState>(Lifetime.Singleton);
 
             // Global gameplay-input gate. GameState/Pause can depend only on GeneralCore.UIInput.IInputGate.
@@ -458,8 +462,16 @@ namespace ZombieWar.Bootstrap
             builder.Register<WeaponGameFeelFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<CompositeWeaponFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<WeaponAudioFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<CompositeWeaponPresentationFeedbackPort>(Lifetime.Singleton)
+            builder.Register<CompositeWeaponPresentationFeedbackPort>(Lifetime.Singleton).AsSelf();
+
+            builder.Register<SoldierWeaponAnimationRegistry>(Lifetime.Singleton)
+                .AsSelf()
+                .As<ISoldierWeaponAnimationRegistry>();
+
+            builder.Register<WeaponSoldierAnimationFeedbackPort>(Lifetime.Singleton).AsSelf();
+            builder.Register<CompositeWeaponAnimationPresentationFeedbackPort>(Lifetime.Singleton)
                 .As<IWeaponFeedbackPort>();
+
             builder.Register<WeaponRuntime>(Lifetime.Singleton).As<IWeaponRuntime>();
 
             var weaponMuzzleRegistry = new WeaponMuzzleRegistry();

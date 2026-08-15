@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Config.MapConfig
   mapId: 1
   addressableKey: Map01
-  developmentPrefab: {fileID: 0}
+  developmentPrefab: {fileID: 6662242837520193722, guid: 73f3d8ba382084600b84654b2edbbfb7, type: 3}

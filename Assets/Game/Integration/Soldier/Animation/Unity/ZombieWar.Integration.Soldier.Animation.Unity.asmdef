@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Integration.Soldier.Animation.Unity",
+  "rootNamespace": "ZombieWar.Integration.Soldier.Animation.Unity",
+  "references": [
+    "GeneralCore",
+    "GameplayCore",
+    "ZombieWar.Soldier",
+    "ZombieWar.Integration.Soldier.Animation"
+  ],
+  "autoReferenced": true
+}

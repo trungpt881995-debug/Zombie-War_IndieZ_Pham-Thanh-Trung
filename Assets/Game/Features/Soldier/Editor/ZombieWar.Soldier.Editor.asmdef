@@ -1,0 +1,11 @@
+{
+  "name": "ZombieWar.Soldier.Editor",
+  "rootNamespace": "ZombieWar.Features.Soldier.EditorTools",
+  "references": [
+    "ZombieWar.Soldier"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

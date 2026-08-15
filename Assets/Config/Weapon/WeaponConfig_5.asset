@@ -21,6 +21,6 @@ MonoBehaviour:
   selectionCooldown: 2
   spreadAngle: 0
   projectileLifetime: 3
-  explosionRadius: 0
+  explosionRadius: 3
   flameTickInterval: 0.1
   flameRadius: 1.5

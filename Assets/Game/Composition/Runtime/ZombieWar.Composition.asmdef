@@ -6,7 +6,6 @@
     "GeneralCore",
     "GameplayCore",
     "ZombieWar.Bootstrap",
-
     "ZombieWar.Map",
     "ZombieWar.Map.Unity",
     "ZombieWar.Camera",
@@ -35,13 +34,21 @@
     "ZombieWar.VFX.Unity",
     "ZombieWar.Health",
     "ZombieWar.Targeting",
-
     "ZombieWar.UI",
     "ZombieWar.UI.Unity",
     "ZombieWar.Feedback",
     "ZombieWar.Feedback.Unity",
     "ZombieWar.Audio",
-    "ZombieWar.Audio.Unity"
+    "ZombieWar.Audio.Unity",
+    "ZombieWar.Integration.Soldier.Animation",
+    "ZombieWar.Integration.Soldier.Animation.Unity",
+    "ZombieWar.Soldier",
+    "ZombieWar.Integration.Level.Soldier",
+    "ZombieWar.Integration.GameState.Soldier",
+    "ZombieWar.Integration.VFX.Soldier",
+    "ZombieWar.Integration.Feedback.Soldier",
+    "ZombieWar.Integration.Audio.Soldier",
+    "ZombieWar.GameFlow"
   ],
   "autoReferenced": true
 }
