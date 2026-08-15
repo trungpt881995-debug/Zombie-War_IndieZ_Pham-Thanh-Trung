@@ -4,6 +4,8 @@ using GameplayCore.Time;
 using UnityEngine;
 using VContainer;
 using ZombieWar.Bootstrap;
+using ZombieWar.Features.Control.Input;
+using ZombieWar.Features.Control.Ports;
 using ZombieWar.Features.Boss.Factories;
 using ZombieWar.Features.Boss.Services;
 using ZombieWar.Features.Camera.Ports;
@@ -68,6 +70,10 @@ namespace ZombieWar.Composition
 
         [SerializeField]
         private CameraRuntimeRoot cameraRuntimeRoot;
+
+        [Header("Control")]
+        [SerializeField]
+        private ControlRuntimeRoot controlRuntimeRoot;
 
         [Header("Gameplay Runtime Roots")]
         [SerializeField]
@@ -169,6 +175,7 @@ namespace ZombieWar.Composition
             ValidateReferences();
 
             InitializeMap(resolver);
+            InitializeControl(resolver);
             InitializeLevel(resolver);
             InitializeScore(resolver);
             InitializeProjectile(resolver);
@@ -203,6 +210,14 @@ namespace ZombieWar.Composition
             mapRuntimeRoot.Initialize(
                 resolver.Resolve<IMapRuntime>(),
                 resolver.Resolve<IMapRuntimeConfigurator>());
+        }
+
+        private void InitializeControl(
+            IObjectResolver resolver)
+        {
+            controlRuntimeRoot.Initialize(
+                resolver.Resolve<IGameplayInputState>(),
+                resolver.Resolve<IMovementIntentSink>());
         }
 
         private void InitializeLevel(
@@ -335,6 +350,10 @@ namespace ZombieWar.Composition
             RequireReference(
                 mapRuntimeRoot,
                 nameof(mapRuntimeRoot));
+
+            RequireReference(
+                controlRuntimeRoot,
+                nameof(controlRuntimeRoot));
 
             RequireReference(
                 cameraRuntimeRoot,

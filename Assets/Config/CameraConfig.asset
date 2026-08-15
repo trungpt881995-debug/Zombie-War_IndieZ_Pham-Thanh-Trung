@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: ZombieWar.Camera.Unity::ZombieWar.Features.Camera.Unity.Config.CameraConfig
   projectionMode: 0
-  fieldOfView: 50
+  fieldOfView: 35
   orthographicSize: 10
   nearClip: 0.1
   farClip: 300
-  pitch: 55
-  yaw: 45
+  pitch: 45
+  yaw: 0
   roll: 0
   followOffset: {x: 0, y: 12, z: -10}
   positionDamping: {x: 0.3, y: 0.3, z: 0.3}
-  startGameplayEnabled: 0
+  startGameplayEnabled: 1
   snapOnInitialize: 1
   shakes: []
