@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fa3a166913c433792401872cf1dcb2, type: 3}
   m_Name: SoldierConfig
   m_EditorClassIdentifier: ZombieWar.Soldier::ZombieWar.Features.Soldier.Config.SoldierConfig
-  moveSpeed: 5
+  moveSpeed: 3.5
   aimRotationDegreesPerSecond: 720

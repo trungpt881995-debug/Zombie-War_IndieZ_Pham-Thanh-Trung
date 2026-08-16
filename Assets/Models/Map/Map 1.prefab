@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708265445911222373}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7883315078716483550}
+  m_Father: {fileID: 3220983214723648343}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &5508446564628753644
 MeshFilter:
@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapSpawnSectorVolume
   sectorId: 2
-  localCenter: {x: 0, y: 0, z: 0}
-  localSize: {x: 3, y: 1, z: 3}
+  localCenter: {x: -3, y: 0, z: 0}
+  localSize: {x: 1.5, y: 1, z: 6}
   drawGizmo: 1
 --- !u!1 &1367211774939600072
 GameObject:
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1047157595274643664}
   - component: {fileID: 6321700577816413314}
   - component: {fileID: 5325399282758318986}
-  - component: {fileID: 725493964630074631}
+  - component: {fileID: 5983450666010064066}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -231,12 +231,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420270129248278316}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7883315078716483550}
+  m_Father: {fileID: 3220983214723648343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6321700577816413314
 MeshFilter:
@@ -295,8 +295,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &725493964630074631
-BoxCollider:
+--- !u!64 &5983450666010064066
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -313,9 +313,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 10, y: 0.1, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3145844379936914314
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +349,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7883315078716483550}
+  m_Father: {fileID: 3220983214723648343}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
 --- !u!33 &8650342032682718367
 MeshFilter:
@@ -473,9 +474,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapSpawnSectorVolume
   sectorId: 0
-  localCenter: {x: 0, y: 0, z: 0}
-  localSize: {x: 3, y: 1, z: 3}
+  localCenter: {x: 0, y: 0, z: 3}
+  localSize: {x: 6, y: 1, z: 1.5}
   drawGizmo: 1
+--- !u!1 &3706402090484188031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6025543413089924597}
+  m_Layer: 0
+  m_Name: NavigationRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6025543413089924597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3706402090484188031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6407288354803749770}
+  - {fileID: 3220983214723648343}
+  m_Father: {fileID: 7883315078716483550}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5390285585335253659
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,9 +555,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapSpawnSectorVolume
   sectorId: 3
-  localCenter: {x: 0, y: 0, z: 0}
-  localSize: {x: 3, y: 1, z: 3}
+  localCenter: {x: 3, y: 0, z: 0}
+  localSize: {x: 1.5, y: 1, z: 6}
   drawGizmo: 1
+--- !u!1 &5467867078804322390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3220983214723648343}
+  m_Layer: 0
+  m_Name: Geometry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3220983214723648343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467867078804322390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1047157595274643664}
+  - {fileID: 2793165211661692005}
+  - {fileID: 488071613423755429}
+  - {fileID: 7121498217475834946}
+  - {fileID: 225365895764761813}
+  m_Father: {fileID: 6025543413089924597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5850808783526084435
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,8 +639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapSpawnSectorVolume
   sectorId: 1
-  localCenter: {x: 0, y: 0, z: 0}
-  localSize: {x: 3, y: 1, z: 3}
+  localCenter: {x: 0, y: 0, z: -3}
+  localSize: {x: 6, y: 1, z: 1.5}
   drawGizmo: 1
 --- !u!1 &5865770174056529843
 GameObject:
@@ -604,7 +674,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7883315078716483550}
+  m_Father: {fileID: 3220983214723648343}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
 --- !u!33 &3135493590313281002
 MeshFilter:
@@ -684,6 +754,70 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 0.1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6490449352924730137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6407288354803749770}
+  - component: {fileID: 3085870996655526196}
+  m_Layer: 0
+  m_Name: Navigation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6407288354803749770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490449352924730137}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6025543413089924597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3085870996655526196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490449352924730137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 59ca8643a71be40afa1e1481f1798941, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &6662242837520193722
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,11 +850,7 @@ Transform:
   m_LocalScale: {x: 20, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1047157595274643664}
-  - {fileID: 2793165211661692005}
-  - {fileID: 488071613423755429}
-  - {fileID: 7121498217475834946}
-  - {fileID: 225365895764761813}
+  - {fileID: 6025543413089924597}
   - {fileID: 3448935655888825847}
   - {fileID: 702067503283466182}
   m_Father: {fileID: 0}
@@ -774,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b3a38063e534dba8054df29e8a8bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapNavigationReference
-  navigationDataOrRoot: {fileID: 0}
+  navigationDataOrRoot: {fileID: 23800000, guid: 59ca8643a71be40afa1e1481f1798941, type: 2}
 --- !u!1 &8232504154792295816
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,12 +932,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8232504154792295816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7883315078716483550}
+  m_Father: {fileID: 3220983214723648343}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &2303015600884446263
 MeshFilter:
