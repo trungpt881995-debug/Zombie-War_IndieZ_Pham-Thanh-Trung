@@ -3251,8 +3251,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 767221154}
-  - component: {fileID: 767221153}
   - component: {fileID: 767221155}
+  - component: {fileID: 767221156}
   m_Layer: 0
   m_Name: GameLifetimeScope
   m_TagString: Untagged
@@ -3260,22 +3260,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &767221153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767221152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7fd9a8144254d7cb2a72e119440865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZombieWar.Bootstrap::ZombieWar.Bootstrap.GameLifetimeScope
-  parentReference:
-    TypeName: 
-  autoRun: 1
-  autoInjectGameObjects: []
 --- !u!4 &767221154
 Transform:
   m_ObjectHideFlags: 0
@@ -3304,6 +3288,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767221152}
   m_Enabled: 1
+--- !u!114 &767221156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767221152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7fd9a8144254d7cb2a72e119440865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZombieWar.Bootstrap::ZombieWar.Bootstrap.GameLifetimeScope
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
 --- !u!1 &767726222
 GameObject:
   m_ObjectHideFlags: 0
@@ -6901,7 +6901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73add38c943c48b9a0d268c4a6f2785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Composition::ZombieWar.Composition.GlobalPresentationComposition
-  gameLifetimeScope: {fileID: 767221153}
+  gameLifetimeScope: {fileID: 767221156}
   uiRuntimeRoot: {fileID: 944346072}
   feedbackRuntimeRoot: {fileID: 895538224}
   audioRuntimeRoot: {fileID: 1230728523}

@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponType: 2
   damage: 10
   fireRate: 2.5
-  projectileSpeed: 20
+  projectileSpeed: 1000
   maxRange: 30
   targetRange: 15
   selectionCooldown: 2

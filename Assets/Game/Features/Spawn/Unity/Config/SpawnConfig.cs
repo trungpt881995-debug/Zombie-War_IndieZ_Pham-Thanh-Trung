@@ -9,7 +9,7 @@ namespace ZombieWar.Features.Spawn.Unity.Config
             [Min(1)] public int gameLevel; [Range(1,4)] public int soldierGroupLevel; [Min(1)] public int maxAlive; [Min(0.01f)] public float interval; [Min(1)] public int batchMin; [Min(1)] public int batchMax;
             public SpawnTuningEntry Build(){var key=new SpawnDifficultyKey(gameLevel,soldierGroupLevel);var t=new SpawnTuning(maxAlive,interval,batchMin,batchMax);return new SpawnTuningEntry(in key,in t);}
         }
-        [SerializeField] private bool startOnInitialize=true;
+        [SerializeField] private bool startOnInitialize=false;
         [SerializeField,Min(1)] private int initialGameLevel=1;
         [SerializeField,Range(1,4)] private int initialSoldierGroupLevel=1;
         [SerializeField,Min(1)] private int maxPlacementAttempts=8;

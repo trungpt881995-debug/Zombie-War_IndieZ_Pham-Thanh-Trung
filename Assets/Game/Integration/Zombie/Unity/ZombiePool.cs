@@ -62,6 +62,7 @@ namespace ZombieWar.Integration.Zombie.Unity
 
         public bool TrySpawn(in ZombieSpawnRequest request, out GameplayEntityId entityId)
         {
+            Debug.Log("hit TrySpawn!!!");
             entityId = default;
             if (!_initialized) return false;
             if (!allowRuntimeExpansion && _pool.CountInactive <= 0) return false;

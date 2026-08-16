@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Weapon.Unity::ZombieWar.Features.Weapon.Unity.Config.WeaponConfig
   weaponType: 0
   damage: 10
-  fireRate: 2.5
-  projectileSpeed: 20
+  fireRate: 10
+  projectileSpeed: 1000
   maxRange: 30
   targetRange: 15
   selectionCooldown: 2

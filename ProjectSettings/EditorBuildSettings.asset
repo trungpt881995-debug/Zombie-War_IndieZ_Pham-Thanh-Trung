@@ -11,5 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/ZombieWar_Gameplay.unity
     guid: 58cc0252f83d74afb8eaa6f8927c5213
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 0c4b6c09ea0f64b5a8e4d2737948aadf, type: 2}
   m_UseUCBPForAssetBundles: 0

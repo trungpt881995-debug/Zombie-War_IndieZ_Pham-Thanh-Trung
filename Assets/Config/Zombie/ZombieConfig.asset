@@ -16,7 +16,7 @@ MonoBehaviour:
   moveSpeed: 2.5
   rotationSpeed: 540
   attackDamage: 10
-  attackRange: 1.4
+  attackRange: 1.8
   attackExitRangeBonus: 0.2
   attackInterval: 1
   attackAnimationTimeout: 1.5

@@ -54,33 +54,50 @@ namespace ZombieWar.Features.Projectile.Unity.View
         }
 
         public void Deactivate()
+{
+    if (_body != null)
+    {
+        if (!_body.isKinematic)
         {
-            if (_body != null)
-            {
-                _body.linearVelocity = Vector3.zero;
-                _body.angularVelocity = Vector3.zero;
-                _body.detectCollisions = false;
-                _body.useGravity = false;
-                _body.isKinematic = true;
-            }
-            if (_collider != null) _collider.enabled = false;
-            gameObject.SetActive(false);
+            _body.linearVelocity = Vector3.zero;
+            _body.angularVelocity = Vector3.zero;
         }
 
-        private void PrepareInactive()
+        _body.detectCollisions = false;
+        _body.useGravity = false;
+        _body.isKinematic = true;
+    }
+
+    if (_collider != null)
+    {
+        _collider.enabled = false;
+    }
+
+    gameObject.SetActive(false);
+}
+
+       private void PrepareInactive()
+{
+    if (_body != null)
+    {
+        if (!_body.isKinematic)
         {
-            if (_body != null)
-            {
-                _body.linearVelocity = Vector3.zero;
-                _body.angularVelocity = Vector3.zero;
-                _body.detectCollisions = false;
-                _body.useGravity = false;
-                _body.isKinematic = true;
-            }
-            if (_collider != null) _collider.enabled = false;
-            ClearTrails();
+            _body.linearVelocity = Vector3.zero;
+            _body.angularVelocity = Vector3.zero;
         }
 
+        _body.detectCollisions = false;
+        _body.useGravity = false;
+        _body.isKinematic = true;
+    }
+
+    if (_collider != null)
+    {
+        _collider.enabled = false;
+    }
+
+    ClearTrails();
+}
         private void ClearTrails()
         {
             if (_trails == null) return;

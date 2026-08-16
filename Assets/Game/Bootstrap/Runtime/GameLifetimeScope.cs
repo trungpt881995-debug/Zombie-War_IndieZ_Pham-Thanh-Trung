@@ -553,6 +553,7 @@ namespace ZombieWar.Bootstrap
             builder.RegisterEntryPoint<GameStateBootstrapRegistration>();
             builder.RegisterEntryPoint<GameStateCommandRegistration>();
             builder.RegisterEntryPoint<GameBootstrap>();
+            builder.RegisterEntryPoint<SpawnGameFlowLifecycleRegistration>();
             builder.RegisterEntryPoint<GameStateIntegrationRegistration>();
             builder.RegisterEntryPoint<UIIntegrationRegistration>();
             builder.RegisterEntryPoint<VFXCommandRegistration>();

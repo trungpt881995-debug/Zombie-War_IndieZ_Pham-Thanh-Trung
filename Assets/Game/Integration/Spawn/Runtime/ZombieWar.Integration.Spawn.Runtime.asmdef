@@ -1,9 +1,19 @@
 {
-  "name": "ZombieWar.Integration.Spawn.Runtime",
-  "rootNamespace": "ZombieWar.Integration.Spawn.Runtime",
-  "references": [
-    "GameplayCore",
-    "ZombieWar.Spawn"
-  ],
-  "autoReferenced": true
+    "name": "ZombieWar.Integration.Spawn.Runtime",
+    "rootNamespace": "ZombieWar.Integration.Spawn.Runtime",
+    "references": [
+        "GameplayCore",
+        "ZombieWar.Spawn",
+        "ZombieWar.Integration.Zombie",
+        "ZombieWar.Integration.Zombie.Unity"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
