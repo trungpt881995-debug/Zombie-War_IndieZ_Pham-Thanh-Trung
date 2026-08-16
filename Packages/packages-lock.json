@@ -193,7 +193,7 @@
     },
     "com.unity.modules.particlesystem": {
       "version": "1.0.0",
-      "depth": 2,
+      "depth": 0,
       "source": "builtin",
       "dependencies": {}
     },

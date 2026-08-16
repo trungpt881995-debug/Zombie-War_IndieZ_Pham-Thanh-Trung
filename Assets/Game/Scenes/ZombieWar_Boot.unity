@@ -3576,8 +3576,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.UI.Unity::ZombieWar.Features.UI.Unity.Components.ResponsiveGameplayHudLayout
   weaponBar: {fileID: 825492633}
-  landscapeWidth: 900
-  portraitWidth: 680
+  landscapeWidth: 1720
+  portraitWidth: 880
 --- !u!114 &825492635
 MonoBehaviour:
   m_ObjectHideFlags: 0

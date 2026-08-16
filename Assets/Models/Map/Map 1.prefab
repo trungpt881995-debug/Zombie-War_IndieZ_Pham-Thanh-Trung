@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapBoundsVolume
   localCenter: {x: 0, y: 0, z: 0}
-  localSize: {x: 1, y: 0.1, z: 1}
+  localSize: {x: 1, y: 1, z: 0.1}
   drawGizmo: 1
 --- !u!114 &6196504315039360212
 MonoBehaviour:
