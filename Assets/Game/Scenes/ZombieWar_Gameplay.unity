@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92b17fa7552748098c7cb04b1e2dd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Control::ZombieWar.Features.Control.View.DynamicJoystickView
-  coordinateSpace: {fileID: 365995309}
+  coordinateSpace: {fileID: 1103099500}
   joystickRoot: {fileID: 1456871755}
   handle: {fileID: 716165784}
 --- !u!114 &365995311
@@ -2805,7 +2805,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!114 &1319856756
 MonoBehaviour:
   m_ObjectHideFlags: 0
