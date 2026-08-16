@@ -614,6 +614,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1430833356}
     m_Modifications:
+    - target: {fileID: 105539311178707625, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 643146181259306597, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1145152676679883152, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -658,6 +666,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: male_swordsman_02_purple
       objectReference: {fileID: 0}
+    - target: {fileID: 1931949883314923009, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384137684271535713, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4697097164395034200, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680585335744412427, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: weapons.Array.data[0].visualRoot
+      value: 
+      objectReference: {fileID: 231553581}
+    - target: {fileID: 6680585335744412427, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: weapons.Array.data[1].visualRoot
+      value: 
+      objectReference: {fileID: 231553580}
+    - target: {fileID: 6680585335744412427, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: weapons.Array.data[2].visualRoot
+      value: 
+      objectReference: {fileID: 231553579}
+    - target: {fileID: 6680585335744412427, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: weapons.Array.data[3].visualRoot
+      value: 
+      objectReference: {fileID: 231553578}
+    - target: {fileID: 6680585335744412427, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: weapons.Array.data[4].visualRoot
+      value: 
+      objectReference: {fileID: 231553577}
+    - target: {fileID: 6680585335744412427, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: weapons.Array.data[5].visualRoot
+      value: 
+      objectReference: {fileID: 231553576}
+    - target: {fileID: 7002171733264884938, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -684,6 +732,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7475d2b212bd44119addd94a08a1f570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Integration.Weapon.Unity::ZombieWar.Integration.Weapon.Unity.SoldierWeaponView
+--- !u!1 &231553576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1931949883314923009, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+  m_PrefabInstance: {fileID: 231553572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &231553577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2384137684271535713, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+  m_PrefabInstance: {fileID: 231553572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &231553578 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 105539311178707625, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+  m_PrefabInstance: {fileID: 231553572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &231553579 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7002171733264884938, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+  m_PrefabInstance: {fileID: 231553572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &231553580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4697097164395034200, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+  m_PrefabInstance: {fileID: 231553572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &231553581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 643146181259306597, guid: bdb1f2e78a000cf4aa58a5d49d988918, type: 3}
+  m_PrefabInstance: {fileID: 231553572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &273269361
 GameObject:
   m_ObjectHideFlags: 0

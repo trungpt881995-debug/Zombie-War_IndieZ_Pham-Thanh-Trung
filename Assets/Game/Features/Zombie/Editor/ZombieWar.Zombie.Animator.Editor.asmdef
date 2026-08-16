@@ -1,0 +1,16 @@
+{
+  "name": "ZombieWar.Zombie.Animator.Editor",
+  "rootNamespace": "ZombieWar.Features.Zombie.Editor",
+  "references": [],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

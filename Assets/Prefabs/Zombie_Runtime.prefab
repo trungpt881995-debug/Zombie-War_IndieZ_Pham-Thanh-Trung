@@ -62,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 6576407510196923749}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.61587, y: 1.30282, z: -0.01032}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -126,7 +126,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &8298857516502528516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +162,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9206411715390186009}
     m_Modifications:
+    - target: {fileID: 127867265787259768, guid: 970a0e0414fa8be4695cbe8c3d95afd7, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 885eac34fd0d577439e6670a7ca3777e, type: 3}
+    - target: {fileID: 127867265787259768, guid: 970a0e0414fa8be4695cbe8c3d95afd7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 641d081845be14458b8d2cf2b15ca14e, type: 2}
     - target: {fileID: 127867265787259768, guid: 970a0e0414fa8be4695cbe8c3d95afd7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
