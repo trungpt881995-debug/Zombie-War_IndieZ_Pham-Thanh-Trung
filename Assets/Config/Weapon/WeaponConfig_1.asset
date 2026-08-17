@@ -16,8 +16,8 @@ MonoBehaviour:
   damage: 10
   fireRate: 1
   projectileSpeed: 1
-  maxRange: 10
-  targetRange: 5
+  maxRange: 12
+  targetRange: 9
   selectionCooldown: 2
   spreadAngle: 0
   projectileCount: 1

@@ -3,7 +3,17 @@ guid: 3009c7cef6f5346caa6a0c41c0e6d79b
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_001
+    second: {fileID: 2100000, guid: 1e74f0d943ead40a68023d3f92a912e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_005__SkyDome-Cloud-Overcast-MidMorning_png
+    second: {fileID: 2100000, guid: 7b92cb5aa83174c579bb8c58d05703f6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
