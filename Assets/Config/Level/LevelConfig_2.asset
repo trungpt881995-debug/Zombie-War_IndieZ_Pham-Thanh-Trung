@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Level.Unity::ZombieWar.Features.Level.Unity.Config.LevelConfig
   gameLevel: 2
   isFinalLevel: 1
-  level2Kills: 200
-  level3Kills: 300
-  level4Kills: 400
-  bossPhaseKills: 500
+  level2Kills: 150
+  level3Kills: 200
+  level4Kills: 250
+  bossPhaseKills: 300
   requiredBossObjectives: 6

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BossConfig_3
   m_EditorClassIdentifier: ZombieWar.Boss.Unity::ZombieWar.Features.Boss.Unity.Config.BossConfig
   bossId: 3
-  maxHealth: 1000
+  maxHealth: 1500
   moveSpeed: 2.5
   rotationSpeed: 360
   scale: 2
