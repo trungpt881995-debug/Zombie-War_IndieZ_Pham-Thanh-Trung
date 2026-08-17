@@ -1,6 +1,8 @@
 using System;
 using GeneralCore.Architecture;
 using GameplayCore.Time;
+using GameplayCore.Damage;
+using GameplayCore.Entities;
 using UnityEngine;
 using VContainer;
 using ZombieWar.Bootstrap;
@@ -18,8 +20,9 @@ using ZombieWar.Features.Level.Services;
 using ZombieWar.Features.Level.Unity.Runtime;
 using ZombieWar.Features.Map.Services;
 using ZombieWar.Features.Map.Unity.Runtime;
-using ZombieWar.Features.Projectile.Factories;
+using ZombieWar.Features.Projectile.Ports;
 using ZombieWar.Features.Projectile.Unity.Runtime;
+using ZombieWar.Composition.Projectile;
 using ZombieWar.Features.Score.Services;
 using ZombieWar.Features.Score.Unity.Runtime;
 using ZombieWar.Features.Spawn.Ports;
@@ -239,9 +242,25 @@ namespace ZombieWar.Composition
         private void InitializeProjectile(
             IObjectResolver resolver)
         {
-            projectileRuntimeRoot.Initialize(
-                resolver.Resolve<IProjectileControllerFactory>(),
-                resolver.Resolve<IProjectileLauncherFactory>());
+            HitscanTracerPool tracerPool =
+                projectileRuntimeRoot.GetComponent<HitscanTracerPool>();
+
+            if (tracerPool == null)
+            {
+                tracerPool =
+                    projectileRuntimeRoot.gameObject.AddComponent<HitscanTracerPool>();
+            }
+
+            tracerPool.Initialize();
+
+            var launcher = new HitscanProjectileLauncher(
+                resolver.Resolve<IEntityIdGenerator>(),
+                resolver.Resolve<IDamageService>(),
+                resolver.Resolve<IProjectileFeedbackPort>(),
+                resolver.Resolve<IEventBus>(),
+                tracerPool);
+
+            projectileRuntimeRoot.Initialize(launcher);
         }
 
         private void InitializeZombie(

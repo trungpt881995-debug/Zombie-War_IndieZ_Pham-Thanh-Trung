@@ -67,6 +67,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5927466875431655431}
   - {fileID: 9206411715390186009}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,6 +86,8 @@ MonoBehaviour:
   zombieView: {fileID: 2676989038655110156}
   motor: {fileID: 8298857516502528516}
   projectileDamageableProxy: {fileID: 3540835997642062799}
+  aimPoint: {fileID: 5927466875431655431}
+  fallbackAimHeight: 1.25
 --- !u!114 &2676989038655110156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,13 +124,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.7
+  m_Height: 1.8
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!114 &8298857516502528516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +158,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Projectile.Unity::ZombieWar.Features.Projectile.Unity.Collision.ProjectileDamageableProxy
   damageableBehaviour: {fileID: 0}
+--- !u!1 &8124126514229081337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5927466875431655431}
+  m_Layer: 0
+  m_Name: AimPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5927466875431655431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124126514229081337}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3231220789497803474}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &77537263026793725
 PrefabInstance:
   m_ObjectHideFlags: 0

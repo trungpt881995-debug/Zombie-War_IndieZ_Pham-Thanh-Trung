@@ -13,9 +13,16 @@ namespace ZombieWar.Features.Soldier.View
         [SerializeField]
         private Animator animator;
 
-        [Tooltip("Optional non-animated aim pivot. Leave null when aiming is entirely driven by the upper-body Animator layer.")]
+        [Tooltip("Optional legacy aim pivot. SoldierUpperBodyAim takes priority when available.")]
         [SerializeField]
         private Transform aimPivot;
+
+        [Tooltip("Procedural torso aim applied after Animator evaluation. Auto-created at runtime when missing.")]
+        [SerializeField]
+        private SoldierUpperBodyAim upperBodyAim;
+
+        [SerializeField]
+        private bool autoCreateUpperBodyAim = true;
 
         [SerializeField]
         private string movementSpeedParameter =
@@ -49,13 +56,8 @@ namespace ZombieWar.Features.Soldier.View
         {
             get
             {
-                Transform t = CachedTransform;
-                Vector3 p = t.position;
-
-                return new SoldierPoint(
-                    p.x,
-                    p.y,
-                    p.z);
+                Vector3 p = CachedTransform.position;
+                return new SoldierPoint(p.x, p.y, p.z);
             }
         }
 
@@ -64,9 +66,7 @@ namespace ZombieWar.Features.Soldier.View
             get
             {
                 if (_cachedTransform == null)
-                {
                     _cachedTransform = transform;
-                }
 
                 return _cachedTransform;
             }
@@ -76,58 +76,50 @@ namespace ZombieWar.Features.Soldier.View
         {
             _cachedTransform = transform;
 
-            _movementSpeedHash =
-                Animator.StringToHash(
-                    movementSpeedParameter);
+            // Keep compatibility with scenes where the Animator reference was not
+            // serialized yet, without changing the public SoldierView contract.
+            if (animator == null)
+                animator = GetComponentInChildren<Animator>(true);
 
-            _aimXHash =
-                Animator.StringToHash(
-                    aimXParameter);
-
-            _aimYHash =
-                Animator.StringToHash(
-                    aimYParameter);
-
-            _hasTargetHash =
-                Animator.StringToHash(
-                    hasTargetParameter);
-
-            _shootTriggerHash =
-                Animator.StringToHash(
-                    shootTriggerParameter);
+            _movementSpeedHash = Animator.StringToHash(movementSpeedParameter);
+            _aimXHash = Animator.StringToHash(aimXParameter);
+            _aimYHash = Animator.StringToHash(aimYParameter);
+            _hasTargetHash = Animator.StringToHash(hasTargetParameter);
+            _shootTriggerHash = Animator.StringToHash(shootTriggerParameter);
 
             // Mandatory Zombie War rule.
             if (animator != null)
-            {
                 animator.applyRootMotion = false;
-            }
+
+            if (upperBodyAim == null)
+                upperBodyAim = GetComponent<SoldierUpperBodyAim>();
+
+            if (upperBodyAim == null && autoCreateUpperBodyAim)
+                upperBodyAim = gameObject.AddComponent<SoldierUpperBodyAim>();
+
+            if (upperBodyAim != null)
+                upperBodyAim.Bind(animator, CachedTransform);
         }
 
         public void SetActive(bool active)
         {
             if (gameObject.activeSelf != active)
-            {
                 gameObject.SetActive(active);
-            }
         }
 
         public void SetLocalFormationPosition(
             in SoldierPoint localPosition)
         {
-            CachedTransform.localPosition =
-                new Vector3(
-                    localPosition.X,
-                    localPosition.Y,
-                    localPosition.Z);
+            CachedTransform.localPosition = new Vector3(
+                localPosition.X,
+                localPosition.Y,
+                localPosition.Z);
         }
 
-        public void SetMovementSpeed(
-            float normalizedSpeed)
+        public void SetMovementSpeed(float normalizedSpeed)
         {
             if (animator == null)
-            {
                 return;
-            }
 
             animator.SetFloat(
                 _movementSpeedHash,
@@ -139,94 +131,82 @@ namespace ZombieWar.Features.Soldier.View
             float rotationDegreesPerSecond,
             float deltaTime)
         {
+            if (!direction.HasDirection)
+            {
+                ClearAim();
+                return;
+            }
+
+            Vector3 worldDirection = new Vector3(
+                direction.X,
+                direction.Y,
+                direction.Z).normalized;
+
             if (animator != null)
             {
-                Vector3 worldDirection =
-                    new Vector3(
-                        direction.X,
-                        direction.Y,
-                        direction.Z);
-
                 Vector3 localDirection =
-                    CachedTransform.InverseTransformDirection(
-                        worldDirection);
+                    CachedTransform.InverseTransformDirection(worldDirection);
 
-                animator.SetBool(
-                    _hasTargetHash,
-                    true);
-
-                animator.SetFloat(
-                    _aimXHash,
-                    localDirection.x);
-
-                animator.SetFloat(
-                    _aimYHash,
+                // Preserve the existing Animator contract: AimX/AimY remain a
+                // planar XZ directional blend. Vertical pitch is procedural.
+                Vector2 planar = new Vector2(
+                    localDirection.x,
                     localDirection.z);
+
+                if (planar.sqrMagnitude > 0.000001f)
+                    planar.Normalize();
+
+                animator.SetBool(_hasTargetHash, true);
+                animator.SetFloat(_aimXHash, planar.x);
+                animator.SetFloat(_aimYHash, planar.y);
             }
 
-            if (aimPivot == null ||
-                !direction.HasDirection)
+            if (upperBodyAim != null)
             {
+                upperBodyAim.SetAimDirection(
+                    worldDirection,
+                    rotationDegreesPerSecond,
+                    deltaTime);
                 return;
             }
 
-            Vector3 flatDirection =
-                new Vector3(
-                    direction.X,
-                    0f,
-                    direction.Z);
-
-            if (flatDirection.sqrMagnitude <= 0.000001f)
-            {
+            // Backward-compatible fallback if procedural upper-body aim is disabled.
+            if (aimPivot == null)
                 return;
-            }
 
-            Quaternion targetRotation =
-                Quaternion.LookRotation(
-                    flatDirection,
-                    Vector3.up);
+            Quaternion targetRotation = Quaternion.LookRotation(
+                worldDirection,
+                Vector3.up);
 
-            if (rotationDegreesPerSecond <= 0f ||
-                deltaTime <= 0f)
+            if (rotationDegreesPerSecond <= 0f || deltaTime <= 0f)
             {
                 aimPivot.rotation = targetRotation;
                 return;
             }
 
-            aimPivot.rotation =
-                Quaternion.RotateTowards(
-                    aimPivot.rotation,
-                    targetRotation,
-                    rotationDegreesPerSecond *
-                    deltaTime);
+            aimPivot.rotation = Quaternion.RotateTowards(
+                aimPivot.rotation,
+                targetRotation,
+                rotationDegreesPerSecond * deltaTime);
         }
 
         public void ClearAim()
         {
-            if (animator == null)
+            if (animator != null)
             {
-                return;
+                animator.SetBool(_hasTargetHash, false);
+                animator.SetFloat(_aimXHash, 0f);
+                animator.SetFloat(_aimYHash, 0f);
             }
 
-            animator.SetBool(
-                _hasTargetHash,
-                false);
-
-            animator.SetFloat(
-                _aimXHash,
-                0f);
-
-            animator.SetFloat(
-                _aimYHash,
-                0f);
+            if (upperBodyAim != null)
+                upperBodyAim.ClearAim();
         }
 
         public void PlayShoot()
         {
             if (animator == null)
-            {
                 return;
-            }
 
             // Reset first so a rapid weapon can restart the upper-body Shoot state
             // on every accepted shot instead of waiting for the previous clip to finish.

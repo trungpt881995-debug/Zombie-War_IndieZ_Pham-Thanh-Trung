@@ -1,5 +1,6 @@
 using UnityEngine;
 using ZombieWar.Features.Projectile.Unity.Collision;
+using ZombieWar.Features.Targeting.Domain;
 using ZombieWar.Features.Zombie.Controller;
 using ZombieWar.Features.Zombie.Unity.Movement;
 using ZombieWar.Features.Zombie.Unity.View;
@@ -12,6 +13,14 @@ namespace ZombieWar.Integration.Zombie.Unity
         [SerializeField] private ZombieView zombieView;
         [SerializeField] private CharacterControllerZombieMotor motor;
         [SerializeField] private ProjectileDamageableProxy projectileDamageableProxy;
+
+        [Header("Soldier Targeting")]
+        [Tooltip("Recommended: place this Transform around the Zombie upper chest. If null, a root-relative fallback is used.")]
+        [SerializeField] private Transform aimPoint;
+
+        [SerializeField, Min(0f)]
+        private float fallbackAimHeight = 1.25f;
+
         public ZombieView View => zombieView;
         public CharacterControllerZombieMotor Motor => motor;
         public ProjectileDamageableProxy DamageableProxy => projectileDamageableProxy;
@@ -20,16 +29,51 @@ namespace ZombieWar.Integration.Zombie.Unity
 
         private void Awake()
         {
-            if (zombieView == null) zombieView = GetComponent<ZombieView>();
-            if (motor == null) motor = GetComponent<CharacterControllerZombieMotor>();
-            if (projectileDamageableProxy == null) projectileDamageableProxy = GetComponent<ProjectileDamageableProxy>();
+            if (zombieView == null)
+                zombieView = GetComponent<ZombieView>();
+
+            if (motor == null)
+                motor = GetComponent<CharacterControllerZombieMotor>();
+
+            if (projectileDamageableProxy == null)
+                projectileDamageableProxy = GetComponent<ProjectileDamageableProxy>();
+
+            if (aimPoint == null)
+                aimPoint = FindChildRecursive(transform, "AimPoint");
         }
 
-        public void Bind(ZombieController controller, ZombieCombatBridge bridge)
+        /// <summary>
+        /// Targeting/Weapon point only. ZombieController.Position remains the root
+        /// position for AI movement, attack range and other Zombie semantics.
+        /// </summary>
+        public TargetPoint GetCurrentTargetPoint()
+        {
+            Vector3 p;
+
+            if (aimPoint != null)
+            {
+                p = aimPoint.position;
+            }
+            else
+            {
+                // TransformPoint also scales the fallback for giant Boss variants.
+                p = transform.TransformPoint(
+                    new Vector3(0f, fallbackAimHeight, 0f));
+            }
+
+            return new TargetPoint(p.x, p.y, p.z);
+        }
+
+        public void Bind(
+            ZombieController controller,
+            ZombieCombatBridge bridge)
         {
             Controller = controller;
             CombatBridge = bridge;
-            if (projectileDamageableProxy != null) projectileDamageableProxy.Initialize(bridge);
+
+            if (projectileDamageableProxy != null)
+                projectileDamageableProxy.Initialize(bridge);
+
             if (zombieView != null)
             {
                 zombieView.AttackImpact += controller.NotifyAttackImpact;
@@ -41,13 +85,35 @@ namespace ZombieWar.Integration.Zombie.Unity
 
         private void OnDestroy()
         {
-            if (zombieView != null && Controller != null)
+            if (zombieView == null || Controller == null)
+                return;
+
+            zombieView.AttackImpact -= Controller.NotifyAttackImpact;
+            zombieView.AttackFinished -= Controller.NotifyAttackAnimationFinished;
+            zombieView.HitFinished -= Controller.NotifyHitAnimationFinished;
+            zombieView.DeathFinished -= Controller.NotifyDeathAnimationFinished;
+        }
+
+        private static Transform FindChildRecursive(
+            Transform root,
+            string childName)
+        {
+            if (root == null)
+                return null;
+
+            for (int i = 0; i < root.childCount; i++)
             {
-                zombieView.AttackImpact -= Controller.NotifyAttackImpact;
-                zombieView.AttackFinished -= Controller.NotifyAttackAnimationFinished;
-                zombieView.HitFinished -= Controller.NotifyHitAnimationFinished;
-                zombieView.DeathFinished -= Controller.NotifyDeathAnimationFinished;
+                Transform child = root.GetChild(i);
+
+                if (child.name == childName)
+                    return child;
+
+                Transform nested = FindChildRecursive(child, childName);
+                if (nested != null)
+                    return nested;
             }
+
+            return null;
         }
     }
 }

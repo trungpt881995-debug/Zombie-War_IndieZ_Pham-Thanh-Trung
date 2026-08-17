@@ -19,7 +19,7 @@ MonoBehaviour:
   profiles:
   - gameLevel: 1
     soldierGroupLevel: 1
-    maxAlive: 20
+    maxAlive: 100
     interval: 1
     batchMin: 1
     batchMax: 2
