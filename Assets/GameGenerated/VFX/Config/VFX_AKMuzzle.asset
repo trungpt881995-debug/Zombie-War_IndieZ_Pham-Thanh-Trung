@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_AKMuzzle
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 11
-  prefab: {fileID: 7107478609413635274, guid: 1ebf5ce6e5942434e8e4d2efd08add3f, type: 3}
+  prefab: {fileID: -468911378261455194, guid: cdf14baff693fbc439f8c859529a63a6, type: 3}
   lifetime: 0
   duration: 0.1
   allowDuringTerminalDrain: 0

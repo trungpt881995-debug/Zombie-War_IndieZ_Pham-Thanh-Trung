@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_PistolMuzzle
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 10
-  prefab: {fileID: 308258831653498134, guid: e9063a5c121f9411dbbfc3a4f8d753c4, type: 3}
+  prefab: {fileID: -416109233685748589, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
   lifetime: 0
   duration: 0.12
   allowDuringTerminalDrain: 0

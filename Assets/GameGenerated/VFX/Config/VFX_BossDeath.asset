@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_BossDeath
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 42
-  prefab: {fileID: 9087180471387971688, guid: ed74a5ed89df64b459bde28c496563f5, type: 3}
+  prefab: {fileID: 2983287086730823104, guid: 042f756de00cb5b4db4d23471365bf39, type: 3}
   lifetime: 0
   duration: 2
   allowDuringTerminalDrain: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_BossSpawn
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 40
-  prefab: {fileID: 2214757498970894791, guid: d74c89f684f58444d9050ef7f894ded2, type: 3}
+  prefab: {fileID: 4383484106296109775, guid: 72ffacdd8bc7b354c8db2ba189d79ff4, type: 3}
   lifetime: 0
   duration: 1
   allowDuringTerminalDrain: 1

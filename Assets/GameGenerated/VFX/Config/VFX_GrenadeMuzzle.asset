@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_GrenadeMuzzle
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 14
-  prefab: {fileID: 8225551232096168630, guid: 1481660fe951c4956864a3e6a24784d2, type: 3}
+  prefab: {fileID: 8175918698642430383, guid: 872363974360b1540b92d8d9e0453afa, type: 3}
   lifetime: 0
   duration: 0.22
   allowDuringTerminalDrain: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_BossHit
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 41
-  prefab: {fileID: 6902660623927521982, guid: c5ae1d7cc0e8c45d7a716aed10729ef7, type: 3}
+  prefab: {fileID: 4698230504996460021, guid: 73d47f4850e96d145869e36bc960ccb4, type: 3}
   lifetime: 0
   duration: 0.45
   allowDuringTerminalDrain: 1

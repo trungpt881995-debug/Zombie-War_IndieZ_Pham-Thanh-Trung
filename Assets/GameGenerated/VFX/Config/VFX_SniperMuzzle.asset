@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_SniperMuzzle
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 13
-  prefab: {fileID: 677781354091746673, guid: cfc8c63413a5e4d2d896157abb032063, type: 3}
+  prefab: {fileID: -468911378261455194, guid: cdf14baff693fbc439f8c859529a63a6, type: 3}
   lifetime: 0
   duration: 0.16
   allowDuringTerminalDrain: 0

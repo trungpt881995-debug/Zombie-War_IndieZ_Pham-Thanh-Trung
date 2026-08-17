@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_SoldierDamage
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 22
-  prefab: {fileID: 6186141035581771412, guid: b0bfb06eb17704cd0a80cecd5b275361, type: 3}
+  prefab: {fileID: -6326900507990499050, guid: 2c4b2397ab17cce4bae0e99c1004869d, type: 3}
   lifetime: 0
   duration: 0.35
   allowDuringTerminalDrain: 1

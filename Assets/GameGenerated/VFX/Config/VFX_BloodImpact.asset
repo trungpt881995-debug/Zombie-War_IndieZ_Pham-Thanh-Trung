@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_BloodImpact
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 21
-  prefab: {fileID: 8071121610406328451, guid: 4beebb50cf125447097e7c3ac51fcb8e, type: 3}
+  prefab: {fileID: -6326900507990499050, guid: 2c4b2397ab17cce4bae0e99c1004869d, type: 3}
   lifetime: 0
   duration: 0.35
   allowDuringTerminalDrain: 1

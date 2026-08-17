@@ -20,7 +20,7 @@ MonoBehaviour:
   targetRange: 5
   selectionCooldown: 2
   spreadAngle: 0
-  projectileCount: 1
+  projectileCount: 7
   projectileLifetime: 3
   explosionRadius: 0
   flameTickInterval: 0.1

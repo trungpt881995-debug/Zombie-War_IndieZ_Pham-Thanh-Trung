@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: VFX_GrenadeExplosion
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 30
-  prefab: {fileID: 1925758651311224759, guid: bcfd3349902f144aaa4bb8d6a6de709a, type: 3}
+  prefab: {fileID: 2716717156575279408, guid: 42b5a7c17e87672438c3602c0b701f71, type: 3}
   lifetime: 0
   duration: 1.25
   allowDuringTerminalDrain: 1
   prewarmCount: 8
   maxCapacity: 24
   allowGrowth: 1
-  defaultScale: 1
+  defaultScale: 0.01

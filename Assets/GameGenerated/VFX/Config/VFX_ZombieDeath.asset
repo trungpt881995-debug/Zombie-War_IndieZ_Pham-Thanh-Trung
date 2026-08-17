@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_ZombieDeath
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 24
-  prefab: {fileID: 6824574487864300429, guid: 4069efb94254a49b59a8c329eccb8c24, type: 3}
+  prefab: {fileID: 8729785995515666222, guid: a9ec2e096ed1d1a4f88e2946690fd145, type: 3}
   lifetime: 0
   duration: 0.8
   allowDuringTerminalDrain: 1

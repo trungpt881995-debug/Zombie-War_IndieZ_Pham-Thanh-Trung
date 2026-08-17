@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_ZombieHit
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 23
-  prefab: {fileID: 7157752319704988335, guid: 572bb276fbaf14425969a9960b6d75e6, type: 3}
+  prefab: {fileID: 4698230504996460021, guid: 73d47f4850e96d145869e36bc960ccb4, type: 3}
   lifetime: 0
   duration: 0.25
   allowDuringTerminalDrain: 1
