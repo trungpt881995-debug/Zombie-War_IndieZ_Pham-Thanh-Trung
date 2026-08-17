@@ -25,22 +25,6 @@ namespace ZombieWar.Integration.Weapon.Unity
         [Header("Projectile Runtime")]
         [SerializeField]
         private ProjectileRuntimeRoot projectileRuntime;
-
-        [SerializeField]
-        private int pistolPoolKey = 1;
-
-        [SerializeField]
-        private int akPoolKey = 2;
-
-        [SerializeField]
-        private int shotgunPelletPoolKey = 3;
-
-        [SerializeField]
-        private int sniperPoolKey = 4;
-
-        [SerializeField]
-        private int grenadePoolKey = 5;
-
         [Header("Soldier Weapon Views by Slot 0..3")]
         [SerializeField]
         private SoldierWeaponView[] soldierWeaponViews =
@@ -129,16 +113,8 @@ namespace ZombieWar.Integration.Weapon.Unity
                 catalogConfig.CreateCatalog(),
                 catalogConfig.InitialWeapon);
 
-            var mapping = new WeaponProjectilePoolMapping(
-                pistolPoolKey,
-                akPoolKey,
-                shotgunPelletPoolKey,
-                sniperPoolKey,
-                grenadePoolKey);
-
             _projectileBinding.Bind(
-                projectileRuntime.Launcher,
-                in mapping);
+                projectileRuntime.Launcher);
 
             _soldierAddedSubscription =
                 eventSubscriber.Subscribe<SoldierAddedEvent>(OnSoldierAdded);

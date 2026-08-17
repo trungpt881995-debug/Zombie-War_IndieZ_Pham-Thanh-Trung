@@ -1437,7 +1437,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 221842313}
-  - {fileID: 2057348256}
   m_Father: {fileID: 399589490}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &332625347
@@ -2181,77 +2180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63c43d5dc3e24a8aa21fb218baa3269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Projectile.Unity::ZombieWar.Features.Projectile.Unity.Runtime.ProjectileRuntimeRoot
---- !u!1 &600315302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 600315303}
-  - component: {fileID: 600315304}
-  m_Layer: 0
-  m_Name: ProjectilePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &600315303
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600315302}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1823091417}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &600315304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600315302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a78843b0eac8847d082c955427d49565, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZombieWar.Projectile.Unity::ZombieWar.Features.Projectile.Unity.Pooling.ProjectilePool
-  poolRoot: {fileID: 600315303}
-  entries:
-  - poolKey: 1
-    prefab: {fileID: 6507587750456325952, guid: 3601ed01be3124c59b350bed7d12e4a8, type: 3}
-    prewarmCount: 16
-    maxSize: 64
-    allowRuntimeExpansion: 0
-  - poolKey: 2
-    prefab: {fileID: 6980028785766968028, guid: d57aacbb26fba49a19ad5cdbea0715e8, type: 3}
-    prewarmCount: 16
-    maxSize: 64
-    allowRuntimeExpansion: 0
-  - poolKey: 3
-    prefab: {fileID: 2901064475435819156, guid: 5c2d0fe858b17441c934747a6a0d1656, type: 3}
-    prewarmCount: 16
-    maxSize: 64
-    allowRuntimeExpansion: 0
-  - poolKey: 4
-    prefab: {fileID: 7408429541985011924, guid: 6c460cca41f824d018ed17798273d592, type: 3}
-    prewarmCount: 16
-    maxSize: 64
-    allowRuntimeExpansion: 0
-  - poolKey: 5
-    prefab: {fileID: 7190928158785136117, guid: c3957c8e102b344759c46c7be62cb194, type: 3}
-    prewarmCount: 16
-    maxSize: 64
-    allowRuntimeExpansion: 0
 --- !u!1 &632084267
 GameObject:
   m_ObjectHideFlags: 0
@@ -5633,7 +5561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Integration.GameState.Unity::ZombieWar.Integration.GameState.Unity.GameStateSceneGateBinder
   gateTargets:
   - {fileID: 221842314}
-  - {fileID: 2057348257}
+  - {fileID: 0}
 --- !u!1 &1398239284
 GameObject:
   m_ObjectHideFlags: 0
@@ -6309,50 +6237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Score.Unity::ZombieWar.Features.Score.Unity.Runtime.ScoreRuntimeRoot
   config: {fileID: 11400000, guid: 0c7b312261ba54c398658f30d85428d8, type: 2}
   startRunOnInitialize: 0
---- !u!1 &1705293155
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1705293156}
-  - component: {fileID: 1705293157}
-  m_Layer: 0
-  m_Name: ProjectileSimulationDriver
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1705293156
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705293155}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1823091417}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1705293157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705293155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63a5f713b4224448da1e852b211c1b37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZombieWar.Projectile.Unity::ZombieWar.Features.Projectile.Unity.Runtime.ProjectileSimulationDriver
 --- !u!1 &1728735252
 GameObject:
   m_ObjectHideFlags: 0
@@ -6613,8 +6497,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 600315303}
-  - {fileID: 1705293156}
   - {fileID: 598359581}
   m_Father: {fileID: 898103769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7218,11 +7100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Integration.Weapon.Unity::ZombieWar.Integration.Weapon.Unity.WeaponRuntimeRoot
   catalogConfig: {fileID: 11400000, guid: c7f55f652ee3d43d1a3f99d6cd3c1ce2, type: 2}
   projectileRuntime: {fileID: 598359582}
-  pistolPoolKey: 1
-  akPoolKey: 2
-  shotgunPelletPoolKey: 3
-  sniperPoolKey: 4
-  grenadePoolKey: 5
   soldierWeaponViews:
   - {fileID: 702390019}
   - {fileID: 1134795734}
@@ -7234,51 +7111,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   tickSelectionCooldowns: 1
---- !u!1 &2057348255
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2057348256}
-  - component: {fileID: 2057348257}
-  m_Layer: 0
-  m_Name: ProjectileGate
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2057348256
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2057348255}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 273269362}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2057348257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2057348255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d41598c59d1d48a49a97da9b9fbc5eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZombieWar.Integration.GameState.Unity::ZombieWar.Integration.GameState.Unity.ProjectileGameStateGateTarget
-  simulationDriver: {fileID: 1705293157}
 --- !u!1001 &2104090446
 PrefabInstance:
   m_ObjectHideFlags: 0

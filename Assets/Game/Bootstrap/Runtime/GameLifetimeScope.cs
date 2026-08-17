@@ -33,8 +33,6 @@ using ZombieWar.Features.Health.Factories;
 using ZombieWar.Features.Soldier.Factories;
 using ZombieWar.Features.Soldier.Movement;
 using ZombieWar.Features.Soldier.Ports;
-using ZombieWar.Features.Projectile.Factories;
-using ZombieWar.Features.Projectile.Impact;
 using ZombieWar.Features.Projectile.Ports;
 using ZombieWar.Features.Weapon.Commands;
 using ZombieWar.Features.Weapon.Factories;
@@ -114,7 +112,6 @@ using ZombieWar.Features.Feedback.Ports;
 using ZombieWar.Features.Feedback.Services;
 using ZombieWar.Integration.Feedback.Camera;
 using ZombieWar.Integration.Feedback.Weapon;
-using ZombieWar.Integration.Feedback.Projectile;
 using ZombieWar.Integration.Feedback.Boss;
 using ZombieWar.Integration.Feedback.Soldier;
 using ZombieWar.Integration.Feedback.Level;
@@ -339,7 +336,9 @@ namespace ZombieWar.Bootstrap
             builder.Register<HealthPresenter>(Lifetime.Singleton);
             builder.Register<LevelPresenter>(Lifetime.Singleton);
             builder.Register<WeaponHudPresenter>(Lifetime.Singleton);
-            builder.Register<UIRuntime>(Lifetime.Singleton).As<IUIRuntime>();
+            builder.Register<UIRuntime>(Lifetime.Singleton)
+                .AsSelf()
+                .As<IUIRuntime>();
 
             builder.Register<GameFlowUIBridge>(Lifetime.Singleton);
             builder.Register<ScoreUIBridge>(Lifetime.Singleton);
@@ -503,22 +502,13 @@ namespace ZombieWar.Bootstrap
             builder.Register<ISoldierGroupFactory, SoldierGroupFactory>(
                 Lifetime.Singleton);
 
-            // Projectile core remains feature-isolated. Scene-specific ProjectilePool/Driver
-            // are composed by ProjectileRuntimeRoot; shared factories/policies live in DI.
-            builder.Register<IProjectileImpactPolicyProvider, ProjectileImpactPolicyProvider>(
-                Lifetime.Singleton);
-            builder.RegisterInstance(NullProjectileExplosionPort.Instance)
-                .As<IProjectileExplosionPort>();
+            // Projectile gameplay is hitscan-only. Physical projectile factories, pools,
+            // impact policies and flight simulation are intentionally not registered.
+            // Presentation fan-out is composed here at the application boundary.
             builder.Register<ProjectileVFXFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<ProjectileGameFeelFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<CompositeProjectileFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<ProjectileAudioFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<CompositeProjectilePresentationFeedbackPort>(Lifetime.Singleton)
+            builder.Register<ProjectilePresentationFeedbackPort>(Lifetime.Singleton)
                 .As<IProjectileFeedbackPort>();
-            builder.Register<IProjectileControllerFactory, ProjectileControllerFactory>(
-                Lifetime.Singleton);
-            builder.Register<IProjectileLauncherFactory, ProjectileLauncherFactory>(
-                Lifetime.Singleton);
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);
             builder.RegisterInstance(new NullGameFlowView()).As<IGameFlowView>();

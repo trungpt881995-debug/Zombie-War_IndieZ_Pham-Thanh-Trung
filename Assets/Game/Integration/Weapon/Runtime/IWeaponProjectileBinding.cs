@@ -5,7 +5,7 @@ namespace ZombieWar.Integration.Weapon
     public interface IWeaponProjectileBinding
     {
         bool IsBound { get; }
-        void Bind(IProjectileLauncher launcher, in WeaponProjectilePoolMapping mapping);
+        void Bind(IProjectileLauncher launcher);
         void Unbind();
     }
 }

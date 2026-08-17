@@ -14,24 +14,14 @@ using ZombieWar.Features.Projectile.Unity.Collision;
 namespace ZombieWar.Composition.Projectile
 {
     /// <summary>
-    /// Replaces physical Rigidbody projectiles with immediate Physics raycasts.
-    ///
-    /// StopOnHit:
-    ///     first raycast hit stops the shot.
-    ///
-    /// Pierce:
-    ///     damages each unique IDamageable in distance order until an environment
-    ///     collider blocks the ray.
-    ///
-    /// ExplodeOnGround:
-    ///     resolves an instant impact point and applies AoE damage there.
-    ///
-    /// Every shot draws one short-lived red LineRenderer tracer.
+    /// Immediate Physics-based projectile resolution.
+    /// No Rigidbody projectile, flight simulation, collision relay or projectile pool is used.
     /// </summary>
     public sealed class HitscanProjectileLauncher : IProjectileLauncher
     {
         private const float DefaultMuzzleForwardOffset = 0.05f;
-        private const int ExplosionBufferSize = 128;
+        private const int RaycastBufferSize = 512;
+        private const int ExplosionBufferSize = 512;
 
         private readonly IEntityIdGenerator _ids;
         private readonly IDamageService _damageService;
@@ -48,6 +38,9 @@ namespace ZombieWar.Composition.Projectile
         private readonly List<MonoBehaviour> _behaviourBuffer =
             new List<MonoBehaviour>(8);
 
+        private readonly RaycastHit[] _raycastBuffer =
+            new RaycastHit[RaycastBufferSize];
+
         private readonly Collider[] _explosionBuffer =
             new Collider[ExplosionBufferSize];
 
@@ -62,10 +55,14 @@ namespace ZombieWar.Composition.Projectile
             float muzzleForwardOffset = DefaultMuzzleForwardOffset)
         {
             _ids = ids ?? throw new ArgumentNullException(nameof(ids));
-            _damageService = damageService ?? throw new ArgumentNullException(nameof(damageService));
-            _feedback = feedback ?? throw new ArgumentNullException(nameof(feedback));
-            _events = events ?? throw new ArgumentNullException(nameof(events));
-            _tracers = tracers ?? throw new ArgumentNullException(nameof(tracers));
+            _damageService = damageService ??
+                throw new ArgumentNullException(nameof(damageService));
+            _feedback = feedback ??
+                throw new ArgumentNullException(nameof(feedback));
+            _events = events ??
+                throw new ArgumentNullException(nameof(events));
+            _tracers = tracers ??
+                throw new ArgumentNullException(nameof(tracers));
             _hitMask = hitMask;
             _triggerInteraction = triggerInteraction;
             _muzzleForwardOffset = Mathf.Max(0f, muzzleForwardOffset);
@@ -77,7 +74,7 @@ namespace ZombieWar.Composition.Projectile
         {
             projectileId = _ids.Next();
 
-           Vector3 origin = ToVector3(request.Origin);
+            Vector3 origin = ToVector3(request.Origin);
             Vector3 direction = new Vector3(
                 request.Direction.X,
                 request.Direction.Y,
@@ -94,8 +91,7 @@ namespace ZombieWar.Composition.Projectile
             _events.Publish(
                 new ProjectileLaunchedEvent(
                     projectileId,
-                    request.OwnerId,
-                    request.PoolKey));
+                    request.OwnerId));
 
             switch (request.ImpactMode)
             {
@@ -162,7 +158,8 @@ namespace ZombieWar.Composition.Projectile
                         projectileId,
                         in request,
                         damageable,
-                        hit.point);
+                        hit.point,
+                        playHitFeedback: true);
 
                     endReason = ProjectileEndReason.Hit;
                 }
@@ -191,28 +188,33 @@ namespace ZombieWar.Composition.Projectile
             ProjectileEndReason endReason =
                 ProjectileEndReason.MaxRangeReached;
 
-            RaycastHit[] hits = Physics.RaycastAll(
+            int hitCount = Physics.RaycastNonAlloc(
                 rayOrigin,
                 direction,
+                _raycastBuffer,
                 rayDistance,
                 _hitMask,
                 _triggerInteraction);
 
-            if (hits != null && hits.Length > 0)
+            if (hitCount > 0)
             {
-                Array.Sort(hits, CompareHitsByDistance);
+                Array.Sort(
+                    _raycastBuffer,
+                    0,
+                    hitCount,
+                    RaycastHitDistanceComparer.Instance);
+
                 _uniqueEntities.Clear();
 
-                for (int i = 0; i < hits.Length; i++)
+                for (int i = 0; i < hitCount; i++)
                 {
-                    RaycastHit hit = hits[i];
+                    RaycastHit hit = _raycastBuffer[i];
 
                     IDamageable damageable =
                         FindDamageable(hit.collider);
 
                     if (damageable == null)
                     {
-                        // Environment blocks the sniper ray.
                         endPoint = hit.point;
                         endReason = ProjectileEndReason.EnvironmentHit;
                         break;
@@ -227,7 +229,8 @@ namespace ZombieWar.Composition.Projectile
                         projectileId,
                         in request,
                         damageable,
-                        hit.point);
+                        hit.point,
+                        playHitFeedback: true);
                 }
             }
 
@@ -259,15 +262,14 @@ namespace ZombieWar.Composition.Projectile
             }
             else if (request.HasTargetPoint)
             {
-                // Grenades used to be ballistic. In the new hitscan version,
-                // the supplied target point is a better instant impact point
-                // when the direct ray finds no surface.
                 explosionPoint = ToVector3(request.TargetPoint);
             }
 
             _tracers.Show(origin, explosionPoint);
 
-            float radius = Mathf.Max(0.01f, request.ExplosionRadius);
+            float radius = Mathf.Max(
+                0.01f,
+                request.ExplosionRadius);
 
             int count = Physics.OverlapSphereNonAlloc(
                 explosionPoint,
@@ -296,11 +298,15 @@ namespace ZombieWar.Composition.Projectile
                     continue;
                 }
 
+                // One grenade can damage a large horde. Do not emit BulletImpact/BloodImpact
+                // presentation for every affected Zombie; emit the gameplay hit fact for each,
+                // then one Explosion presentation below.
                 ApplyDamage(
                     projectileId,
                     in request,
                     damageable,
-                    explosionPoint);
+                    explosionPoint,
+                    playHitFeedback: false);
             }
 
             var point = new ProjectilePoint(
@@ -323,7 +329,8 @@ namespace ZombieWar.Composition.Projectile
             EntityId projectileId,
             in ProjectileLaunchRequest request,
             IDamageable damageable,
-            Vector3 worldPoint)
+            Vector3 worldPoint,
+            bool playHitFeedback)
         {
             var info = new DamageInfo(
                 request.OwnerId,
@@ -340,10 +347,13 @@ namespace ZombieWar.Composition.Projectile
                 worldPoint.y,
                 worldPoint.z);
 
-            _feedback.OnHit(
-                projectileId,
-                damageable.EntityId,
-                in point);
+            if (playHitFeedback)
+            {
+                _feedback.OnHit(
+                    projectileId,
+                    damageable.EntityId,
+                    in point);
+            }
 
             _events.Publish(
                 new ProjectileHitEvent(
@@ -354,42 +364,40 @@ namespace ZombieWar.Composition.Projectile
         }
 
         private IDamageable FindDamageable(Collider collider)
-{
-    if (collider == null)
-    {
-        return null;
-    }
-
-    _behaviourBuffer.Clear();
-
-    collider.GetComponentsInParent(
-        true,
-        _behaviourBuffer);
-
-    for (int i = 0; i < _behaviourBuffer.Count; i++)
-    {
-        MonoBehaviour behaviour = _behaviourBuffer[i];
-
-        // Direct IDamageable component.
-        if (behaviour is IDamageable damageable)
         {
-            return damageable;
-        }
-
-        // Unity proxy that wraps a runtime IDamageable.
-        if (behaviour is ProjectileDamageableProxy proxy)
-        {
-            IDamageable proxyDamageable = proxy.Damageable;
-
-            if (proxyDamageable != null)
+            if (collider == null)
             {
-                return proxyDamageable;
+                return null;
             }
-        }
-    }
 
-    return null;
-}
+            _behaviourBuffer.Clear();
+
+            collider.GetComponentsInParent(
+                true,
+                _behaviourBuffer);
+
+            for (int i = 0; i < _behaviourBuffer.Count; i++)
+            {
+                MonoBehaviour behaviour = _behaviourBuffer[i];
+
+                if (behaviour is IDamageable damageable)
+                {
+                    return damageable;
+                }
+
+                if (behaviour is ProjectileDamageableProxy proxy)
+                {
+                    IDamageable proxyDamageable = proxy.Damageable;
+
+                    if (proxyDamageable != null)
+                    {
+                        return proxyDamageable;
+                    }
+                }
+            }
+
+            return null;
+        }
 
         private Vector3 GetRayOrigin(
             Vector3 origin,
@@ -399,8 +407,7 @@ namespace ZombieWar.Composition.Projectile
                    direction * _muzzleForwardOffset;
         }
 
-        private float GetRayDistance(
-            float maxRange)
+        private float GetRayDistance(float maxRange)
         {
             return Mathf.Max(
                 0.001f,
@@ -419,21 +426,28 @@ namespace ZombieWar.Composition.Projectile
                     reason));
         }
 
-        private static int CompareHitsByDistance(
-            RaycastHit left,
-            RaycastHit right)
-        {
-            return left.distance.CompareTo(
-                right.distance);
-        }
-
-        private static Vector3 ToVector3(
-            in ProjectilePoint point)
+        private static Vector3 ToVector3(in ProjectilePoint point)
         {
             return new Vector3(
                 point.X,
                 point.Y,
                 point.Z);
+        }
+
+        private sealed class RaycastHitDistanceComparer :
+            IComparer<RaycastHit>
+        {
+            public static readonly RaycastHitDistanceComparer Instance =
+                new RaycastHitDistanceComparer();
+
+            private RaycastHitDistanceComparer()
+            {
+            }
+
+            public int Compare(RaycastHit left, RaycastHit right)
+            {
+                return left.distance.CompareTo(right.distance);
+            }
         }
     }
 }
