@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8282709
 Transform:
   m_ObjectHideFlags: 0
@@ -566,6 +566,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 702390018}
     m_Modifications:
+    - target: {fileID: 5440054105136714516, guid: 098e5b36f8d814b5087c178e632f9e12, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440054105136714516, guid: 098e5b36f8d814b5087c178e632f9e12, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.058
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440054105136714516, guid: 098e5b36f8d814b5087c178e632f9e12, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.333
+      objectReference: {fileID: 0}
     - target: {fileID: 5622999334802682989, guid: 098e5b36f8d814b5087c178e632f9e12, type: 3}
       propertyPath: m_Name
       value: Weapon_Sniper
@@ -631,7 +643,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7841514242005751411, guid: 098e5b36f8d814b5087c178e632f9e12, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 098e5b36f8d814b5087c178e632f9e12, type: 3}
@@ -1216,8 +1229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Integration.Zombie.Unity::ZombieWar.Integration.Zombie.Unity.ZombiePool
   prefab: {fileID: 5755057026349701572, guid: 0308239e5a9af46eba0f24a3ac4d42cc, type: 3}
   poolRoot: {fileID: 221082056}
-  prewarmCount: 100
-  maxSize: 500
+  prewarmCount: 500
+  maxSize: 1000
   allowRuntimeExpansion: 0
 --- !u!4 &221082056
 Transform:
@@ -1504,6 +1517,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 2460483949340005532, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460483949340005532, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460483949340005532, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.478
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460483949340005532, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460483949340005532, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6312929296905688435, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
       propertyPath: m_Name
       value: Weapon_AK
@@ -1514,10 +1547,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7617444838266734759, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3747375003823408706, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4441545ad8c384b4895cc459b9571279, type: 3}
@@ -2368,12 +2402,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 550818762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95d712919a87c45e0a538c6957402749, type: 3}
+  m_Script: {fileID: 11500000, guid: ed834c36de5d94306851b9b3854a6c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Composition::ZombieWar.Composition.GameplayLoadingCoordinator
   gameplaySceneComposition: {fileID: 527191282}
   mapRuntimeRoot: {fileID: 404325130}
-  initialMap: 1
 --- !u!1 &598359580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,7 +3016,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5246762949770805915, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414836138314436751, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414836138314436751, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414836138314436751, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.202
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414836138314436751, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
+      propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414836138314436751, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7722532831339825676, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3058,7 +3111,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4188572883968123675, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 685d38dbfa9744f02a9d2aa63409a8ac, type: 3}
@@ -3419,6 +3473,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 4557758480994655778, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557758480994655778, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557758480994655778, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.149
+      objectReference: {fileID: 0}
     - target: {fileID: 5818323416569225741, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -3481,10 +3547,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8322447636549080868, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3959781919982890080, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 417ff204e4e4b4056a0fa1792271d229, type: 3}
@@ -4818,7 +4885,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &1319856756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5546,9 +5613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3001256be1d6148fa9ede05d176492f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Integration.Boss.Unity::ZombieWar.Integration.Boss.Unity.BossPoolRegistry
-  bossAPrefab: {fileID: 9175308427551720874, guid: 33dcaa0d8a5b04646a5fbf2fe7d73825, type: 3}
-  bossBPrefab: {fileID: 9175308427551720874, guid: f8fd60e4a26fa425aa2d5b4533e9b049, type: 3}
-  bossCPrefab: {fileID: 9175308427551720874, guid: 1866a82c43a9f40718f51af092999b69, type: 3}
+  bossAPrefab: {fileID: 6146421815605435612, guid: eb8a8d4baf56d4a66a142815b9c49637, type: 3}
+  bossBPrefab: {fileID: 6146421815605435612, guid: eb8a8d4baf56d4a66a142815b9c49637, type: 3}
+  bossCPrefab: {fileID: 6146421815605435612, guid: eb8a8d4baf56d4a66a142815b9c49637, type: 3}
   poolRoot: {fileID: 1509704818}
   allowRuntimeExpansion: 0
 --- !u!4 &1509704818
@@ -5725,7 +5792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1556344688
 Transform:
   m_ObjectHideFlags: 0
@@ -6572,7 +6639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1900186420
 Transform:
   m_ObjectHideFlags: 0
@@ -6778,6 +6845,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4565612873789454326, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565612873789454326, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565612873789454326, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.659
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565612873789454326, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565612873789454326, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5824220470529554294, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
       propertyPath: m_Name
       value: Weapon_Shotgun
@@ -6808,10 +6895,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8957008460934237928, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5272397022387535716, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3748433f0b3604f6e9e3012e25fc18bd, type: 3}

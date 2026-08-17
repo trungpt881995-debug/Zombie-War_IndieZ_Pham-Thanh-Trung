@@ -42,7 +42,20 @@ namespace ZombieWar.GameFlow.Controller
             _stateMachine.ChangeState(GameFlowStateId.MainMenu);
         }
 
-        public void BeginLoading() => _stateMachine.ChangeState(GameFlowStateId.Loading);
+        public void BeginLoading()
+        {
+            // Loading starts a fresh level attempt. This is especially important for
+            // Replay from Pause, where the previous GameplaySession would otherwise
+            // remain Paused when BeginGameplay() is called.
+            if (_session.State != GameplaySessionState.Uninitialized &&
+                _session.State != GameplaySessionState.Stopped)
+            {
+                _session.Stop();
+            }
+
+            _clock.SetPaused(false);
+            _stateMachine.ChangeState(GameFlowStateId.Loading);
+        }
 
         public void BeginGameplay()
         {

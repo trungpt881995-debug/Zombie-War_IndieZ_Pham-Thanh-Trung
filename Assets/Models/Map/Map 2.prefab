@@ -818,7 +818,6 @@ GameObject:
   - component: {fileID: 6522615700727875101}
   - component: {fileID: 984662637097583396}
   - component: {fileID: 5561768753986210047}
-  - component: {fileID: 8817076730899923848}
   m_Layer: 0
   m_Name: Map 2
   m_TagString: Untagged
@@ -836,7 +835,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 300, y: 300, z: 300}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3634394287655785370}
@@ -860,10 +859,10 @@ MonoBehaviour:
   gameplayBounds: {fileID: 984662637097583396}
   cameraBounds: {fileID: 984662637097583396}
   spawnSectors:
-  - {fileID: 8817076730899923848}
-  - {fileID: 8817076730899923848}
-  - {fileID: 8817076730899923848}
-  - {fileID: 8817076730899923848}
+  - {fileID: 5986216985442591465}
+  - {fileID: 6177353995277728614}
+  - {fileID: 5600813502888926482}
+  - {fileID: 2480630075710709313}
   bossSpawnPoint: {fileID: 6522615700727875101}
   navigationReference: {fileID: 5561768753986210047}
 --- !u!114 &6522615700727875101
@@ -906,22 +905,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapNavigationReference
   navigationDataOrRoot: {fileID: 23800000, guid: 3bb254bd7c58f4512b0685d79928b570, type: 2}
---- !u!114 &8817076730899923848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7856536382755917604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053d6275980d84d9cb2d29ce167ab151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapSpawnSectorVolume
-  sectorId: 0
-  localCenter: {x: 0, y: 0, z: 0}
-  localSize: {x: 0.5, y: 0.5, z: 0.2}
-  drawGizmo: 1
 --- !u!1 &8974583960250915385
 GameObject:
   m_ObjectHideFlags: 0

@@ -118,6 +118,25 @@ namespace ZombieWar.Composition
 
         public bool IsBound => _isBound;
 
+        /// <summary>
+        /// Clears scene-owned transient combat state before a Play/Replay/Next level load.
+        /// Persistent feature state remains owned by its feature runtime; Soldier progression
+        /// is reset by GameLevelStartedEvent through LevelSoldierProgressionBridge.
+        /// </summary>
+        public void PrepareForLevelTransition()
+        {
+            if (!_isBound)
+            {
+                return;
+            }
+
+            spawnRuntimeRoot?.SetGameplayEnabled(false);
+            zombieRuntimeRoot?.SetGameplayEnabled(false);
+            zombieRuntimeRoot?.CancelAll();
+            projectileRuntimeRoot?.CancelAll();
+            weaponRuntimeRoot?.ResetForGameLevel();
+        }
+
         private void Start()
         {
             if (bindOnStart)

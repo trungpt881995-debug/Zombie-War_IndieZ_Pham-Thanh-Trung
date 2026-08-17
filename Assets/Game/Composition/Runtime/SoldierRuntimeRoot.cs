@@ -32,6 +32,7 @@ namespace ZombieWar.Composition
     public sealed class SoldierRuntimeRoot : MonoBehaviour
     {
         private const int RequiredSoldierViewCount = 4;
+        private const string SoldierGroupRootName = "SoldierGroupRoot";
 
         [Header("Configuration")]
         [SerializeField]
@@ -63,6 +64,9 @@ namespace ZombieWar.Composition
         private IZombieAttackBinding _zombieAttackBinding;
         private IBossAttackBinding _bossAttackBinding;
         private IDisposable _gameLevelStartedSubscription;
+        private Transform _formationRoot;
+        private Transform _worldGroupRoot;
+        private CharacterController _groupCharacterController;
         private bool _vfxAnchorBound;
 
         public bool IsInitialized { get; private set; }
@@ -82,6 +86,9 @@ namespace ZombieWar.Composition
             }
 
             ValidateReferences();
+
+            ResolveSoldierGroupHierarchy();
+            LockFormationRootLocalIdentity();
 
             ISoldierGroupFactory groupFactory =
                 resolver.Resolve<ISoldierGroupFactory>();
@@ -138,6 +145,19 @@ namespace ZombieWar.Composition
             _runtime.Tick(Time.deltaTime);
         }
 
+        private void LateUpdate()
+        {
+            if (!IsInitialized)
+            {
+                return;
+            }
+
+            // Hard lock the real formation root after normal gameplay, Animator and
+            // CharacterController updates. This prevents any later transform write
+            // from leaving SoldierGroupRoot at an offset such as (-10, 0, -10).
+            LockFormationRootLocalIdentity();
+        }
+
         public void ResetSharedHealth()
         {
             _sharedHealth?.ResetHealth();
@@ -147,6 +167,182 @@ namespace ZombieWar.Composition
             GameLevelStartedEvent evt)
         {
             _sharedHealth?.ResetHealth();
+            LockFormationRootLocalIdentity();
+        }
+
+        /// <summary>
+        /// Hard-coded scene-edge teleport used by the current Map02 transition.
+        /// The actual formation root is derived from the four SoldierView references
+        /// owned by this runtime, so no FindFirstObjectByType&lt;SoldierGroupView&gt; guess
+        /// is involved.
+        /// </summary>
+        public void TeleportGroup(
+            Vector3 worldPosition)
+        {
+            if (!IsInitialized)
+            {
+                throw new InvalidOperationException(
+                    "SoldierRuntimeRoot must be initialized before teleporting the group.");
+            }
+
+            ResolveSoldierGroupHierarchy();
+
+            if (_worldGroupRoot == null)
+            {
+                throw new InvalidOperationException(
+                    "SoldierRuntimeRoot could not resolve the world SoldierGroup root.");
+            }
+
+            bool controllerWasEnabled =
+                _groupCharacterController != null &&
+                _groupCharacterController.enabled;
+
+            if (controllerWasEnabled)
+            {
+                _groupCharacterController.enabled = false;
+            }
+
+            Vector3 oldWorldPosition =
+                _worldGroupRoot.position;
+
+            _worldGroupRoot.position =
+                worldPosition;
+
+            LockFormationRootLocalIdentity();
+            soldierGroupView.ResetVerticalVelocity();
+
+            if (controllerWasEnabled)
+            {
+                _groupCharacterController.enabled = true;
+            }
+
+            Debug.Log(
+                $"[SoldierRuntimeRoot] TeleportGroup " +
+                $"WorldRoot='{_worldGroupRoot.name}' {oldWorldPosition} -> {worldPosition}, " +
+                $"FormationRoot='{_formationRoot.name}', " +
+                $"FormationLocal={_formationRoot.localPosition}.",
+                this);
+        }
+
+        private void ResolveSoldierGroupHierarchy()
+        {
+            Transform nearestCommon =
+                FindNearestCommonAncestor();
+
+            if (nearestCommon == null)
+            {
+                throw new InvalidOperationException(
+                    "SoldierRuntimeRoot could not resolve a common formation root " +
+                    "for the four SoldierView references.");
+            }
+
+            Transform namedRoot =
+                FindSharedNamedAncestor(
+                    SoldierGroupRootName);
+
+            _formationRoot =
+                namedRoot != null
+                    ? namedRoot
+                    : nearestCommon;
+
+            if (_formationRoot.name == SoldierGroupRootName &&
+                _formationRoot.parent != null)
+            {
+                _worldGroupRoot =
+                    _formationRoot.parent;
+            }
+            else
+            {
+                _worldGroupRoot =
+                    _formationRoot;
+            }
+
+            _groupCharacterController =
+                soldierGroupView.GetComponent<CharacterController>();
+        }
+
+        private Transform FindNearestCommonAncestor()
+        {
+            Transform cursor =
+                soldierViews[0].transform.parent;
+
+            while (cursor != null)
+            {
+                if (ContainsAllSoldierViews(cursor))
+                {
+                    return cursor;
+                }
+
+                cursor =
+                    cursor.parent;
+            }
+
+            return null;
+        }
+
+        private Transform FindSharedNamedAncestor(
+            string targetName)
+        {
+            Transform cursor =
+                soldierViews[0].transform.parent;
+
+            while (cursor != null)
+            {
+                if (string.Equals(
+                        cursor.name,
+                        targetName,
+                        StringComparison.Ordinal) &&
+                    ContainsAllSoldierViews(cursor))
+                {
+                    return cursor;
+                }
+
+                cursor =
+                    cursor.parent;
+            }
+
+            return null;
+        }
+
+        private bool ContainsAllSoldierViews(
+            Transform candidate)
+        {
+            for (int i = 0; i < soldierViews.Length; i++)
+            {
+                Transform soldier =
+                    soldierViews[i].transform;
+
+                if (soldier != candidate &&
+                    !soldier.IsChildOf(candidate))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void LockFormationRootLocalIdentity()
+        {
+            if (_formationRoot == null)
+            {
+                ResolveSoldierGroupHierarchy();
+            }
+
+            if (_formationRoot == null ||
+                _formationRoot == _worldGroupRoot)
+            {
+                return;
+            }
+
+            _formationRoot.localPosition =
+                Vector3.zero;
+
+            _formationRoot.localRotation =
+                Quaternion.identity;
+
+            _formationRoot.localScale =
+                Vector3.one;
         }
 
         private void BindGameplay(IObjectResolver resolver)
@@ -279,6 +475,9 @@ namespace ZombieWar.Composition
 
             _runtime = null;
             _sharedHealth = null;
+            _formationRoot = null;
+            _worldGroupRoot = null;
+            _groupCharacterController = null;
             IsInitialized = false;
         }
     }

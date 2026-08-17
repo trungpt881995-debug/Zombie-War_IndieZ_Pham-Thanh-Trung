@@ -19,49 +19,49 @@ MonoBehaviour:
   profiles:
   - gameLevel: 1
     soldierGroupLevel: 1
-    maxAlive: 100
-    interval: 1
+    maxAlive: 80
+    interval: 0.45
     batchMin: 1
     batchMax: 2
   - gameLevel: 1
     soldierGroupLevel: 2
-    maxAlive: 30
-    interval: 0.8
+    maxAlive: 110
+    interval: 0.38
     batchMin: 1
     batchMax: 2
   - gameLevel: 1
     soldierGroupLevel: 3
-    maxAlive: 40
-    interval: 0.65
+    maxAlive: 140
+    interval: 0.32
     batchMin: 2
     batchMax: 3
   - gameLevel: 1
     soldierGroupLevel: 4
-    maxAlive: 50
-    interval: 0.5
+    maxAlive: 180
+    interval: 0.25
     batchMin: 2
     batchMax: 4
   - gameLevel: 2
     soldierGroupLevel: 1
-    maxAlive: 25
-    interval: 0.8
+    maxAlive: 100
+    interval: 0.4
     batchMin: 1
     batchMax: 2
   - gameLevel: 2
     soldierGroupLevel: 2
-    maxAlive: 35
-    interval: 0.65
+    maxAlive: 140
+    interval: 0.32
     batchMin: 2
     batchMax: 3
   - gameLevel: 2
     soldierGroupLevel: 3
-    maxAlive: 45
-    interval: 0.5
+    maxAlive: 180
+    interval: 0.25
     batchMin: 2
     batchMax: 4
   - gameLevel: 2
     soldierGroupLevel: 4
-    maxAlive: 60
-    interval: 0.4
+    maxAlive: 220
+    interval: 0.2
     batchMin: 3
     batchMax: 5

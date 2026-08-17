@@ -16,6 +16,7 @@ namespace ZombieWar.Features.Weapon.Domain
         public float ExplosionRadius { get; }
         public float FlameTickInterval { get; }
         public float FlameRadius { get; }
+        public int ProjectileCount { get; }
         public WeaponProjectileProfileId ProjectileProfile { get; }
 
         public bool UsesProjectile =>
@@ -38,13 +39,19 @@ namespace ZombieWar.Features.Weapon.Domain
             float projectileLifetime,
             float explosionRadius,
             float flameTickInterval,
-            float flameRadius)
+            float flameRadius,
+            int projectileCount = 1)
         {
             ValidateEnum(type);
             ValidatePositive(damage, nameof(damage));
             ValidatePositive(targetRange, nameof(targetRange));
             ValidateNonNegative(selectionCooldown, nameof(selectionCooldown));
             ValidateNonNegative(spreadAngle, nameof(spreadAngle));
+
+            if (projectileCount <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(projectileCount));
+            }
 
             bool flame = type == WeaponType.Flamethrower;
             if (flame)
@@ -63,10 +70,16 @@ namespace ZombieWar.Features.Weapon.Domain
                 ValidatePositive(projectileSpeed, nameof(projectileSpeed));
                 ValidatePositive(maxRange, nameof(maxRange));
                 ValidatePositive(projectileLifetime, nameof(projectileLifetime));
+
                 if (type == WeaponType.GrenadeLauncher)
+                {
                     ValidatePositive(explosionRadius, nameof(explosionRadius));
+                }
                 else
+                {
                     ValidateNonNegative(explosionRadius, nameof(explosionRadius));
+                }
+
                 ValidateNonNegative(flameTickInterval, nameof(flameTickInterval));
                 ValidateNonNegative(flameRadius, nameof(flameRadius));
             }
@@ -83,6 +96,7 @@ namespace ZombieWar.Features.Weapon.Domain
             ExplosionRadius = explosionRadius;
             FlameTickInterval = flameTickInterval;
             FlameRadius = flameRadius;
+            ProjectileCount = projectileCount;
             ProjectileProfile = ResolveProfile(type);
         }
 
@@ -104,17 +118,25 @@ namespace ZombieWar.Features.Weapon.Domain
         {
             int i = (int)type;
             if (i < 0 || i > (int)WeaponType.Flamethrower)
+            {
                 throw new ArgumentOutOfRangeException(nameof(type));
+            }
         }
+
         private static void ValidatePositive(float value, string name)
         {
             if (float.IsNaN(value) || float.IsInfinity(value) || value <= 0f)
+            {
                 throw new ArgumentOutOfRangeException(name);
+            }
         }
+
         private static void ValidateNonNegative(float value, string name)
         {
             if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
+            {
                 throw new ArgumentOutOfRangeException(name);
+            }
         }
     }
 }
