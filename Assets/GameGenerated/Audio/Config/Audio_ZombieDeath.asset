@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Audio.Unity::ZombieWar.Features.Audio.Unity.Config.AudioConfig
   id: 32
   clips:
-  - {fileID: 8300000, guid: cbbbba1490d8a408db6c98768e5558ba, type: 3}
+  - {fileID: 8300000, guid: 1d92c5ac0e056b045b4461b147f95be5, type: 3}
   category: 0
   lifetimeMode: 0
   spatialMode: 1
