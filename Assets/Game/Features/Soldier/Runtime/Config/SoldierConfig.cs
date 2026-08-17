@@ -9,10 +9,17 @@ namespace ZombieWar.Features.Soldier.Config
     public sealed class SoldierConfig :
         ScriptableObject
     {
+        [Header("Movement")]
         [SerializeField]
         [Min(0.01f)]
         private float moveSpeed = 5f;
 
+        [Tooltip("How quickly each Soldier body turns toward the joystick movement direction. 0 = snap instantly.")]
+        [SerializeField]
+        [Min(0f)]
+        private float moveRotationDegreesPerSecond = 720f;
+
+        [Header("Aiming")]
         [Tooltip("Used only by an optional aim pivot. Animator-layer aiming can ignore this.")]
         [SerializeField]
         [Min(0f)]
@@ -20,7 +27,10 @@ namespace ZombieWar.Features.Soldier.Config
 
         public SoldierSettings CreateSettings()
         {
-            return new SoldierSettings(moveSpeed, aimRotationDegreesPerSecond);
+            return new SoldierSettings(
+                moveSpeed,
+                moveRotationDegreesPerSecond,
+                aimRotationDegreesPerSecond);
         }
     }
 }

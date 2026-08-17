@@ -116,6 +116,45 @@ namespace ZombieWar.Features.Soldier.View
                 localPosition.Z);
         }
 
+        /// <summary>
+        /// Rotates the whole Soldier body toward the planar joystick movement
+        /// direction. Upper-body aiming remains independent and is applied later
+        /// by SetAimDirection using the Soldier's updated local space.
+        /// </summary>
+        public void SetMovementFacing(
+            in SoldierDirection direction,
+            float rotationDegreesPerSecond,
+            float deltaTime)
+        {
+            if (!direction.HasDirection)
+                return;
+
+            Vector3 planarDirection = new Vector3(
+                direction.X,
+                0f,
+                direction.Z);
+
+            if (planarDirection.sqrMagnitude <= 0.000001f)
+                return;
+
+            planarDirection.Normalize();
+
+            Quaternion targetRotation = Quaternion.LookRotation(
+                planarDirection,
+                Vector3.up);
+
+            if (rotationDegreesPerSecond <= 0f || deltaTime <= 0f)
+            {
+                CachedTransform.rotation = targetRotation;
+                return;
+            }
+
+            CachedTransform.rotation = Quaternion.RotateTowards(
+                CachedTransform.rotation,
+                targetRotation,
+                rotationDegreesPerSecond * deltaTime);
+        }
+
         public void SetMovementSpeed(float normalizedSpeed)
         {
             if (animator == null)

@@ -11,6 +11,7 @@ using ZombieWar.Features.Soldier.Controller;
 using ZombieWar.Features.Soldier.Domain;
 using ZombieWar.Features.Soldier.Factories;
 using ZombieWar.Features.Soldier.Formation;
+using ZombieWar.Features.Soldier.Ports;
 using ZombieWar.Features.Soldier.View;
 using ZombieWar.Features.VFX.Ports;
 using ZombieWar.Integration.Audio.Soldier;
@@ -63,10 +64,14 @@ namespace ZombieWar.Composition
         private IAudioSoldierBinding _audioBinding;
         private IZombieAttackBinding _zombieAttackBinding;
         private IBossAttackBinding _bossAttackBinding;
+        private ISoldierGroupInputBuffer _inputBuffer;
         private IDisposable _gameLevelStartedSubscription;
         private Transform _formationRoot;
         private Transform _worldGroupRoot;
         private CharacterController _groupCharacterController;
+        private SoldierDirection _lastMovementDirection;
+        private float _moveRotationDegreesPerSecond;
+        private bool _hasLastMovementDirection;
         private bool _vfxAnchorBound;
 
         public bool IsInitialized { get; private set; }
@@ -103,6 +108,12 @@ namespace ZombieWar.Composition
 
             SoldierSettings settings =
                 soldierConfig.CreateSettings();
+
+            _moveRotationDegreesPerSecond =
+                settings.MoveRotationDegreesPerSecond;
+
+            _inputBuffer =
+                resolver.Resolve<ISoldierGroupInputBuffer>();
 
             IFormationProvider formationProvider =
                 soldierGroupConfig.CreateFormationProvider();
@@ -142,7 +153,76 @@ namespace ZombieWar.Composition
                 return;
             }
 
-            _runtime.Tick(Time.deltaTime);
+            float deltaTime = Time.deltaTime;
+
+            UpdateMovementFacing(deltaTime);
+            _runtime.Tick(deltaTime);
+        }
+
+        private void UpdateMovementFacing(
+            float deltaTime)
+        {
+            if (_inputBuffer == null ||
+                _runtime == null ||
+                !_runtime.GameplayEnabled ||
+                float.IsNaN(deltaTime) ||
+                float.IsInfinity(deltaTime) ||
+                deltaTime <= 0f)
+            {
+                return;
+            }
+
+            SoldierMoveInput input =
+                _inputBuffer.Current;
+
+            if (input.HasInput)
+            {
+                float x = input.X;
+                float z = input.Y;
+                float sqrMagnitude =
+                    (x * x) + (z * z);
+
+                if (sqrMagnitude > 0.000001f)
+                {
+                    float inverseLength =
+                        1f / Mathf.Sqrt(sqrMagnitude);
+
+                    _lastMovementDirection =
+                        new SoldierDirection(
+                            x * inverseLength,
+                            0f,
+                            z * inverseLength);
+
+                    _hasLastMovementDirection = true;
+                }
+            }
+
+            // Keep finishing the smooth turn after the joystick is released.
+            // This also lets newly activated Soldiers inherit the last group-facing
+            // direction without rotating the formation/camera root itself.
+            if (!_hasLastMovementDirection)
+                return;
+
+            int activeCount = Mathf.Min(
+                _runtime.ActiveSoldierCount,
+                soldierViews.Length);
+
+            for (int i = 0; i < activeCount; i++)
+            {
+                SoldierView soldierView =
+                    soldierViews[i];
+
+                if (soldierView == null ||
+                    !soldierView.gameObject.activeInHierarchy)
+                {
+                    continue;
+                }
+
+                soldierView.SetMovementFacing(
+                    in _lastMovementDirection,
+                    _moveRotationDegreesPerSecond,
+                    deltaTime);
+            }
         }
 
         private void LateUpdate()
@@ -475,9 +555,13 @@ namespace ZombieWar.Composition
 
             _runtime = null;
             _sharedHealth = null;
+            _inputBuffer = null;
             _formationRoot = null;
             _worldGroupRoot = null;
             _groupCharacterController = null;
+            _lastMovementDirection = SoldierDirection.Zero;
+            _moveRotationDegreesPerSecond = 0f;
+            _hasLastMovementDirection = false;
             IsInitialized = false;
         }
     }
