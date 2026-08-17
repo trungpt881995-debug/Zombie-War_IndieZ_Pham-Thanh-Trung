@@ -24,6 +24,13 @@ namespace ZombieWar.Features.Zombie.Unity.View
             "is still active. Set to 0 for an immediate transition.")]
         [SerializeField, Min(0f)] private float deathCrossFadeDuration = 0.05f;
 
+        [Header("Attack Impact Fallback")]
+        [Tooltip(
+            "Fallback seconds from PlayAttack() to the melee impact. " +
+            "A real AnimationEvent_AttackImpact still wins when present. " +
+            "This prevents imported clips / Animator-child hierarchies from producing zero damage.")]
+        [SerializeField, Min(0.01f)] private float attackImpactFallbackDelay = 0.35f;
+
         private static readonly int MovementSpeedHash = Animator.StringToHash("MovementSpeed");
         private static readonly int SpawnHash = Animator.StringToHash("Spawn");
         private static readonly int AttackHash = Animator.StringToHash("Attack");
@@ -33,6 +40,9 @@ namespace ZombieWar.Features.Zombie.Unity.View
         private MaterialPropertyBlock _propertyBlock;
         private int _dissolveId;
         private int _deathStateHash;
+        private bool _attackImpactPending;
+        private bool _attackImpactRaised;
+        private float _attackImpactRemaining;
 
         public event Action AttackImpact;
         public event Action AttackFinished;
@@ -59,14 +69,21 @@ namespace ZombieWar.Features.Zombie.Unity.View
             {
                 animator.applyRootMotion = false;
                 _deathStateHash = ResolveStateHash(animator, deathStateName);
+                EnsureAnimationEventReceiver();
             }
 
             _propertyBlock = new MaterialPropertyBlock();
             _dissolveId = Shader.PropertyToID(dissolveProperty);
         }
 
+        private void Update()
+        {
+            PollAttackImpactFallback();
+        }
+
         public void ResetForReuse()
         {
+            ResetAttackImpactTracking();
             if (animator != null)
             {
                 animator.applyRootMotion = false;
@@ -76,6 +93,7 @@ namespace ZombieWar.Features.Zombie.Unity.View
                 animator.SetFloat(MovementSpeedHash, 0f);
                 ResetTransientTriggers();
                 _deathStateHash = ResolveStateHash(animator, deathStateName);
+                EnsureAnimationEventReceiver();
             }
 
             SetDissolveProgress(0f);
@@ -142,6 +160,8 @@ namespace ZombieWar.Features.Zombie.Unity.View
 
         public void PlaySpawn()
         {
+            ResetAttackImpactTracking();
+
             if (animator != null)
             {
                 animator.SetTrigger(SpawnHash);
@@ -150,6 +170,8 @@ namespace ZombieWar.Features.Zombie.Unity.View
 
         public void PlayAttack()
         {
+            BeginAttackImpactTracking();
+
             if (animator != null)
             {
                 animator.SetTrigger(AttackHash);
@@ -158,6 +180,8 @@ namespace ZombieWar.Features.Zombie.Unity.View
 
         public void PlayHit()
         {
+            ResetAttackImpactTracking();
+
             if (animator != null)
             {
                 animator.SetTrigger(HitHash);
@@ -166,6 +190,7 @@ namespace ZombieWar.Features.Zombie.Unity.View
 
         public void PlayDeath()
         {
+            ResetAttackImpactTracking();
             if (animator == null)
             {
                 return;
@@ -226,11 +251,81 @@ namespace ZombieWar.Features.Zombie.Unity.View
             }
         }
 
-        // Add these methods as Unity Animation Events at the appropriate clips.
-        public void AnimationEvent_AttackImpact() => AttackImpact?.Invoke();
-        public void AnimationEvent_AttackFinished() => AttackFinished?.Invoke();
+        // Preferred path: put these Unity Animation Events on the imported clips.
+        // The fallback makes AttackImpact robust when the event is missing; the relay
+        // makes the event robust when Animator lives on a child model.
+        public void AnimationEvent_AttackImpact()
+        {
+            RaiseAttackImpactOnce();
+        }
+
+        public void AnimationEvent_AttackFinished()
+        {
+            ResetAttackImpactTracking();
+            AttackFinished?.Invoke();
+        }
+
         public void AnimationEvent_HitFinished() => HitFinished?.Invoke();
         public void AnimationEvent_DeathFinished() => DeathFinished?.Invoke();
+
+        private void BeginAttackImpactTracking()
+        {
+            _attackImpactPending = true;
+            _attackImpactRaised = false;
+            _attackImpactRemaining = Mathf.Max(0.01f, attackImpactFallbackDelay);
+        }
+
+        private void PollAttackImpactFallback()
+        {
+            if (!_attackImpactPending || _attackImpactRaised)
+            {
+                return;
+            }
+
+            _attackImpactRemaining -= Time.deltaTime;
+            if (_attackImpactRemaining <= 0f)
+            {
+                RaiseAttackImpactOnce();
+            }
+        }
+
+        private void RaiseAttackImpactOnce()
+        {
+            if (!_attackImpactPending || _attackImpactRaised)
+            {
+                return;
+            }
+
+            _attackImpactRaised = true;
+            _attackImpactPending = false;
+            AttackImpact?.Invoke();
+        }
+
+        private void ResetAttackImpactTracking()
+        {
+            _attackImpactPending = false;
+            _attackImpactRaised = false;
+            _attackImpactRemaining = 0f;
+        }
+
+        private void EnsureAnimationEventReceiver()
+        {
+            if (animator == null || animator.gameObject == gameObject)
+            {
+                return;
+            }
+
+            ZombieAnimationEventRelay relay =
+                animator.GetComponent<ZombieAnimationEventRelay>();
+
+            if (relay == null)
+            {
+                relay = animator.gameObject
+                    .AddComponent<ZombieAnimationEventRelay>();
+            }
+
+            relay.Bind(this);
+        }
 
         private void ResetTransientTriggers()
         {

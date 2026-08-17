@@ -50,7 +50,8 @@
         "ZombieWar.Integration.Audio.Soldier",
         "ZombieWar.GameFlow",
         "ZombieWar.Control",
-        "ZombieWar.Integration.UI.GameFlow"
+        "ZombieWar.Integration.UI.GameFlow",
+        "ZombieWar.Integration.UI.Health"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

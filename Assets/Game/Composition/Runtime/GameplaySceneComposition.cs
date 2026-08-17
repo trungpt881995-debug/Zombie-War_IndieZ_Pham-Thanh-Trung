@@ -8,6 +8,7 @@ using VContainer;
 using ZombieWar.Bootstrap;
 using ZombieWar.Features.Control.Input;
 using ZombieWar.Features.Control.Ports;
+using ZombieWar.Features.Boss.Commands;
 using ZombieWar.Features.Boss.Factories;
 using ZombieWar.Features.Boss.Services;
 using ZombieWar.Features.Camera.Ports;
@@ -114,6 +115,7 @@ namespace ZombieWar.Composition
         [SerializeField]
         private SoldierRuntimeRoot soldierRuntimeRoot;
 
+        private ICommandBus _commands;
         private bool _isBound;
 
         public bool IsBound => _isBound;
@@ -133,6 +135,12 @@ namespace ZombieWar.Composition
             spawnRuntimeRoot?.SetGameplayEnabled(false);
             zombieRuntimeRoot?.SetGameplayEnabled(false);
             zombieRuntimeRoot?.CancelAll();
+
+            // Boss is pooled/persistent within the Gameplay scene just like normal
+            // combat entities. Replay/Next must release any still-active Boss before
+            // the next GameLevel starts; otherwise the old Boss survives the reset.
+            _commands?.Send(new CancelAllBossesCommand());
+
             projectileRuntimeRoot?.CancelAll();
             weaponRuntimeRoot?.ResetForGameLevel();
         }
@@ -193,6 +201,8 @@ namespace ZombieWar.Composition
             {
                 throw new ArgumentNullException(nameof(resolver));
             }
+
+            _commands = resolver.Resolve<ICommandBus>();
 
             ValidateReferences();
 
@@ -460,6 +470,7 @@ namespace ZombieWar.Composition
         {
             // Individual RuntimeRoot components own their own shutdown/unbind logic.
             // Do not double-dispose persistent DI singletons from this composition root.
+            _commands = null;
             _isBound = false;
         }
     }

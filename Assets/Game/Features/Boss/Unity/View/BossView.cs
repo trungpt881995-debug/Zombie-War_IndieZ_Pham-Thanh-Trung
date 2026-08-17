@@ -11,6 +11,12 @@ namespace ZombieWar.Features.Boss.Unity.View
         [SerializeField] private Animator animator;
         [SerializeField] private Collider[] gameplayColliders;
 
+        [Header("Attack Impact Fallback")]
+        [Tooltip(
+            "Fallback seconds from PlayAttack() to the melee impact. " +
+            "A real AnimationEvent_AttackImpact still wins when present.")]
+        [SerializeField, Min(0.01f)] private float attackImpactFallbackDelay = 0.4f;
+
         private static readonly int MovementSpeedHash =
             Animator.StringToHash("MovementSpeed");
         private static readonly int SpawnHash =
@@ -30,6 +36,9 @@ namespace ZombieWar.Features.Boss.Unity.View
         private bool _deathFinishedRaised;
         private int _stateBeforeDeathHash;
         private int _deathStateHash;
+        private bool _attackImpactPending;
+        private bool _attackImpactRaised;
+        private float _attackImpactRemaining;
 
         public event Action AttackImpact;
         public event Action AttackFinished;
@@ -63,11 +72,13 @@ namespace ZombieWar.Features.Boss.Unity.View
 
         private void Update()
         {
+            PollAttackImpactFallback();
             PollDeathAnimationCompletion();
         }
 
         public void ResetForReuse()
         {
+            ResetAttackImpactTracking();
             ResetDeathCompletionTracking();
 
             if (animator == null)
@@ -150,6 +161,8 @@ namespace ZombieWar.Features.Boss.Unity.View
 
         public void PlaySpawn()
         {
+            ResetAttackImpactTracking();
+
             if (animator != null)
             {
                 animator.SetTrigger(SpawnHash);
@@ -158,6 +171,8 @@ namespace ZombieWar.Features.Boss.Unity.View
 
         public void PlayAttack()
         {
+            BeginAttackImpactTracking();
+
             if (animator != null)
             {
                 animator.SetTrigger(AttackHash);
@@ -166,6 +181,8 @@ namespace ZombieWar.Features.Boss.Unity.View
 
         public void PlayHit()
         {
+            ResetAttackImpactTracking();
+
             if (animator != null)
             {
                 animator.SetTrigger(HitHash);
@@ -174,6 +191,7 @@ namespace ZombieWar.Features.Boss.Unity.View
 
         public void PlayDeath()
         {
+            ResetAttackImpactTracking();
             ResetDeathCompletionTracking();
             _deathCompletionPending = true;
 
@@ -203,11 +221,12 @@ namespace ZombieWar.Features.Boss.Unity.View
 
         public void AnimationEvent_AttackImpact()
         {
-            AttackImpact?.Invoke();
+            RaiseAttackImpactOnce();
         }
 
         public void AnimationEvent_AttackFinished()
         {
+            ResetAttackImpactTracking();
             AttackFinished?.Invoke();
         }
 
@@ -219,6 +238,46 @@ namespace ZombieWar.Features.Boss.Unity.View
         public void AnimationEvent_DeathFinished()
         {
             RaiseDeathFinishedOnce();
+        }
+
+        private void BeginAttackImpactTracking()
+        {
+            _attackImpactPending = true;
+            _attackImpactRaised = false;
+            _attackImpactRemaining = Mathf.Max(0.01f, attackImpactFallbackDelay);
+        }
+
+        private void PollAttackImpactFallback()
+        {
+            if (!_attackImpactPending || _attackImpactRaised)
+            {
+                return;
+            }
+
+            _attackImpactRemaining -= Time.deltaTime;
+            if (_attackImpactRemaining <= 0f)
+            {
+                RaiseAttackImpactOnce();
+            }
+        }
+
+        private void RaiseAttackImpactOnce()
+        {
+            if (!_attackImpactPending || _attackImpactRaised)
+            {
+                return;
+            }
+
+            _attackImpactRaised = true;
+            _attackImpactPending = false;
+            AttackImpact?.Invoke();
+        }
+
+        private void ResetAttackImpactTracking()
+        {
+            _attackImpactPending = false;
+            _attackImpactRaised = false;
+            _attackImpactRemaining = 0f;
         }
 
         private void PollDeathAnimationCompletion()

@@ -19,6 +19,7 @@ using ZombieWar.Integration.Boss;
 using ZombieWar.Integration.Feedback.Soldier;
 using ZombieWar.Integration.GameState.Soldier;
 using ZombieWar.Integration.Level.Soldier;
+using ZombieWar.Integration.UI.Health;
 using ZombieWar.Integration.VFX.Soldier;
 using ZombieWar.Integration.Zombie;
 
@@ -64,6 +65,7 @@ namespace ZombieWar.Composition
         private IAudioSoldierBinding _audioBinding;
         private IZombieAttackBinding _zombieAttackBinding;
         private IBossAttackBinding _bossAttackBinding;
+        private IUIHealthBinding _uiHealthBinding;
         private ISoldierGroupInputBuffer _inputBuffer;
         private IDisposable _gameLevelStartedSubscription;
         private Transform _formationRoot;
@@ -462,6 +464,15 @@ namespace ZombieWar.Composition
 
             _audioBinding.Bind(_runtime.GroupId);
 
+            // The concrete Shared Health is scene-owned, so bind it to the
+            // persistent UI integration only after Soldier runtime creation.
+            _uiHealthBinding =
+                resolver.Resolve<IUIHealthBinding>();
+
+            _uiHealthBinding.Bind(
+                _runtime.GroupId,
+                _sharedHealth);
+
             _vfxBinding =
                 resolver.Resolve<ISoldierVFXAnchorBinding>();
 
@@ -548,6 +559,7 @@ namespace ZombieWar.Composition
 
                 _feedbackBinding?.Unbind(_runtime.GroupId);
                 _audioBinding?.Unbind(_runtime.GroupId);
+                _uiHealthBinding?.Unbind(_runtime.GroupId);
             }
 
             _zombieAttackBinding?.Unbind();
@@ -555,6 +567,7 @@ namespace ZombieWar.Composition
 
             _runtime = null;
             _sharedHealth = null;
+            _uiHealthBinding = null;
             _inputBuffer = null;
             _formationRoot = null;
             _worldGroupRoot = null;
