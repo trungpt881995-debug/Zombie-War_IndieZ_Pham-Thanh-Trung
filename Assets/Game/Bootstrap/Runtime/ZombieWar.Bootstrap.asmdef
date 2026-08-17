@@ -10,6 +10,7 @@
         "ZombieWar.Targeting",
         "ZombieWar.Soldier",
         "ZombieWar.Projectile",
+        "ZombieWar.Projectile.Unity",
         "ZombieWar.Integration.Weapon",
         "ZombieWar.Weapon",
         "ZombieWar.Integration.Soldier",

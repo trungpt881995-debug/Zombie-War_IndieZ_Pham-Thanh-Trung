@@ -456,7 +456,7 @@ namespace ZombieWar.Bootstrap
             // owns independent per-Soldier fire sessions. Runtime config/projectile binding
             // is completed by WeaponRuntimeRoot in the Gameplay Scene.
             builder.RegisterInstance(NullWeaponView.Instance).As<IWeaponView>();
-            builder.RegisterInstance(NullWeaponFlamePort.Instance).As<IWeaponFlamePort>();
+            builder.Register<WeaponFlameDamagePort>(Lifetime.Singleton).As<IWeaponFlamePort>();
             builder.Register<WeaponVFXFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<WeaponGameFeelFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<CompositeWeaponFeedbackPort>(Lifetime.Singleton).AsSelf();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5692ba2054347079aad74132753d3e, type: 3}
   m_Name: ZombieConfig
   m_EditorClassIdentifier: ZombieWar.Zombie.Unity::ZombieWar.Features.Zombie.Unity.Config.ZombieConfig
-  maxHealth: 10
+  maxHealth: 30
   moveSpeed: 2.5
   rotationSpeed: 540
   attackDamage: 10

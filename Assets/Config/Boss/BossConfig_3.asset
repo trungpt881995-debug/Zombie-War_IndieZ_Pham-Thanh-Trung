@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 1000
   moveSpeed: 3
   rotationSpeed: 360
-  scale: 2.5
+  scale: 2
   attackDamage: 25
   attackRange: 2
   attackExitRangeBonus: 0.3

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VFX_BulletImpact
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 20
-  prefab: {fileID: 6585493152650377269, guid: 745331548a7278640aa059802a9484f9, type: 3}
+  prefab: {fileID: -6298735741479033612, guid: 556d09d7fda29fd4185eed4067d5777b, type: 3}
   lifetime: 0
   duration: 0.25
   allowDuringTerminalDrain: 1
