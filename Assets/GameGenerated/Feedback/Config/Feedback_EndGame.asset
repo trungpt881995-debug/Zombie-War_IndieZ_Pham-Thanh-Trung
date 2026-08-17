@@ -18,7 +18,7 @@ MonoBehaviour:
   cameraEnabled: 1
   cameraCue: 4
   cameraOccupancyDuration: 0.4
-  hapticEnabled: 1
+  hapticEnabled: 0
   hapticStrength: 3
   hapticCooldown: 0.35
   screenEnabled: 1
