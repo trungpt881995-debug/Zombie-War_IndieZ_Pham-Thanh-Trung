@@ -19,7 +19,7 @@ MonoBehaviour:
   maxRange: 8
   targetRange: 5
   selectionCooldown: 2
-  spreadAngle: 0
+  spreadAngle: 60
   projectileCount: 1
   projectileLifetime: 3
   explosionRadius: 0
