@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.VFX.Unity::ZombieWar.Features.VFX.Unity.Config.VFXConfig
   id: 15
   prefab: {fileID: 866359114329424765, guid: 3631e3c99d52b594097c09278c60f5cf, type: 3}
-  lifetime: 1
-  duration: 1
+  lifetime: 0
+  duration: 5
   allowDuringTerminalDrain: 0
   prewarmCount: 4
   maxCapacity: 8
