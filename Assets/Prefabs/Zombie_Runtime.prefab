@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 6037454283614881194}
   - component: {fileID: 8298857516502528516}
   - component: {fileID: 3540835997642062799}
+  - component: {fileID: 6995291096197085766}
+  - component: {fileID: 7286339706601392195}
   m_Layer: 0
   m_Name: Zombie_Runtime
   m_TagString: Untagged
@@ -83,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Integration.Zombie.Unity::ZombieWar.Integration.Zombie.Unity.ZombieRuntimeHost
   zombieView: {fileID: 2676989038655110156}
-  motor: {fileID: 8298857516502528516}
+  motor: {fileID: 0}
   projectileDamageableProxy: {fileID: 3540835997642062799}
   aimPoint: {fileID: 5927466875431655431}
   fallbackAimHeight: 1.25
@@ -107,6 +109,7 @@ MonoBehaviour:
   dissolveProperty: _DissolveAmount
   deathStateName: Death
   deathCrossFadeDuration: 0.05
+  attackImpactFallbackDelay: 0.35
 --- !u!143 &6037454283614881194
 CharacterController:
   m_ObjectHideFlags: 0
@@ -159,6 +162,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Projectile.Unity::ZombieWar.Features.Projectile.Unity.Collision.ProjectileDamageableProxy
   damageableBehaviour: {fileID: 0}
+--- !u!195 &6995291096197085766
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6576407510196923749}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.32
+  m_Speed: 3.5
+  m_Acceleration: 12
+  avoidancePriority: 51
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.05
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 1.8
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
+--- !u!114 &7286339706601392195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6576407510196923749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce448ab83ae9b4a19b4ba8ae7c9df56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZombieWar.Zombie.Unity::ZombieWar.Features.Zombie.Unity.Movement.NavMeshZombieMotor
+  radius: 0.32
+  height: 1.8
+  baseOffset: 0
+  acceleration: 12
+  stoppingDistance: 0.05
+  autoBraking: 0
+  autoRepath: 1
+  obstacleAvoidanceType: 1
+  avoidancePriority: 50
+  avoidancePrioritySpread: 20
+  repathInterval: 0.12
+  destinationChangeThreshold: 0.15
+  destinationSampleDistance: 1.5
+  warpSampleDistance: 2
+  recoverySampleDistance: 1
+  logNavigationWarnings: 1
 --- !u!1 &8124126514229081337
 GameObject:
   m_ObjectHideFlags: 0

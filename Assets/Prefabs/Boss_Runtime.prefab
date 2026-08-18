@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 6146421815605435612}
   - component: {fileID: 94393317785799196}
   - component: {fileID: 388825103169255420}
+  - component: {fileID: -5664714318756171801}
+  - component: {fileID: 6640926042288078745}
   m_Layer: 0
   m_Name: Boss_Runtime
   m_TagString: Untagged
@@ -154,6 +156,57 @@ MonoBehaviour:
   animator: {fileID: 8061322005225951208}
   gameplayColliders:
   - {fileID: 6037454283614881194}
+  attackImpactFallbackDelay: 0.4
+--- !u!195 &-5664714318756171801
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6576407510196923749}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.32
+  m_Speed: 3.5
+  m_Acceleration: 12
+  avoidancePriority: 55
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.05
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 1.8
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
+--- !u!114 &6640926042288078745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6576407510196923749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce448ab83ae9b4a19b4ba8ae7c9df56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZombieWar.Zombie.Unity::ZombieWar.Features.Zombie.Unity.Movement.NavMeshZombieMotor
+  radius: 0.32
+  height: 1.8
+  baseOffset: 0
+  acceleration: 12
+  stoppingDistance: 0.05
+  autoBraking: 0
+  autoRepath: 1
+  obstacleAvoidanceType: 1
+  avoidancePriority: 50
+  avoidancePrioritySpread: 20
+  repathInterval: 0.12
+  destinationChangeThreshold: 0.15
+  destinationSampleDistance: 1.5
+  warpSampleDistance: 2
+  recoverySampleDistance: 1
+  logNavigationWarnings: 1
 --- !u!1 &7138498353440792983
 GameObject:
   m_ObjectHideFlags: 0

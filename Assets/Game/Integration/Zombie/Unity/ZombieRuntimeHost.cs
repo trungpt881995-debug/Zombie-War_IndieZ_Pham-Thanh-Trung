@@ -11,7 +11,7 @@ namespace ZombieWar.Integration.Zombie.Unity
     public sealed class ZombieRuntimeHost : MonoBehaviour
     {
         [SerializeField] private ZombieView zombieView;
-        [SerializeField] private CharacterControllerZombieMotor motor;
+        [SerializeField] private NavMeshZombieMotor motor;
         [SerializeField] private ProjectileDamageableProxy projectileDamageableProxy;
 
         [Header("Soldier Targeting")]
@@ -22,7 +22,7 @@ namespace ZombieWar.Integration.Zombie.Unity
         private float fallbackAimHeight = 1.25f;
 
         public ZombieView View => zombieView;
-        public CharacterControllerZombieMotor Motor => motor;
+        public NavMeshZombieMotor Motor => EnsureMotor();
         public ProjectileDamageableProxy DamageableProxy => projectileDamageableProxy;
         public ZombieController Controller { get; private set; }
         public ZombieCombatBridge CombatBridge { get; private set; }
@@ -32,8 +32,7 @@ namespace ZombieWar.Integration.Zombie.Unity
             if (zombieView == null)
                 zombieView = GetComponent<ZombieView>();
 
-            if (motor == null)
-                motor = GetComponent<CharacterControllerZombieMotor>();
+            EnsureMotor();
 
             if (projectileDamageableProxy == null)
                 projectileDamageableProxy = GetComponent<ProjectileDamageableProxy>();
@@ -92,6 +91,18 @@ namespace ZombieWar.Integration.Zombie.Unity
             zombieView.AttackFinished -= Controller.NotifyAttackAnimationFinished;
             zombieView.HitFinished -= Controller.NotifyHitAnimationFinished;
             zombieView.DeathFinished -= Controller.NotifyDeathAnimationFinished;
+        }
+
+
+        private NavMeshZombieMotor EnsureMotor()
+        {
+            if (motor == null)
+                motor = GetComponent<NavMeshZombieMotor>();
+
+            if (motor == null)
+                motor = gameObject.AddComponent<NavMeshZombieMotor>();
+
+            return motor;
         }
 
         private static Transform FindChildRecursive(

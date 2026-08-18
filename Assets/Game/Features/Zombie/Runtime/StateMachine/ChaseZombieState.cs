@@ -1,4 +1,5 @@
 using ZombieWar.Features.Zombie.Domain;
+using ZombieWar.Features.Zombie.Ports;
 
 namespace ZombieWar.Features.Zombie.StateMachine
 {
@@ -48,7 +49,21 @@ namespace ZombieWar.Features.Zombie.StateMachine
             ZombiePoint destination = target.Position;
             _context.Motor.MoveTowards(in destination, _context.Model.Definition.MoveSpeed, deltaTime);
             _context.View.SetLocomotionSpeed(_context.Motor.NormalizedSpeed);
-            _context.View.FaceTarget(in destination, _context.Model.Definition.RotationSpeed, deltaTime);
+
+            // NavMesh movement may steer around corners/obstacles. When the motor exposes
+            // a steering point, face that point instead of looking through the obstacle at
+            // the final Soldier destination. Non-NavMesh motors keep the old behaviour.
+            ZombiePoint facingTarget = destination;
+            if (_context.Motor is IZombieSteeringProvider steeringProvider &&
+                steeringProvider.TryGetSteeringTarget(out ZombiePoint steeringTarget))
+            {
+                facingTarget = steeringTarget;
+            }
+
+            _context.View.FaceTarget(
+                in facingTarget,
+                _context.Model.Definition.RotationSpeed,
+                deltaTime);
         }
         public void Exit() { _context.Motor.Stop(); _context.View.SetLocomotionSpeed(0f); }
     }
