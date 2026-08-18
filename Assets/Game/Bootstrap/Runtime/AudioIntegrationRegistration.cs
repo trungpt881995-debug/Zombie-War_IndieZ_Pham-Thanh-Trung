@@ -16,11 +16,7 @@ namespace ZombieWar.Bootstrap
         private readonly SoldierDamageAudioBridge _soldier;
         private readonly LevelAudioBridge _level;
 
-        public AudioIntegrationRegistration(
-            GameStateAudioBridge gameState,
-            GameFlowMusicBridge gameFlow,
-            SoldierDamageAudioBridge soldier,
-            LevelAudioBridge level)
+        public AudioIntegrationRegistration(GameStateAudioBridge gameState, GameFlowMusicBridge gameFlow, SoldierDamageAudioBridge soldier, LevelAudioBridge level)
         {
             _gameState = gameState;
             _gameFlow = gameFlow;

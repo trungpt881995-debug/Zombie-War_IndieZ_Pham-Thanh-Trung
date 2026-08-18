@@ -9,9 +9,7 @@ namespace ZombieWar.Bootstrap
         private readonly LevelBossPhaseBridge _phase;
         private readonly BossDeathToLevelBridge _death;
 
-        public BossIntegrationRegistration(
-            LevelBossPhaseBridge phase,
-            BossDeathToLevelBridge death)
+        public BossIntegrationRegistration( LevelBossPhaseBridge phase, BossDeathToLevelBridge death)
         {
             _phase = phase;
             _death = death;

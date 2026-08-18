@@ -12,10 +12,7 @@ namespace ZombieWar.Bootstrap
         private readonly BossScoreBridge _boss;
         private readonly LevelScoreLifecycleBridge _level;
 
-        public ScoreIntegrationRegistration(
-            ZombieScoreBridge zombie,
-            BossScoreBridge boss,
-            LevelScoreLifecycleBridge level)
+        public ScoreIntegrationRegistration(ZombieScoreBridge zombie, BossScoreBridge boss, LevelScoreLifecycleBridge level)
         {
             _zombie = zombie;
             _boss = boss;

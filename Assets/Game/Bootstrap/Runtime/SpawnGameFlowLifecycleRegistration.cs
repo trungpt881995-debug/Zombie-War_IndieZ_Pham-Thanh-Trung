@@ -7,10 +7,10 @@ using ZombieWar.GameFlow.Model;
 
 namespace ZombieWar.Bootstrap
 {
-    /// <summary>
-    /// Starts Zombie spawning only after a Loading -> Gameplay transition.
-    /// Pause -> Gameplay does not restart Spawn, preserving explicit stops such as BossPhase.
-    /// </summary>
+    
+    // Starts Zombie spawning only after a Loading -> Gameplay transition.
+    // Pause -> Gameplay does not restart Spawn, preserving explicit stops such as BossPhase.
+    
     public sealed class SpawnGameFlowLifecycleRegistration : IStartable, IDisposable
     {
         private readonly GameFlowModel _flowModel;
@@ -19,9 +19,7 @@ namespace ZombieWar.Bootstrap
         private bool _startAfterLoading;
         private bool _started;
 
-        public SpawnGameFlowLifecycleRegistration(
-            GameFlowModel flowModel,
-            ICommandBus commands)
+        public SpawnGameFlowLifecycleRegistration(GameFlowModel flowModel, ICommandBus commands)
         {
             _flowModel = flowModel ?? throw new ArgumentNullException(nameof(flowModel));
             _commands = commands ?? throw new ArgumentNullException(nameof(commands));

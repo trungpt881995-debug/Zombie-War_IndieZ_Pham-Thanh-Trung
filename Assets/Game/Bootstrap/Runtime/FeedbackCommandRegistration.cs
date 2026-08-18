@@ -11,11 +11,7 @@ namespace ZombieWar.Bootstrap
         private readonly SetFeedbackModeCommandHandler _mode;
         private readonly CancelFeedbackCommandHandler _cancel;
 
-        public FeedbackCommandRegistration(
-            ICommandRegistry registry,
-            PlayFeedbackCommandHandler play,
-            SetFeedbackModeCommandHandler mode,
-            CancelFeedbackCommandHandler cancel)
+        public FeedbackCommandRegistration(ICommandRegistry registry, PlayFeedbackCommandHandler play, SetFeedbackModeCommandHandler mode, CancelFeedbackCommandHandler cancel)
         {
             _registry = registry;
             _play = play;

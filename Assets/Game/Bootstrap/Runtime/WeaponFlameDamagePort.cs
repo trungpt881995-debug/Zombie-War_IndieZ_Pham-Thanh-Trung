@@ -9,10 +9,10 @@ using ZombieWar.Features.Weapon.Ports;
 
 namespace ZombieWar.Bootstrap
 {
-    /// <summary>
-    /// Unity-side gameplay adapter for Flamethrower tick damage.
-    /// Weapon core owns cadence/data; this adapter owns Physics overlap and Damage application.
-    /// </summary>
+    
+    // Unity-side gameplay adapter for Flamethrower tick damage.
+    // Weapon core owns cadence/data; this adapter owns Physics overlap and Damage application.
+    
     public sealed class WeaponFlameDamagePort : IWeaponFlamePort
     {
         private const int ColliderBufferSize = 512;
@@ -37,22 +37,12 @@ namespace ZombieWar.Bootstrap
 
         public void ApplyTick(in WeaponFlameRequest request)
         {
-            if (!TryBuildVolume(
-                    in request,
-                    out Vector3 start,
-                    out Vector3 end,
-                    out float radius))
+            if (!TryBuildVolume(in request, out Vector3 start, out Vector3 end, out float radius))
             {
                 return;
             }
 
-            int count = Physics.OverlapCapsuleNonAlloc(
-                start,
-                end,
-                radius,
-                _colliderBuffer,
-                Physics.DefaultRaycastLayers,
-                QueryTriggerInteraction.Collide);
+            int count = Physics.OverlapCapsuleNonAlloc(start, end, radius, _colliderBuffer, Physics.DefaultRaycastLayers,QueryTriggerInteraction.Collide);
 
             _uniqueEntities.Clear();
 
@@ -65,17 +55,12 @@ namespace ZombieWar.Bootstrap
                 }
 
                 IDamageable damageable = FindDamageable(collider);
-                if (damageable == null ||
-                    damageable.EntityId.Equals(request.OwnerId) ||
-                    !_uniqueEntities.Add(damageable.EntityId))
+                if (damageable == null || damageable.EntityId.Equals(request.OwnerId) || !_uniqueEntities.Add(damageable.EntityId))
                 {
                     continue;
                 }
 
-                var damage = new DamageInfo(
-                    request.OwnerId,
-                    request.DamagePerTick,
-                    "Flamethrower");
+                var damage = new DamageInfo(request.OwnerId, request.DamagePerTick, "Flamethrower");
 
                 _damageService.TryApply(damageable, damage);
             }
@@ -86,21 +71,11 @@ namespace ZombieWar.Bootstrap
             // No persistent gameplay state is owned here.
         }
 
-        private static bool TryBuildVolume(
-            in WeaponFlameRequest request,
-            out Vector3 start,
-            out Vector3 end,
-            out float radius)
+        private static bool TryBuildVolume( in WeaponFlameRequest request, out Vector3 start, out Vector3 end, out float radius)
         {
-            start = new Vector3(
-                request.Origin.X,
-                request.Origin.Y,
-                request.Origin.Z);
+            start = new Vector3(request.Origin.X, request.Origin.Y, request.Origin.Z);
 
-            Vector3 direction = new Vector3(
-                request.Direction.X,
-                request.Direction.Y,
-                request.Direction.Z);
+            Vector3 direction = new Vector3( request.Direction.X, request.Direction.Y, request.Direction.Z);
 
             float sqrMagnitude = direction.sqrMagnitude;
             if (sqrMagnitude <= MinimumDirectionSqrMagnitude)
@@ -120,12 +95,9 @@ namespace ZombieWar.Bootstrap
 
         private static IDamageable FindDamageable(Collider collider)
         {
-            ProjectileDamageableProxy proxy =
-                collider.GetComponentInParent<ProjectileDamageableProxy>();
+            ProjectileDamageableProxy proxy = collider.GetComponentInParent<ProjectileDamageableProxy>();
 
-            return proxy != null
-                ? proxy.Damageable
-                : null;
+            return proxy != null ? proxy.Damageable : null;
         }
     }
 }

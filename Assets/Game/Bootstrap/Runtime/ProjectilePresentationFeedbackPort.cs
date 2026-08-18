@@ -25,36 +25,18 @@ namespace ZombieWar.Bootstrap
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
         }
 
-        public void OnHit(
-            EntityId projectileId,
-            EntityId targetId,
-            in ProjectilePoint point)
+        public void OnHit(EntityId projectileId, EntityId targetId, in ProjectilePoint point)
         {
-            _vfx.OnHit(
-                projectileId,
-                targetId,
-                in point);
+            _vfx.OnHit( projectileId, targetId, in point);
 
-            _audio.OnHit(
-                projectileId,
-                targetId,
-                in point);
+            _audio.OnHit( projectileId, targetId, in point);
         }
 
-        public void OnExplosion(
-            EntityId projectileId,
-            in ProjectilePoint point,
-            float radius)
+        public void OnExplosion( EntityId projectileId, in ProjectilePoint point, float radius)
         {
-            _vfx.OnExplosion(
-                projectileId,
-                in point,
-                radius);
+            _vfx.OnExplosion(projectileId, in point, radius);
 
-            _audio.OnExplosion(
-                projectileId,
-                in point,
-                radius);
+            _audio.OnExplosion( projectileId, in point, radius);
         }
     }
 }

@@ -14,14 +14,7 @@ namespace ZombieWar.Bootstrap
         private readonly StopMusicCommandHandler _stopMusic;
         private readonly CancelAllAudioCommandHandler _cancel;
 
-        public AudioCommandRegistration(
-            ICommandRegistry registry,
-            PlayAudioCommandHandler play,
-            StopAudioCommandHandler stop,
-            SetWorldAudioModeCommandHandler mode,
-            PlayMusicCommandHandler playMusic,
-            StopMusicCommandHandler stopMusic,
-            CancelAllAudioCommandHandler cancel)
+        public AudioCommandRegistration( ICommandRegistry registry, PlayAudioCommandHandler play, StopAudioCommandHandler stop, SetWorldAudioModeCommandHandler mode, PlayMusicCommandHandler playMusic, StopMusicCommandHandler stopMusic, CancelAllAudioCommandHandler cancel)
         {
             _registry = registry;
             _play = play;

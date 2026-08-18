@@ -12,10 +12,7 @@ namespace ZombieWar.Bootstrap
         private readonly SoldierDamageFeedbackBridge _soldier;
         private readonly LevelFeedbackBridge _level;
 
-        public FeedbackIntegrationRegistration(
-            GameStateFeedbackBridge gameState,
-            SoldierDamageFeedbackBridge soldier,
-            LevelFeedbackBridge level)
+        public FeedbackIntegrationRegistration(GameStateFeedbackBridge gameState, SoldierDamageFeedbackBridge soldier, LevelFeedbackBridge level)
         {
             _gameState = gameState;
             _soldier = soldier;

@@ -9,9 +9,7 @@ namespace ZombieWar.Bootstrap
         private readonly ICommandRegistry _commands;
         private readonly SelectWeaponCommandHandler _handler;
 
-        public WeaponCommandRegistration(
-            ICommandRegistry commands,
-            SelectWeaponCommandHandler handler)
+        public WeaponCommandRegistration(ICommandRegistry commands,SelectWeaponCommandHandler handler)
         {
             _commands = commands;
             _handler = handler;

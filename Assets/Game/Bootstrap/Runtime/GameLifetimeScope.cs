@@ -157,8 +157,7 @@ namespace ZombieWar.Bootstrap
             builder.Register<IGameLogger, UnityGameLogger>(Lifetime.Singleton);
             builder.Register<IGameplaySession, GameplaySession>(Lifetime.Singleton);
             var entityIdGenerator = new SequentialEntityIdGenerator();
-            builder.RegisterInstance(entityIdGenerator)
-                .As<IEntityIdGenerator>();
+            builder.RegisterInstance(entityIdGenerator).As<IEntityIdGenerator>();
             builder.Register<ILevelLifecycle, LevelLifecycle>(Lifetime.Singleton);
             var gameplayRandom =new XorShiftGameplayRandom(123456789);
 
@@ -175,8 +174,7 @@ namespace ZombieWar.Bootstrap
             var soldierInputBuffer = new SoldierGroupInputBuffer();
             builder.RegisterInstance(soldierInputBuffer).As<ISoldierGroupInputBuffer>();
 
-            builder.Register<ControlMovementIntentToSoldierAdapter>(Lifetime.Singleton)
-                .As<IMovementIntentSink>();
+            builder.Register<ControlMovementIntentToSoldierAdapter>(Lifetime.Singleton).As<IMovementIntentSink>();
 
             // Zombie War game-specific Damage implementation.
             builder.Register<DamageModel>(Lifetime.Singleton);
@@ -188,31 +186,21 @@ namespace ZombieWar.Bootstrap
             // Normal Zombie AI/lifecycle core. Scene-specific pool, Unity motor/view and
             // Soldier Transform bindings are composed by ZombieRuntimeRoot.
             var zombieTargetProvider = new ZombieSoldierTargetProvider();
-            builder.RegisterInstance(zombieTargetProvider)
-                .As<IZombieTargetProvider>()
-                .As<IZombieSoldierTargetRegistry>();
-            builder.Register<ZombieAttackDamageAdapter>(Lifetime.Singleton)
-                .As<IZombieAttackPort>()
-                .As<IZombieAttackBinding>();
+            builder.RegisterInstance(zombieTargetProvider).As<IZombieTargetProvider>().As<IZombieSoldierTargetRegistry>();
+            builder.Register<ZombieAttackDamageAdapter>(Lifetime.Singleton).As<IZombieAttackPort>().As<IZombieAttackBinding>();
             builder.Register<ZombieVFXFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<ZombieAudioFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<CompositeZombiePresentationFeedbackPort>(Lifetime.Singleton)
-                .As<IZombieFeedbackPort>();
+            builder.Register<CompositeZombiePresentationFeedbackPort>(Lifetime.Singleton).As<IZombieFeedbackPort>();
             builder.Register<IZombieFactory, ZombieFactory>(Lifetime.Singleton);
 
             // Map runtime owns current-map lifecycle and immutable spatial context.
             // Scene-specific MapCatalogConfig/MapAssetLoaderBehaviour are bound by MapRuntimeRoot.
-            builder.Register<MapRuntime>(Lifetime.Singleton)
-                .As<IMapRuntime>()
-                .As<IMapRuntimeConfigurator>();
+            builder.Register<MapRuntime>(Lifetime.Singleton).As<IMapRuntime>().As<IMapRuntimeConfigurator>();
 
             // Camera runtime is feature-isolated. Map bounds are adapted through a pure
             // cross-feature provider; Soldier target + concrete Camera rig remain scene-specific.
-            builder.Register<MapCameraBoundsProvider>(Lifetime.Singleton)
-                .As<ICameraBoundsProvider>();
-            builder.Register<CameraRuntime>(Lifetime.Singleton)
-                .As<ICameraRuntime>()
-                .As<ICameraRuntimeConfigurator>();
+            builder.Register<MapCameraBoundsProvider>(Lifetime.Singleton).As<ICameraBoundsProvider>();
+            builder.Register<CameraRuntime>(Lifetime.Singleton).As<ICameraRuntime>().As<ICameraRuntimeConfigurator>();
             builder.Register<RequestCameraShakeCommandHandler>(Lifetime.Singleton);
 
             // Spawn runtime orchestrates cadence/placement/capacity. Map geometry and GameplayRandom
@@ -229,9 +217,7 @@ namespace ZombieWar.Bootstrap
             // Level runtime is the single source of truth for Game Level progression,
             // Soldier Group Level, Normal Zombie Kill Count and Boss Phase. Execution remains
             // in Soldier/Spawn/Boss/GameFlow integrations.
-            builder.Register<LevelRuntime>(Lifetime.Singleton)
-                .As<ILevelRuntime>()
-                .As<ILevelRuntimeConfigurator>();
+            builder.Register<LevelRuntime>(Lifetime.Singleton).As<ILevelRuntime>().As<ILevelRuntimeConfigurator>();
             builder.Register<BeginGameLevelCommandHandler>(Lifetime.Singleton);
             builder.Register<RegisterNormalZombieKillCommandHandler>(Lifetime.Singleton);
             builder.Register<RegisterBossDefeatedCommandHandler>(Lifetime.Singleton);
@@ -240,22 +226,15 @@ namespace ZombieWar.Bootstrap
             // Boss runtime owns Boss A/B/C lifecycle/AI/combat orchestration. Scene-specific pools,
             // BossCatalogConfig, Unity views/motors and Soldier Transform binding are composed by BossRuntimeRoot.
             var bossTargetProvider = new BossSoldierTargetProvider();
-            builder.RegisterInstance(bossTargetProvider)
-                .As<IBossTargetProvider>()
-                .As<IBossSoldierTargetRegistry>();
-            builder.Register<BossAttackDamageAdapter>(Lifetime.Singleton)
-                .As<IBossAttackPort>()
-                .As<IBossAttackBinding>();
+            builder.RegisterInstance(bossTargetProvider).As<IBossTargetProvider>().As<IBossSoldierTargetRegistry>();
+            builder.Register<BossAttackDamageAdapter>(Lifetime.Singleton).As<IBossAttackPort>().As<IBossAttackBinding>();
             builder.Register<BossVFXFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<BossGameFeelFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<CompositeBossFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<BossAudioFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<CompositeBossPresentationFeedbackPort>(Lifetime.Singleton)
-                .As<IBossFeedbackPort>();
+            builder.Register<CompositeBossPresentationFeedbackPort>(Lifetime.Singleton).As<IBossFeedbackPort>();
             builder.Register<IBossFactory, BossFactory>(Lifetime.Singleton);
-            builder.Register<BossRuntime>(Lifetime.Singleton)
-                .As<IBossRuntime>()
-                .As<IBossRuntimeConfigurator>();
+            builder.Register<BossRuntime>(Lifetime.Singleton).As<IBossRuntime>().As<IBossRuntimeConfigurator>();
             builder.Register<SpawnLevelBossesCommandHandler>(Lifetime.Singleton);
             builder.Register<SetBossGameplayEnabledCommandHandler>(Lifetime.Singleton);
             builder.Register<CancelAllBossesCommandHandler>(Lifetime.Singleton);
@@ -265,9 +244,7 @@ namespace ZombieWar.Bootstrap
             // Score runtime owns run score, current-level score and replay checkpoint.
             // Scene-specific ScoreConfig is bound by ScoreRuntimeRoot; Zombie/Boss/Level facts
             // cross the feature boundary only through integration bridges.
-            builder.Register<ScoreRuntime>(Lifetime.Singleton)
-                .As<IScoreRuntime>()
-                .As<IScoreRuntimeConfigurator>();
+            builder.Register<ScoreRuntime>(Lifetime.Singleton).As<IScoreRuntime>().As<IScoreRuntimeConfigurator>();
             builder.Register<StartScoreRunCommandHandler>(Lifetime.Singleton);
             builder.Register<BeginScoreLevelCommandHandler>(Lifetime.Singleton);
             builder.Register<ReplayScoreLevelCommandHandler>(Lifetime.Singleton);
@@ -281,12 +258,9 @@ namespace ZombieWar.Bootstrap
             // GameFlow keeps ownership of Boot/MainMenu/Loading/navigation; bridges synchronize
             // runtime gates and terminal results without introducing reverse feature dependencies.
             builder.Register<GameStateModel>(Lifetime.Singleton);
-            builder.Register<GameplayStateTransitionPolicy>(Lifetime.Singleton)
-                .As<IGameplayStateTransitionPolicy>();
+            builder.Register<GameplayStateTransitionPolicy>(Lifetime.Singleton).As<IGameplayStateTransitionPolicy>();
             builder.Register<GameStateController>(Lifetime.Singleton);
-            builder.Register<GameStateRuntime>(Lifetime.Singleton)
-                .As<IGameStateRuntime>()
-                .As<IGameStateRuntimeConfigurator>();
+            builder.Register<GameStateRuntime>(Lifetime.Singleton).As<IGameStateRuntime>().As<IGameStateRuntimeConfigurator>();
             builder.Register<BeginGameplayCommandHandler>(Lifetime.Singleton);
             builder.Register<PauseGameplayCommandHandler>(Lifetime.Singleton);
             builder.Register<ResumeGameplayCommandHandler>(Lifetime.Singleton);
@@ -296,13 +270,9 @@ namespace ZombieWar.Bootstrap
             builder.Register<DeactivateGameplayCommandHandler>(Lifetime.Singleton);
 
             var gameStateSceneGates = new GameStateSceneGateRegistry();
-            builder.RegisterInstance(gameStateSceneGates)
-                .As<IGameStateSceneGateBinding>()
-                .As<IGameStateSceneGateRegistry>();
+            builder.RegisterInstance(gameStateSceneGates).As<IGameStateSceneGateBinding>().As<IGameStateSceneGateRegistry>();
 
-            builder.Register<GameStateSoldierBinding>(Lifetime.Singleton)
-                .As<IGameStateSoldierBinding>()
-                .As<IGameStateSoldierGate>();
+            builder.Register<GameStateSoldierBinding>(Lifetime.Singleton).As<IGameStateSoldierBinding>().As<IGameStateSoldierGate>();
             builder.Register<GameStateGameplayGateBridge>(Lifetime.Singleton);
             builder.Register<SoldierDefeatGameStateBridge>(Lifetime.Singleton);
             builder.Register<LevelGameStateBridge>(Lifetime.Singleton);
@@ -310,18 +280,14 @@ namespace ZombieWar.Bootstrap
 
             builder.Register<ZombieKillToLevelProgressAdapter>(Lifetime.Singleton);
             builder.Register<LevelSpawnProgressionBridge>(Lifetime.Singleton);
-            builder.Register<LevelSoldierProgressionBridge>(Lifetime.Singleton)
-                .AsSelf()
-                .As<ILevelSoldierBinding>();
+            builder.Register<LevelSoldierProgressionBridge>(Lifetime.Singleton).AsSelf().As<ILevelSoldierBinding>();
 
             // UI is presentation-only. GameFlow owns screen/application state; GameState owns
             // runtime gameplay state. Scene views are bound later through UIRuntimeRoot.
             builder.Register<UIScreenModel>(Lifetime.Singleton);
             builder.Register<GameplayHudModel>(Lifetime.Singleton);
             builder.Register<UIScreenRouter>(Lifetime.Singleton).As<IUIScreenRouter>();
-            builder.Register<GameFlowUIActionPort>(Lifetime.Singleton)
-                .As<IUIFlowActionPort>()
-                .As<IGameFlowUIActionContext>();
+            builder.Register<GameFlowUIActionPort>(Lifetime.Singleton).As<IUIFlowActionPort>().As<IGameFlowUIActionContext>();
             builder.Register<GameStateUIPausePort>(Lifetime.Singleton).As<IGameplayPausePort>();
             builder.Register<WeaponUISelectionPort>(Lifetime.Singleton).As<IWeaponSelectionPort>();
 
@@ -336,9 +302,7 @@ namespace ZombieWar.Bootstrap
             builder.Register<HealthPresenter>(Lifetime.Singleton);
             builder.Register<LevelPresenter>(Lifetime.Singleton);
             builder.Register<WeaponHudPresenter>(Lifetime.Singleton);
-            builder.Register<UIRuntime>(Lifetime.Singleton)
-                .AsSelf()
-                .As<IUIRuntime>();
+            builder.Register<UIRuntime>(Lifetime.Singleton).AsSelf().As<IUIRuntime>();
 
             builder.Register<GameFlowUIBridge>(Lifetime.Singleton);
             builder.Register<ScoreUIBridge>(Lifetime.Singleton);
@@ -362,35 +326,25 @@ namespace ZombieWar.Bootstrap
             // so VFX and game-feel both receive each source fact exactly once.
             builder.Register<FeedbackModel>(Lifetime.Singleton);
 
-            builder.Register<FeedbackPreferences>(Lifetime.Singleton)
-                .AsSelf()
-                .As<IFeedbackPreferences>();
+            builder.Register<FeedbackPreferences>(Lifetime.Singleton).AsSelf().As<IFeedbackPreferences>();
 
-            builder.Register<HapticCooldownPolicy>(Lifetime.Singleton)
-                .As<IHapticCooldownPolicy>();
+            builder.Register<HapticCooldownPolicy>(Lifetime.Singleton).As<IHapticCooldownPolicy>();
 
-            builder.Register<FeedbackPriorityPolicy>(Lifetime.Singleton)
-                .As<IFeedbackPriorityPolicy>();
+            builder.Register<FeedbackPriorityPolicy>(Lifetime.Singleton).As<IFeedbackPriorityPolicy>();
 
             builder.Register<FeedbackController>(Lifetime.Singleton);
 
-            builder.Register<FeedbackRuntime>(Lifetime.Singleton)
-                .As<IFeedbackRuntime>()
-                .As<IFeedbackRuntimeConfigurator>();
+            builder.Register<FeedbackRuntime>(Lifetime.Singleton).As<IFeedbackRuntime>().As<IFeedbackRuntimeConfigurator>();
 
-            builder.Register<CameraFeedbackAdapter>(Lifetime.Singleton)
-                .As<ICameraFeedbackPort>();
+            builder.Register<CameraFeedbackAdapter>(Lifetime.Singleton).As<ICameraFeedbackPort>();
 
-            builder.RegisterInstance(NullRecoilFeedbackPort.Instance)
-                .As<IRecoilFeedbackPort>();
+            builder.RegisterInstance(NullRecoilFeedbackPort.Instance).As<IRecoilFeedbackPort>();
 
             builder.Register<PlayFeedbackCommandHandler>(Lifetime.Singleton);
             builder.Register<SetFeedbackModeCommandHandler>(Lifetime.Singleton);
             builder.Register<CancelFeedbackCommandHandler>(Lifetime.Singleton);
 
-            builder.Register<SoldierDamageFeedbackBridge>(Lifetime.Singleton)
-                .AsSelf()
-                .As<IFeedbackSoldierBinding>();
+            builder.Register<SoldierDamageFeedbackBridge>(Lifetime.Singleton).AsSelf().As<IFeedbackSoldierBinding>();
 
             builder.Register<LevelFeedbackBridge>(Lifetime.Singleton);
             builder.Register<GameStateFeedbackBridge>(Lifetime.Singleton);
@@ -399,26 +353,18 @@ namespace ZombieWar.Bootstrap
             // while global UI/Music remain available through category-specific policy.
             builder.Register<AudioModel>(Lifetime.Singleton);
 
-            builder.Register<AudioPreferences>(Lifetime.Singleton)
-                .AsSelf()
-                .As<IAudioPreferences>();
+            builder.Register<AudioPreferences>(Lifetime.Singleton).AsSelf().As<IAudioPreferences>();
 
-            builder.Register<AudioConcurrencyPolicy>(Lifetime.Singleton)
-                .As<IAudioConcurrencyPolicy>();
+            builder.Register<AudioConcurrencyPolicy>(Lifetime.Singleton).As<IAudioConcurrencyPolicy>();
 
-            builder.Register<AudioModePolicy>(Lifetime.Singleton)
-                .As<IAudioModePolicy>();
+            builder.Register<AudioModePolicy>(Lifetime.Singleton).As<IAudioModePolicy>();
 
-            builder.Register<SystemAudioRandom>(Lifetime.Singleton)
-                .As<IAudioRandom>();
+            builder.Register<SystemAudioRandom>(Lifetime.Singleton).As<IAudioRandom>();
 
             builder.Register<AudioController>(Lifetime.Singleton);
             builder.Register<MusicController>(Lifetime.Singleton);
 
-            builder.Register<AudioRuntime>(Lifetime.Singleton)
-                .As<IAudioRuntime>()
-                .As<IAudioRuntimeConfigurator>()
-                .As<IAudioRuntimeDriver>();
+            builder.Register<AudioRuntime>(Lifetime.Singleton).As<IAudioRuntime>().As<IAudioRuntimeConfigurator>().As<IAudioRuntimeDriver>();
 
             builder.Register<PlayAudioCommandHandler>(Lifetime.Singleton);
             builder.Register<StopAudioCommandHandler>(Lifetime.Singleton);
@@ -427,30 +373,25 @@ namespace ZombieWar.Bootstrap
             builder.Register<StopMusicCommandHandler>(Lifetime.Singleton);
             builder.Register<CancelAllAudioCommandHandler>(Lifetime.Singleton);
 
-            builder.Register<SoldierDamageAudioBridge>(Lifetime.Singleton)
-                .AsSelf()
-                .As<IAudioSoldierBinding>();
+            builder.Register<SoldierDamageAudioBridge>(Lifetime.Singleton).AsSelf().As<IAudioSoldierBinding>();
 
             builder.Register<LevelAudioBridge>(Lifetime.Singleton);
             builder.Register<GameStateAudioBridge>(Lifetime.Singleton);
             builder.Register<GameFlowMusicBridge>(Lifetime.Singleton);
 
-            builder.Register<UIAudioPort>(Lifetime.Singleton)
-                .As<IUIAudioPort>();
+            builder.Register<UIAudioPort>(Lifetime.Singleton).As<IUIAudioPort>();
 
             // Shared Targeting services. TargetingController itself is intentionally NOT
             // registered as a singleton: ITargetingFactory creates one independent session per Soldier.
             builder.Register<ITargetRegistry, TargetRegistry>(Lifetime.Singleton);
             builder.Register<IDistanceMetric, PlanarXZDistanceMetric>(Lifetime.Singleton);
-            builder.Register<NearestTargetSelector>(Lifetime.Singleton)
-                .As<ITargetSelector<TargetingContext, ITargetCandidate>>();
+            builder.Register<NearestTargetSelector>(Lifetime.Singleton).As<ITargetSelector<TargetingContext, ITargetCandidate>>();
             builder.Register<ITargetValidator, TargetValidator>(Lifetime.Singleton);
             builder.Register<ITargetingFactory, TargetingFactory>(Lifetime.Singleton);
 
             // Soldier runtime remains feature-isolated. Cross-feature Targeting and Control
             // translations live in ZombieWar.Integration.Soldier.
-            builder.Register<TargetingToSoldierAdapter>(Lifetime.Singleton)
-                .As<ISoldierTargetingPort>();
+            builder.Register<TargetingToSoldierAdapter>(Lifetime.Singleton).As<ISoldierTargetingPort>();
 
             // Weapon core is shared by the whole Soldier Group, while WeaponAttackService
             // owns independent per-Soldier fire sessions. Runtime config/projectile binding
@@ -463,52 +404,39 @@ namespace ZombieWar.Bootstrap
             builder.Register<WeaponAudioFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<CompositeWeaponPresentationFeedbackPort>(Lifetime.Singleton).AsSelf();
 
-            builder.Register<SoldierWeaponAnimationRegistry>(Lifetime.Singleton)
-                .AsSelf()
-                .As<ISoldierWeaponAnimationRegistry>();
+            builder.Register<SoldierWeaponAnimationRegistry>(Lifetime.Singleton).AsSelf().As<ISoldierWeaponAnimationRegistry>();
 
             builder.Register<WeaponSoldierAnimationFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<CompositeWeaponAnimationPresentationFeedbackPort>(Lifetime.Singleton)
-                .As<IWeaponFeedbackPort>();
+            builder.Register<CompositeWeaponAnimationPresentationFeedbackPort>(Lifetime.Singleton).As<IWeaponFeedbackPort>();
 
             builder.Register<WeaponRuntime>(Lifetime.Singleton).As<IWeaponRuntime>();
 
             var weaponMuzzleRegistry = new WeaponMuzzleRegistry();
-            builder.RegisterInstance(weaponMuzzleRegistry)
-                .As<IWeaponMuzzleProvider>()
-                .As<IWeaponMuzzleRegistry>();
+            builder.RegisterInstance(weaponMuzzleRegistry).As<IWeaponMuzzleProvider>().As<IWeaponMuzzleRegistry>();
 
             var weaponProjectileAdapter = new WeaponToProjectileAdapter();
-            builder.RegisterInstance(weaponProjectileAdapter)
-                .As<IWeaponProjectilePort>()
-                .As<IWeaponProjectileBinding>();
+            builder.RegisterInstance(weaponProjectileAdapter).As<IWeaponProjectilePort>().As<IWeaponProjectileBinding>();
 
             builder.Register<IWeaponFireStrategyProvider, WeaponFireStrategyProvider>(Lifetime.Singleton);
             builder.Register<IWeaponFireSessionFactory, WeaponFireSessionFactory>(Lifetime.Singleton);
             builder.Register<IWeaponAttackService, WeaponAttackService>(Lifetime.Singleton);
             builder.Register<SelectWeaponCommandHandler>(Lifetime.Singleton);
 
-            builder.Register<WeaponToSoldierAttackAdapter>(Lifetime.Singleton)
-                .As<ISoldierAttackPort>();
-            builder.Register<WeaponTargetRangeProvider>(Lifetime.Singleton)
-                .As<ITargetRangeProvider>();
+            builder.Register<WeaponToSoldierAttackAdapter>(Lifetime.Singleton).As<ISoldierAttackPort>();
+            builder.Register<WeaponTargetRangeProvider>(Lifetime.Singleton).As<ITargetRangeProvider>();
 
-            builder.Register<ISoldierMovementSolver, SoldierMovementSolver>(
-                Lifetime.Singleton);
+            builder.Register<ISoldierMovementSolver, SoldierMovementSolver>(Lifetime.Singleton);
 
-            builder.Register<ISoldierFactory, SoldierFactory>(
-                Lifetime.Singleton);
+            builder.Register<ISoldierFactory, SoldierFactory>(Lifetime.Singleton);
 
-            builder.Register<ISoldierGroupFactory, SoldierGroupFactory>(
-                Lifetime.Singleton);
+            builder.Register<ISoldierGroupFactory, SoldierGroupFactory>(Lifetime.Singleton);
 
             // Projectile gameplay is hitscan-only. Physical projectile factories, pools,
             // impact policies and flight simulation are intentionally not registered.
             // Presentation fan-out is composed here at the application boundary.
             builder.Register<ProjectileVFXFeedbackPort>(Lifetime.Singleton).AsSelf();
             builder.Register<ProjectileAudioFeedbackPort>(Lifetime.Singleton).AsSelf();
-            builder.Register<ProjectilePresentationFeedbackPort>(Lifetime.Singleton)
-                .As<IProjectileFeedbackPort>();
+            builder.Register<ProjectilePresentationFeedbackPort>(Lifetime.Singleton).As<IProjectileFeedbackPort>();
 
             builder.Register<GameFlowModel>(Lifetime.Singleton);
             builder.RegisterInstance(new NullGameFlowView()).As<IGameFlowView>();

@@ -11,11 +11,7 @@ namespace ZombieWar.Bootstrap
         private readonly SetBossGameplayEnabledCommandHandler _enabled;
         private readonly CancelAllBossesCommandHandler _cancel;
 
-        public BossCommandRegistration(
-            ICommandRegistry commands,
-            SpawnLevelBossesCommandHandler spawn,
-            SetBossGameplayEnabledCommandHandler enabled,
-            CancelAllBossesCommandHandler cancel)
+        public BossCommandRegistration( ICommandRegistry commands, SpawnLevelBossesCommandHandler spawn, SetBossGameplayEnabledCommandHandler enabled, CancelAllBossesCommandHandler cancel)
         {
             _commands = commands;
             _spawn = spawn;
