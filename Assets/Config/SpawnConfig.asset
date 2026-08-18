@@ -37,7 +37,7 @@ MonoBehaviour:
     batchMax: 3
   - gameLevel: 1
     soldierGroupLevel: 4
-    maxAlive: 400
+    maxAlive: 350
     interval: 0.2
     batchMin: 2
     batchMax: 4
@@ -55,13 +55,13 @@ MonoBehaviour:
     batchMax: 3
   - gameLevel: 2
     soldierGroupLevel: 3
-    maxAlive: 400
+    maxAlive: 350
     interval: 0.2
     batchMin: 2
     batchMax: 4
   - gameLevel: 2
     soldierGroupLevel: 4
-    maxAlive: 500
+    maxAlive: 400
     interval: 0.15
     batchMin: 3
     batchMax: 5
