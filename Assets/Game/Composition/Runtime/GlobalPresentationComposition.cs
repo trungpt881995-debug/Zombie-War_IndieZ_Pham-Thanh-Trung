@@ -67,8 +67,7 @@ namespace ZombieWar.Composition
 
         public void Unbind()
         {
-            if (!_isBound &&
-                !HasAnyBoundRoot())
+            if (!_isBound && !HasAnyBoundRoot())
             {
                 return;
             }
@@ -76,20 +75,17 @@ namespace ZombieWar.Composition
             UnbindInternal();
         }
 
-        private void BindUI(
-            IObjectResolver resolver)
+        private void BindUI(IObjectResolver resolver)
         {
             if (uiRuntimeRoot.IsBound)
             {
                 return;
             }
 
-            uiRuntimeRoot.Bind(
-                resolver.Resolve<IUIRuntime>());
+            uiRuntimeRoot.Bind(resolver.Resolve<IUIRuntime>());
         }
 
-        private void BindFeedback(
-            IObjectResolver resolver)
+        private void BindFeedback(IObjectResolver resolver)
         {
             if (feedbackRuntimeRoot.IsBound)
             {
@@ -103,8 +99,7 @@ namespace ZombieWar.Composition
                 resolver.Resolve<IRecoilFeedbackPort>());
         }
 
-        private void BindAudio(
-            IObjectResolver resolver)
+        private void BindAudio(IObjectResolver resolver)
         {
             if (audioRuntimeRoot.IsBound)
             {

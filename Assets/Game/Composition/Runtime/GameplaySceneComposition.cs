@@ -46,18 +46,18 @@ using ZombieWar.Integration.Zombie.Unity;
 
 namespace ZombieWar.Composition
 {
-    /// <summary>
-    /// Scene composition root for ZombieWar_Gameplay.
-    ///
-    /// Responsibilities:
-    /// - Resolve pure/runtime services from the persistent GameLifetimeScope.
-    /// - Bind or initialize scene-specific Unity RuntimeRoot components.
-    /// - Reapply the current GameState after all scene gates are available.
-    ///
-    /// It creates the scene-owned Soldier Group only after every consumer of
-    /// SoldierAddedEvent (Zombie, Boss and Soldier animation) is initialized.
-    /// Starting a Game Level, spawning and map loading remain game-flow concerns.
-    /// </summary>
+    
+    // Scene composition root for ZombieWar_Gameplay.
+    //
+    // Responsibilities:
+    // - Resolve pure/runtime services from the persistent GameLifetimeScope.
+    // - Bind or initialize scene-specific Unity RuntimeRoot components.
+    // - Reapply the current GameState after all scene gates are available.
+    //
+    // It creates the scene-owned Soldier Group only after every consumer of
+    // SoldierAddedEvent (Zombie, Boss and Soldier animation) is initialized.
+    // Starting a Game Level, spawning and map loading remain game-flow concerns.
+
     [DisallowMultipleComponent]
     public sealed class GameplaySceneComposition : MonoBehaviour
     {

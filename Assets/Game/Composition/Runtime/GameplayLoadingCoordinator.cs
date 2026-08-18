@@ -17,16 +17,16 @@ using ZombieWar.Integration.UI.GameFlow;
 
 namespace ZombieWar.Composition
 {
-    /// <summary>
-    /// Orchestrates a level load at the Composition boundary.
-    ///
-    /// Ownership remains explicit:
-    /// - UI only records Play / Replay / Next intent.
-    /// - LevelRuntime remains the source of truth for the current GameLevel.
-    /// - MapRuntime owns map instance lifecycle.
-    /// - GameFlow owns Loading -> Gameplay transition.
-    /// - GameLevelStartedEvent fans out reset/difficulty/presentation work.
-    /// </summary>
+    
+    // Orchestrates a level load at the Composition boundary.
+    //
+    // Ownership remains explicit:
+    // - UI only records Play / Replay / Next intent.
+    // - LevelRuntime remains the source of truth for the current GameLevel.
+    // - MapRuntime owns map instance lifecycle.
+    // - GameFlow owns Loading -> Gameplay transition.
+    // - GameLevelStartedEvent fans out reset/difficulty/presentation work.
+    
     [DisallowMultipleComponent]
     public sealed class GameplayLoadingCoordinator : MonoBehaviour
     {
@@ -58,21 +58,18 @@ namespace ZombieWar.Composition
         {
             ValidateReferences();
 
-            GameLifetimeScope lifetimeScope =
-                FindFirstObjectByType<GameLifetimeScope>();
+            GameLifetimeScope lifetimeScope = FindFirstObjectByType<GameLifetimeScope>();
 
             if (lifetimeScope == null)
             {
-                throw new InvalidOperationException(
-                    "GameplayLoadingCoordinator could not find GameLifetimeScope.");
+                throw new InvalidOperationException("GameplayLoadingCoordinator could not find GameLifetimeScope.");
             }
 
             IObjectResolver resolver = lifetimeScope.Container;
 
             if (resolver == null)
             {
-                throw new InvalidOperationException(
-                    "GameLifetimeScope container has not been built.");
+                throw new InvalidOperationException("GameLifetimeScope container has not been built.");
             }
 
             _flowModel = resolver.Resolve<GameFlowModel>();
@@ -157,14 +154,9 @@ namespace ZombieWar.Composition
             }
 
             UIFlowAction action =
-                _flowActionContext != null
-                    ? _flowActionContext.Consume()
-                    : UIFlowAction.None;
+                _flowActionContext != null ? _flowActionContext.Consume() : UIFlowAction.None;
 
-            if (!TryResolveTargetLevel(
-                    action,
-                    _levelRuntime.GameLevel,
-                    out GameLevelId targetLevel))
+            if (!TryResolveTargetLevel(action, _levelRuntime.GameLevel, out GameLevelId targetLevel))
             {
                 Debug.LogError(
                     $"[Loading] Cannot resolve target Game Level. " +
@@ -220,8 +212,7 @@ namespace ZombieWar.Composition
 
             if (loadTask.IsFaulted)
             {
-                Exception exception =
-                    loadTask.Exception?.GetBaseException();
+                Exception exception = loadTask.Exception?.GetBaseException();
 
                 if (exception != null)
                 {
@@ -304,10 +295,7 @@ namespace ZombieWar.Composition
             FinishRoutine();
         }
 
-        private static bool TryResolveTargetLevel(
-            UIFlowAction action,
-            GameLevelId currentLevel,
-            out GameLevelId targetLevel)
+        private static bool TryResolveTargetLevel(UIFlowAction action, GameLevelId currentLevel, out GameLevelId targetLevel)
         {
             switch (action)
             {
@@ -316,9 +304,7 @@ namespace ZombieWar.Composition
                     return true;
 
                 case UIFlowAction.Replay:
-                    targetLevel = currentLevel != GameLevelId.None
-                        ? currentLevel
-                        : GameLevelId.GameLevel01;
+                    targetLevel = currentLevel != GameLevelId.None ? currentLevel : GameLevelId.GameLevel01;
                     return true;
 
                 case UIFlowAction.Next:
@@ -333,9 +319,7 @@ namespace ZombieWar.Composition
 
                 case UIFlowAction.None:
                     // Supports non-UI callers of GameFlowController.BeginLoading().
-                    targetLevel = currentLevel != GameLevelId.None
-                        ? currentLevel
-                        : GameLevelId.GameLevel01;
+                    targetLevel = currentLevel != GameLevelId.None ? currentLevel : GameLevelId.GameLevel01;
                     return true;
 
                 case UIFlowAction.Menu:
@@ -356,10 +340,7 @@ namespace ZombieWar.Composition
                     return MapId.Map02;
 
                 default:
-                    throw new ArgumentOutOfRangeException(
-                        nameof(gameLevel),
-                        gameLevel,
-                        "No Map mapping exists for this Game Level.");
+                    throw new ArgumentOutOfRangeException(nameof(gameLevel), gameLevel, "No Map mapping exists for this Game Level.");
             }
         }
 
@@ -383,14 +364,12 @@ namespace ZombieWar.Composition
                 return false;
             }
 
-            Vector3 spawnPosition =
-                new Vector3(
+            Vector3 spawnPosition = new Vector3(
                     Map02SoldierSpawnX,
                     Map02SoldierSpawnY,
                     Map02SoldierSpawnZ);
 
-            _soldierRuntimeRoot.TeleportGroup(
-                spawnPosition);
+            _soldierRuntimeRoot.TeleportGroup(spawnPosition);
 
             Debug.Log(
                 $"[Loading] Soldier Group teleported for Map02 through " +
@@ -402,12 +381,9 @@ namespace ZombieWar.Composition
 
         private void ResolveSingleSoldierRuntimeRoot()
         {
-            SoldierRuntimeRoot[] roots =
-                FindObjectsByType<SoldierRuntimeRoot>(
-                    FindObjectsSortMode.None);
+            SoldierRuntimeRoot[] roots = FindObjectsByType<SoldierRuntimeRoot>(FindObjectsSortMode.None);
 
-            if (roots == null ||
-                roots.Length == 0)
+            if (roots == null || roots.Length == 0)
             {
                 throw new InvalidOperationException(
                     "GameplayLoadingCoordinator could not find SoldierRuntimeRoot.");
@@ -421,14 +397,12 @@ namespace ZombieWar.Composition
                     "Remove duplicate Soldier runtimes before loading gameplay.");
             }
 
-            _soldierRuntimeRoot =
-                roots[0];
+            _soldierRuntimeRoot = roots[0];
         }
 
         private bool IsStillLoading()
         {
-            return _flowModel != null &&
-                   _flowModel.CurrentState == GameFlowStateId.Loading;
+            return _flowModel != null && _flowModel.CurrentState == GameFlowStateId.Loading;
         }
 
         private void FinishRoutine()

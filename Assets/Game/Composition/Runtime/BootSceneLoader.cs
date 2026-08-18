@@ -46,22 +46,19 @@ namespace ZombieWar.Composition
 
         public void LoadGameplayScene()
         {
-            if (_isCompleted ||
-                _loadRoutine != null)
+            if (_isCompleted || _loadRoutine != null)
             {
                 return;
             }
 
-            _loadRoutine = StartCoroutine(
-                LoadGameplaySceneRoutine());
+            _loadRoutine = StartCoroutine(LoadGameplaySceneRoutine());
         }
 
         private IEnumerator LoadGameplaySceneRoutine()
         {
             Scene bootScene = gameObject.scene;
 
-            if (!ValidateConfiguration(
-                    bootScene))
+            if (!ValidateConfiguration(bootScene))
             {
                 _loadRoutine = null;
                 yield break;
@@ -73,15 +70,11 @@ namespace ZombieWar.Composition
                 yield break;
             }
 
-            Scene gameplayScene = SceneManager.GetSceneByName(
-                gameplaySceneName);
+            Scene gameplayScene = SceneManager.GetSceneByName(gameplaySceneName);
 
-            if (!gameplayScene.IsValid() ||
-                !gameplayScene.isLoaded)
+            if (!gameplayScene.IsValid() || !gameplayScene.isLoaded)
             {
-                AsyncOperation loadOperation = SceneManager.LoadSceneAsync(
-                    gameplaySceneName,
-                    LoadSceneMode.Additive);
+                AsyncOperation loadOperation = SceneManager.LoadSceneAsync(gameplaySceneName, LoadSceneMode.Additive);
 
                 if (loadOperation == null)
                 {
@@ -103,8 +96,7 @@ namespace ZombieWar.Composition
                     gameplaySceneName);
             }
 
-            if (!gameplayScene.IsValid() ||
-                !gameplayScene.isLoaded)
+            if (!gameplayScene.IsValid() || !gameplayScene.isLoaded)
             {
                 Debug.LogError(
                     $"[{nameof(BootSceneLoader)}] Gameplay scene '{gameplaySceneName}' was not loaded successfully.",
@@ -114,8 +106,7 @@ namespace ZombieWar.Composition
                 yield break;
             }
 
-            if (setGameplaySceneActive &&
-                !SceneManager.SetActiveScene(gameplayScene))
+            if (setGameplaySceneActive && !SceneManager.SetActiveScene(gameplayScene))
             {
                 Debug.LogError(
                     $"[{nameof(BootSceneLoader)}] Could not set gameplay scene '{gameplaySceneName}' as active.",
@@ -127,13 +118,9 @@ namespace ZombieWar.Composition
 
             _isCompleted = true;
 
-            if (unloadBootSceneAfterLoad &&
-                bootScene.IsValid() &&
-                bootScene.isLoaded &&
-                bootScene != gameplayScene)
+            if (unloadBootSceneAfterLoad && bootScene.IsValid() && bootScene.isLoaded && bootScene != gameplayScene)
             {
-                AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(
-                    bootScene);
+                AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(bootScene);
 
                 if (unloadOperation != null)
                 {
@@ -147,8 +134,7 @@ namespace ZombieWar.Composition
             _loadRoutine = null;
         }
 
-        private bool ValidateConfiguration(
-            Scene bootScene)
+        private bool ValidateConfiguration(Scene bootScene)
         {
             if (globalPresentationComposition == null)
             {
@@ -170,18 +156,12 @@ namespace ZombieWar.Composition
 
             string trimmedSceneName = gameplaySceneName.Trim();
 
-            if (!string.Equals(
-                    trimmedSceneName,
-                    gameplaySceneName,
-                    StringComparison.Ordinal))
+            if (!string.Equals(trimmedSceneName, gameplaySceneName, StringComparison.Ordinal))
             {
                 gameplaySceneName = trimmedSceneName;
             }
 
-            if (string.Equals(
-                    bootScene.name,
-                    gameplaySceneName,
-                    StringComparison.Ordinal))
+            if (string.Equals(bootScene.name, gameplaySceneName, StringComparison.Ordinal))
             {
                 Debug.LogError(
                     $"[{nameof(BootSceneLoader)}] Gameplay scene cannot be the same as the boot scene " +
@@ -191,12 +171,9 @@ namespace ZombieWar.Composition
                 return false;
             }
 
-            Scene alreadyLoaded = SceneManager.GetSceneByName(
-                gameplaySceneName);
+            Scene alreadyLoaded = SceneManager.GetSceneByName(gameplaySceneName);
 
-            if ((!alreadyLoaded.IsValid() ||
-                 !alreadyLoaded.isLoaded) &&
-                !Application.CanStreamedLevelBeLoaded(gameplaySceneName))
+            if ((!alreadyLoaded.IsValid() || !alreadyLoaded.isLoaded) && !Application.CanStreamedLevelBeLoaded(gameplaySceneName))
             {
                 Debug.LogError(
                     $"[{nameof(BootSceneLoader)}] Scene '{gameplaySceneName}' cannot be loaded. " +
