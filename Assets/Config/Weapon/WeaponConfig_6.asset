@@ -17,7 +17,7 @@ MonoBehaviour:
   fireRate: 2.5
   projectileSpeed: 1
   maxRange: 7
-  targetRange: 5
+  targetRange: 7
   selectionCooldown: 2
   spreadAngle: 20
   projectileCount: 1

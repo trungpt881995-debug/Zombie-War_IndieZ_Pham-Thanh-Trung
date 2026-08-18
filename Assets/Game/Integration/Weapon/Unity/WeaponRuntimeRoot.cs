@@ -140,18 +140,24 @@ namespace ZombieWar.Integration.Weapon.Unity
 
         public void SetGameplayEnabled(bool enabled)
         {
+            // Update the authoritative Weapon runtime first. When disabling gameplay,
+            // Flame presentation can then distinguish a hard gameplay interruption
+            // from a normal target-only clear.
+            _runtime?.SetGameplayEnabled(enabled);
+
             if (!enabled)
             {
                 _attackService?.ClearAll();
             }
-
-            _runtime?.SetGameplayEnabled(enabled);
         }
 
         public void ResetForGameLevel()
         {
-            _attackService?.ClearAll();
+            // Reset the authoritative weapon first (normally back to the initial
+            // non-flamethrower weapon), then clear old fire sessions so any active
+            // Flame VFX is treated as an immediate weapon-change interruption.
             _runtime?.ResetForGameLevel();
+            _attackService?.ClearAll();
 
             // ResetForGameLevel restores the initial Weapon in the model without
             // publishing WeaponSelectedEvent. Mirror the authoritative state here.
@@ -311,6 +317,13 @@ namespace ZombieWar.Integration.Weapon.Unity
                         _muzzleRegistry.Unregister(_registeredIds[i]);
                     }
                 }
+            }
+
+            // Mark Weapon gameplay disabled before clearing sessions so continuous
+            // presentation (Flamethrower) is hard-stopped during scene teardown.
+            if (_runtime != null && _runtime.IsInitialized)
+            {
+                _runtime.SetGameplayEnabled(false);
             }
 
             _attackService?.ClearAll();
