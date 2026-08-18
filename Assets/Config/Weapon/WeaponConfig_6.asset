@@ -16,12 +16,12 @@ MonoBehaviour:
   damage: 3
   fireRate: 2.5
   projectileSpeed: 1
-  maxRange: 15
-  targetRange: 10
+  maxRange: 10
+  targetRange: 8
   selectionCooldown: 2
-  spreadAngle: 30
+  spreadAngle: 20
   projectileCount: 1
   projectileLifetime: 3
   explosionRadius: 0
   flameTickInterval: 0.1
-  flameRadius: 1.5
+  flameRadius: 1

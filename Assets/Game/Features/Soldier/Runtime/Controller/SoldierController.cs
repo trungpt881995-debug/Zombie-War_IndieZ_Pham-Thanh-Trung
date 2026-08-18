@@ -18,7 +18,7 @@ namespace ZombieWar.Features.Soldier.Controller
         private readonly SoldierModel _model;
         private readonly ISoldierView _view;
         private readonly ISoldierTargetingPort _targeting;
-        private const float TargetAcquireFireDelaySeconds = 0.5f;
+        private const float TargetAcquireFireDelaySeconds = 0.4f;
 
         private readonly ISoldierAttackPort _attack;
         private readonly SoldierSettings _settings;
