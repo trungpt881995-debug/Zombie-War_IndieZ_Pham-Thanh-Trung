@@ -34,7 +34,9 @@ namespace ZombieWar.Features.Boss.Unity.View
         private bool _deathCompletionPending;
         private bool _deathStateCaptured;
         private bool _deathFinishedRaised;
+        private bool _deathStateEntered;
         private int _stateBeforeDeathHash;
+        private int _preDeathTransitionDestinationHash;
         private int _deathStateHash;
         private bool _attackImpactPending;
         private bool _attackImpactRaised;
@@ -206,6 +208,20 @@ namespace ZombieWar.Features.Boss.Unity.View
                 animator.GetCurrentAnimatorStateInfo(BaseAnimatorLayer);
 
             _stateBeforeDeathHash = current.fullPathHash;
+            _preDeathTransitionDestinationHash = 0;
+
+            // A lethal hit can arrive while the Animator is already blending into
+            // Hit/Attack. Remember that pre-existing destination so the death-state
+            // detector cannot accidentally capture it as the Death state.
+            if (animator.IsInTransition(BaseAnimatorLayer))
+            {
+                AnimatorStateInfo preDeathNext =
+                    animator.GetNextAnimatorStateInfo(BaseAnimatorLayer);
+
+                _preDeathTransitionDestinationHash =
+                    preDeathNext.fullPathHash;
+            }
+
             animator.ResetTrigger(AttackHash);
             animator.ResetTrigger(HitHash);
             animator.SetTrigger(DeathHash);
@@ -301,23 +317,26 @@ namespace ZombieWar.Features.Boss.Unity.View
                 return;
             }
 
-            // While blending into Death, the destination state may already be
-            // the captured Death state. Do not complete until it becomes the
-            // current state and reaches the end of its first playback.
-            if (animator.IsInTransition(BaseAnimatorLayer))
-            {
-                return;
-            }
-
             AnimatorStateInfo current =
                 animator.GetCurrentAnimatorStateInfo(BaseAnimatorLayer);
 
-            if (current.fullPathHash != _deathStateHash)
+            if (current.fullPathHash == _deathStateHash)
             {
+                _deathStateEntered = true;
+
+                if (current.normalizedTime >= DeathCompleteNormalizedTime)
+                {
+                    RaiseDeathFinishedOnce();
+                }
+
                 return;
             }
 
-            if (current.normalizedTime >= DeathCompleteNormalizedTime)
+            // Once the captured Death state has actually become the current state,
+            // leaving it is also a valid visual-completion signal. This covers
+            // controllers whose Death state transitions to Exit/Idle slightly
+            // before Update observes normalizedTime >= 0.999.
+            if (_deathStateEntered)
             {
                 RaiseDeathFinishedOnce();
             }
@@ -330,8 +349,7 @@ namespace ZombieWar.Features.Boss.Unity.View
                 AnimatorStateInfo next =
                     animator.GetNextAnimatorStateInfo(BaseAnimatorLayer);
 
-                if (next.fullPathHash != 0 &&
-                    next.fullPathHash != _stateBeforeDeathHash)
+                if (IsDeathStateCandidate(next.fullPathHash))
                 {
                     _deathStateHash = next.fullPathHash;
                     _deathStateCaptured = true;
@@ -343,12 +361,18 @@ namespace ZombieWar.Features.Boss.Unity.View
             AnimatorStateInfo current =
                 animator.GetCurrentAnimatorStateInfo(BaseAnimatorLayer);
 
-            if (current.fullPathHash != 0 &&
-                current.fullPathHash != _stateBeforeDeathHash)
+            if (IsDeathStateCandidate(current.fullPathHash))
             {
                 _deathStateHash = current.fullPathHash;
                 _deathStateCaptured = true;
             }
+        }
+
+        private bool IsDeathStateCandidate(int stateHash)
+        {
+            return stateHash != 0 &&
+                   stateHash != _stateBeforeDeathHash &&
+                   stateHash != _preDeathTransitionDestinationHash;
         }
 
         private void RaiseDeathFinishedOnce()
@@ -368,7 +392,9 @@ namespace ZombieWar.Features.Boss.Unity.View
             _deathCompletionPending = false;
             _deathStateCaptured = false;
             _deathFinishedRaised = false;
+            _deathStateEntered = false;
             _stateBeforeDeathHash = 0;
+            _preDeathTransitionDestinationHash = 0;
             _deathStateHash = 0;
         }
 
