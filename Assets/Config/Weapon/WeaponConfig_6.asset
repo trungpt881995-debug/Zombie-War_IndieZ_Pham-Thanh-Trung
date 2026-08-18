@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: WeaponConfig_6
   m_EditorClassIdentifier: ZombieWar.Weapon.Unity::ZombieWar.Features.Weapon.Unity.Config.WeaponConfig
   weaponType: 5
-  damage: 5
+  damage: 3
   fireRate: 2.5
   projectileSpeed: 1
-  maxRange: 8
-  targetRange: 5
+  maxRange: 15
+  targetRange: 10
   selectionCooldown: 2
-  spreadAngle: 60
+  spreadAngle: 30
   projectileCount: 1
   projectileLifetime: 3
   explosionRadius: 0
