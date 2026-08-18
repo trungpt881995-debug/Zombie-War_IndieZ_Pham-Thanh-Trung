@@ -15,7 +15,7 @@ MonoBehaviour:
   gameLevel: 1
   isFinalLevel: 0
   level2Kills: 100
-  level3Kills: 150
-  level4Kills: 200
-  bossPhaseKills: 250
+  level3Kills: 200
+  level4Kills: 400
+  bossPhaseKills: 600
   requiredBossObjectives: 1

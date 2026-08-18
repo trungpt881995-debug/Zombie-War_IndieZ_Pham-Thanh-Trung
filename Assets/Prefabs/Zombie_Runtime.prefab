@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Integration.Zombie.Unity::ZombieWar.Integration.Zombie.Unity.ZombieRuntimeHost
   zombieView: {fileID: 2676989038655110156}
-  motor: {fileID: 0}
+  motor: {fileID: 7286339706601392195}
   projectileDamageableProxy: {fileID: 3540835997642062799}
   aimPoint: {fileID: 5927466875431655431}
   fallbackAimHeight: 1.25
@@ -174,7 +174,7 @@ NavMeshAgent:
   m_Radius: 0.32
   m_Speed: 3.5
   m_Acceleration: 12
-  avoidancePriority: 51
+  avoidancePriority: 54
   m_AngularSpeed: 120
   m_StoppingDistance: 0.05
   m_AutoTraverseOffMeshLink: 1
