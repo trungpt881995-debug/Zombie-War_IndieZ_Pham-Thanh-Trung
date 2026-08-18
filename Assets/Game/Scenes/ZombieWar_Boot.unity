@@ -3974,7 +3974,6 @@ GameObject:
   - component: {fileID: 895538222}
   - component: {fileID: 895538225}
   - component: {fileID: 895538224}
-  - component: {fileID: 895538223}
   m_Layer: 0
   m_Name: ZombieWar_FeedbackRuntime
   m_TagString: Untagged
@@ -3998,20 +3997,6 @@ Transform:
   - {fileID: 658754721}
   m_Father: {fileID: 767221154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &895538223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895538221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d4258f548d745eaaa36a0d5b223845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZombieWar.Feedback.Unity::ZombieWar.Features.Feedback.Unity.View.FeedbackDebugView
-  runtimeRoot: {fileID: 895538224}
-  showOverlay: 0
 --- !u!114 &895538224
 MonoBehaviour:
   m_ObjectHideFlags: 0
