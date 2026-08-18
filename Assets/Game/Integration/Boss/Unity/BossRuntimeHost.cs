@@ -12,7 +12,7 @@ namespace ZombieWar.Integration.Boss.Unity
     {
         [Header("Runtime")]
         [SerializeField] private BossView bossView;
-        [SerializeField] private CharacterControllerBossMotor motor;
+        [SerializeField] private NavMeshBossMotor motor;
         [SerializeField] private ProjectileDamageableProxy projectileDamageableProxy;
 
         [Header("Soldier Target Aim Point")]
@@ -29,16 +29,11 @@ namespace ZombieWar.Integration.Boss.Unity
             new Vector3(0f, 1.25f, 0f);
 
         public BossView View => bossView;
-
-        public CharacterControllerBossMotor Motor => motor;
-
+        public NavMeshBossMotor Motor => motor;
         public ProjectileDamageableProxy DamageableProxy =>
             projectileDamageableProxy;
-
         public Transform AimPoint => aimPoint;
-
         public BossController Controller { get; private set; }
-
         public BossCombatBridge CombatBridge { get; private set; }
 
         private void Awake()
@@ -50,7 +45,14 @@ namespace ZombieWar.Integration.Boss.Unity
 
             if (motor == null)
             {
-                motor = GetComponent<CharacterControllerBossMotor>();
+                motor = GetComponent<NavMeshBossMotor>();
+            }
+
+            if (motor == null)
+            {
+                throw new MissingComponentException(
+                    $"{nameof(BossRuntimeHost)} on '{name}' requires {nameof(NavMeshBossMotor)}. " +
+                    "Add NavMeshBossMotor + NavMeshAgent to the Boss prefab before Play Mode.");
             }
 
             if (projectileDamageableProxy == null)
