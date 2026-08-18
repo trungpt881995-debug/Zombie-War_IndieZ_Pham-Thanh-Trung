@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d6d816408e48e7428e863203522508f, type: 3}
   category: 0
   lifetimeMode: 0
-  spatialMode: 1
+  spatialMode: 0
   priority: 1
   maxConcurrent: 6
   baseVolume: 0.95
