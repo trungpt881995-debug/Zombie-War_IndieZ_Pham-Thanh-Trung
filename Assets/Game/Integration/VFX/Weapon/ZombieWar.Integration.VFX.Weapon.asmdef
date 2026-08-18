@@ -1,10 +1,19 @@
 {
-  "name": "ZombieWar.Integration.VFX.Weapon",
-  "rootNamespace": "ZombieWar.Integration.VFX.Weapon",
-  "references": [
-    "GameplayCore",
-    "ZombieWar.VFX",
-    "ZombieWar.Weapon"
-  ],
-  "autoReferenced": true
+    "name": "ZombieWar.Integration.VFX.Weapon",
+    "rootNamespace": "ZombieWar.Integration.VFX.Weapon",
+    "references": [
+        "GameplayCore",
+        "ZombieWar.VFX",
+        "ZombieWar.Weapon",
+        "GeneralCore"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

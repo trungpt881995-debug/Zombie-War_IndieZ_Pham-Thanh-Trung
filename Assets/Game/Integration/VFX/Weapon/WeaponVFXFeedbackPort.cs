@@ -1,30 +1,31 @@
 using System;
 using System.Collections.Generic;
+using GeneralCore.Architecture;
 using GameplayCore.Entities;
 using ZombieWar.Features.VFX.Domain;
 using ZombieWar.Features.VFX.Ports;
 using ZombieWar.Features.VFX.Services;
 using ZombieWar.Features.Weapon.Domain;
+using ZombieWar.Features.Weapon.Events;
 using ZombieWar.Features.Weapon.Ports;
-using ZombieWar.Features.Weapon.Services;
 
 namespace ZombieWar.Integration.VFX.Weapon
 {
     /// <summary>
     /// Weapon-to-VFX presentation adapter.
     ///
-    /// Flamethrower semantics:
-    /// - Losing/changing only the Zombie target is a soft stop. The active visual
-    ///   cycle is allowed to finish naturally and is not restarted during retarget.
-    /// - Switching away from Flamethrower (or disabling gameplay) is a hard stop.
-    ///   The active flame is stopped immediately because the owner is no longer
-    ///   using a flamethrower.
+    /// Flamethrower lifecycle rules:
+    /// - Target loss / target change is a SOFT stop. The current visual cycle is
+    ///   allowed to finish naturally. A newly acquired target may keep the same
+    ///   cycle alive without restarting it.
+    /// - Switching away from Flamethrower is a HARD stop. WeaponSelectedEvent is
+    ///   the authoritative signal, so every active flame is removed immediately.
     /// </summary>
-    public sealed class WeaponVFXFeedbackPort : IWeaponFeedbackPort
+    public sealed class WeaponVFXFeedbackPort : IWeaponFeedbackPort, IDisposable
     {
         private readonly IVFXRuntime _vfx;
         private readonly IWeaponMuzzleProvider _muzzles;
-        private readonly IWeaponRuntime _weaponRuntime;
+        private readonly IDisposable _weaponSelectedSubscription;
 
         private readonly Dictionary<EntityId, FlameSession> _flames =
             new Dictionary<EntityId, FlameSession>(4);
@@ -32,17 +33,24 @@ namespace ZombieWar.Integration.VFX.Weapon
         private readonly Dictionary<long, EntityId> _flameOwnerByHandle =
             new Dictionary<long, EntityId>(4);
 
+        private bool _disposed;
+
         public WeaponVFXFeedbackPort(
             IVFXRuntime vfx,
             IWeaponMuzzleProvider muzzles,
-            IWeaponRuntime weaponRuntime)
+            IEventSubscriber events)
         {
             _vfx = vfx ?? throw new ArgumentNullException(nameof(vfx));
             _muzzles = muzzles ?? throw new ArgumentNullException(nameof(muzzles));
-            _weaponRuntime = weaponRuntime ??
-                throw new ArgumentNullException(nameof(weaponRuntime));
+
+            if (events == null)
+            {
+                throw new ArgumentNullException(nameof(events));
+            }
 
             _vfx.Completed += OnVFXCompleted;
+            _weaponSelectedSubscription =
+                events.Subscribe<WeaponSelectedEvent>(OnWeaponSelected);
         }
 
         public void OnShotFired(
@@ -79,23 +87,14 @@ namespace ZombieWar.Integration.VFX.Weapon
                 return;
             }
 
+            // IMPORTANT:
+            // IWeaponFireStrategy.OnTargetCleared is also used during retargeting.
+            // Therefore this callback must remain a SOFT stop. Do not infer a weapon
+            // change here. WeaponSelectedEvent handles that case explicitly.
             session.DesiredActive = false;
 
-            // WeaponAttackService uses the same OnTargetCleared callback for both
-            // retargeting and weapon changes. Distinguish them using the authoritative
-            // Weapon runtime state:
-            //
-            // Flamethrower still selected -> target-only clear -> let visual drain.
-            // Other weapon selected / gameplay disabled -> immediately remove flame.
-            if (ShouldHardStopFlame())
-            {
-                HardStop(ownerId, session);
-                return;
-            }
-
-            // Target-only loss/retarget: do NOT stop an active cycle. If the handle
-            // is already stale (for example after a global VFX cancellation), clean
-            // the presentation session immediately.
+            // If the active handle has already disappeared because of a global VFX
+            // cancellation, clean the local session immediately.
             if (!session.Handle.IsValid || !_vfx.IsActive(session.Handle))
             {
                 ForgetHandle(session);
@@ -103,38 +102,51 @@ namespace ZombieWar.Integration.VFX.Weapon
             }
         }
 
-        private bool ShouldHardStopFlame()
+        private void OnWeaponSelected(WeaponSelectedEvent evt)
         {
-            return !_weaponRuntime.IsInitialized ||
-                   !_weaponRuntime.GameplayEnabled ||
-                   _weaponRuntime.CurrentWeapon != WeaponType.Flamethrower;
+            // The whole Soldier Group shares one selected weapon. The moment the
+            // authoritative Weapon Feature switches away from Flamethrower, no
+            // Soldier is allowed to keep a flame visual alive.
+            if (evt.Previous == WeaponType.Flamethrower &&
+                evt.Current != WeaponType.Flamethrower)
+            {
+                HardStopAllFlames();
+            }
         }
 
-        private void HardStop(
-            EntityId ownerId,
-            FlameSession session)
+        private void HardStopAllFlames()
         {
-            if (session == null)
+            if (_flames.Count == 0)
             {
-                _flames.Remove(ownerId);
                 return;
             }
 
-            VFXHandle handle = session.Handle;
-
-            if (handle.IsValid)
+            foreach (KeyValuePair<EntityId, FlameSession> pair in _flames)
             {
-                _flameOwnerByHandle.Remove(handle.Value);
-
-                if (_vfx.IsActive(handle))
+                FlameSession session = pair.Value;
+                if (session == null)
                 {
-                    _vfx.Stop(handle);
+                    continue;
                 }
+
+                session.DesiredActive = false;
+
+                VFXHandle handle = session.Handle;
+                if (handle.IsValid)
+                {
+                    _flameOwnerByHandle.Remove(handle.Value);
+
+                    if (_vfx.IsActive(handle))
+                    {
+                        _vfx.Stop(handle);
+                    }
+                }
+
+                session.Handle = default;
             }
 
-            session.Handle = default;
-            session.DesiredActive = false;
-            _flames.Remove(ownerId);
+            _flames.Clear();
+            _flameOwnerByHandle.Clear();
         }
 
         private FlameSession GetOrCreateSession(EntityId ownerId)
@@ -214,14 +226,9 @@ namespace ZombieWar.Integration.VFX.Weapon
                 return;
             }
 
-            // Guard against a weapon change that happened without another flame
-            // callback between completion and this point.
-            if (ShouldHardStopFlame())
-            {
-                _flames.Remove(ownerId);
-                return;
-            }
-
+            // DesiredActive can only remain true while Flamethrower target flow is
+            // active. A real weapon switch has already removed this session through
+            // OnWeaponSelected(), so a completed old cycle cannot resurrect flame.
             EnsureFlameCycle(ownerId, session);
         }
 
@@ -282,6 +289,21 @@ namespace ZombieWar.Integration.VFX.Weapon
                 default:
                     return VFXId.None;
             }
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            _weaponSelectedSubscription?.Dispose();
+            _vfx.Completed -= OnVFXCompleted;
+
+            HardStopAllFlames();
         }
 
         private sealed class FlameSession
