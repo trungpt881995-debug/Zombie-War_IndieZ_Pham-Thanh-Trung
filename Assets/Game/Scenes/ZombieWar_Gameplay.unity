@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZombieWar.Integration.Zombie.Unity::ZombieWar.Integration.Zombie.Unity.ZombiePool
   prefab: {fileID: 5755057026349701572, guid: 0308239e5a9af46eba0f24a3ac4d42cc, type: 3}
   poolRoot: {fileID: 221082056}
-  prewarmCount: 500
+  prewarmCount: 800
   maxSize: 1000
   allowRuntimeExpansion: 0
 --- !u!4 &221082056

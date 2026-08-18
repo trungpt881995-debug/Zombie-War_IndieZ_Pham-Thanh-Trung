@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: ZombieWar.Camera.Unity::ZombieWar.Features.Camera.Unity.Config.CameraConfig
   projectionMode: 0
-  fieldOfView: 60
+  fieldOfView: 75
   orthographicSize: 10
   nearClip: 0.1
   farClip: 300
