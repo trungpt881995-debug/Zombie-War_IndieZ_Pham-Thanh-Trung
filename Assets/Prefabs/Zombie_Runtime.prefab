@@ -171,10 +171,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 6576407510196923749}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.32
+  m_Radius: 0.75
   m_Speed: 3.5
   m_Acceleration: 12
-  avoidancePriority: 48
+  avoidancePriority: 54
   m_AngularSpeed: 120
   m_StoppingDistance: 0.05
   m_AutoTraverseOffMeshLink: 1
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce448ab83ae9b4a19b4ba8ae7c9df56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZombieWar.Zombie.Unity::ZombieWar.Features.Zombie.Unity.Movement.NavMeshZombieMotor
-  radius: 0.32
+  radius: 0.75
   height: 1.8
   baseOffset: 0
   acceleration: 12
