@@ -1,1 +1,16 @@
-using GeneralCore.Architecture; namespace ZombieWar.Features.Level.Commands { public readonly struct SetLevelProgressionEnabledCommand:ICommand { public bool Enabled{get;} public SetLevelProgressionEnabledCommand(bool enabled){Enabled=enabled;} } }
+using GeneralCore.Architecture;
+
+namespace ZombieWar.Features.Level.Commands
+{
+    public readonly struct SetLevelProgressionEnabledCommand : ICommand
+    {
+        public bool Enabled
+        {
+            get;
+        }
+        public SetLevelProgressionEnabledCommand(bool enabled)
+        {
+            Enabled = enabled;
+        }
+    }
+}

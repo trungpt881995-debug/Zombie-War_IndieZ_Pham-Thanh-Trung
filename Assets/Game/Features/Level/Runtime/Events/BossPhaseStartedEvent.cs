@@ -1,1 +1,27 @@
-using GeneralCore.Architecture; using ZombieWar.Features.Level.Domain; namespace ZombieWar.Features.Level.Events { public readonly struct BossPhaseStartedEvent:IEvent { public GameLevelId GameLevel{get;} public int NormalZombieKillCount{get;} public LevelBossObjectiveId RequiredBossObjectives{get;} public BossPhaseStartedEvent(GameLevelId gl,int kills,LevelBossObjectiveId required){GameLevel=gl;NormalZombieKillCount=kills;RequiredBossObjectives=required;} } }
+using GeneralCore.Architecture;
+using ZombieWar.Features.Level.Domain;
+
+namespace ZombieWar.Features.Level.Events
+{
+    public readonly struct BossPhaseStartedEvent : IEvent
+    {
+        public GameLevelId GameLevel
+        {
+            get;
+        }
+        public int NormalZombieKillCount
+        {
+            get;
+        }
+        public LevelBossObjectiveId RequiredBossObjectives
+        {
+            get;
+        }
+        public BossPhaseStartedEvent(GameLevelId gl, int kills, LevelBossObjectiveId required)
+        {
+            GameLevel = gl;
+            NormalZombieKillCount = kills;
+            RequiredBossObjectives = required;
+        }
+    }
+}

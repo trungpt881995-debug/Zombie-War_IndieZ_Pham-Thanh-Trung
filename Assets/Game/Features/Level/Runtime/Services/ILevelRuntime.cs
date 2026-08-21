@@ -1,1 +1,20 @@
-using ZombieWar.Features.Level.Domain; namespace ZombieWar.Features.Level.Services { public interface ILevelRuntime { bool IsInitialized{get;} LevelState State{get;} LevelPhase Phase{get;} GameLevelId GameLevel{get;} SoldierGroupLevelId SoldierGroupLevel{get;} int NormalZombieKillCount{get;} bool ProgressionEnabled{get;} bool BeginLevel(GameLevelId id); bool RegisterNormalZombieKill(); bool RegisterNormalZombieKills(int count); bool RegisterBossDefeated(LevelBossObjectiveId boss); void SetProgressionEnabled(bool enabled); LevelProgressSnapshot Snapshot(); } }
+using ZombieWar.Features.Level.Domain;
+namespace ZombieWar.Features.Level.Services
+{
+  public interface ILevelRuntime
+  {
+    bool IsInitialized { get; }
+    LevelState State { get; }
+    LevelPhase Phase { get; }
+    GameLevelId GameLevel { get; }
+    SoldierGroupLevelId SoldierGroupLevel { get; }
+    int NormalZombieKillCount { get; }
+    bool ProgressionEnabled { get; }
+    bool BeginLevel(GameLevelId id);
+    bool RegisterNormalZombieKill();
+    bool RegisterNormalZombieKills(int count);
+    bool RegisterBossDefeated(LevelBossObjectiveId boss);
+    void SetProgressionEnabled(bool enabled);
+    LevelProgressSnapshot Snapshot();
+  }
+}
