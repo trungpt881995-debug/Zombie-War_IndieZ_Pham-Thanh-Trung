@@ -1,1 +1,8 @@
-using GeneralCore.Architecture; namespace ZombieWar.Features.Boss.Commands { public readonly struct CancelAllBossesCommand:ICommand { } }
+using GeneralCore.Architecture;
+
+namespace ZombieWar.Features.Boss.Commands
+{
+    public readonly struct CancelAllBossesCommand : ICommand
+    {
+    }
+}
