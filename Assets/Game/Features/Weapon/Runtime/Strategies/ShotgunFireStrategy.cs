@@ -53,6 +53,7 @@ namespace ZombieWar.Features.Weapon.Strategies
 
                 var request = new WeaponProjectileRequest(
                     context.OwnerId,
+                    context.Target.TargetId,
                     weapon.ProjectileProfile,
                     in origin,
                     in direction,

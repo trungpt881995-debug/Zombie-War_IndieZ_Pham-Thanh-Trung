@@ -7,6 +7,7 @@ namespace ZombieWar.Features.Soldier.View
     public sealed class SoldierView :
         MonoBehaviour,
         ISoldierView,
+        ISoldierFacingView,
         ISoldierWeaponAnimationView
     {
         [Header("Animation")]
@@ -58,6 +59,21 @@ namespace ZombieWar.Features.Soldier.View
             {
                 Vector3 p = CachedTransform.position;
                 return new SoldierPoint(p.x, p.y, p.z);
+            }
+        }
+
+        public SoldierDirection Forward
+        {
+            get
+            {
+                Vector3 forward = CachedTransform.forward;
+                forward.y = 0f;
+
+                if (forward.sqrMagnitude <= 0.000001f)
+                    return SoldierDirection.Zero;
+
+                forward.Normalize();
+                return new SoldierDirection(forward.x, 0f, forward.z);
             }
         }
 
@@ -116,12 +132,7 @@ namespace ZombieWar.Features.Soldier.View
                 localPosition.Z);
         }
 
-        /// <summary>
-        /// Rotates the whole Soldier body toward the planar joystick movement
-        /// direction. Upper-body aiming remains independent and is applied later
-        /// by SetAimDirection using the Soldier's updated local space.
-        /// </summary>
-        public void SetMovementFacing(
+        public void SetBodyFacing(
             in SoldierDirection direction,
             float rotationDegreesPerSecond,
             float deltaTime)
@@ -155,6 +166,27 @@ namespace ZombieWar.Features.Soldier.View
                 rotationDegreesPerSecond * deltaTime);
         }
 
+        /// <summary>
+        /// Backward-compatible alias retained for scene/runtime code authored before
+        /// body-facing became target-aware.
+        /// </summary>
+        public void SetMovementFacing(
+            in SoldierDirection direction,
+            float rotationDegreesPerSecond,
+            float deltaTime)
+        {
+            SetBodyFacing(
+                in direction,
+                rotationDegreesPerSecond,
+                deltaTime);
+        }
+
+        /// <summary>
+        /// Signed locomotion input:
+        /// +1 = Run Forward, +0.5 = Walk Forward,
+        ///  0 = Idle,
+        /// -0.5 = Walk Backward, -1 = Run Backward.
+        /// </summary>
         public void SetMovementSpeed(float normalizedSpeed)
         {
             if (animator == null)
@@ -162,7 +194,7 @@ namespace ZombieWar.Features.Soldier.View
 
             animator.SetFloat(
                 _movementSpeedHash,
-                Mathf.Clamp01(normalizedSpeed));
+                Mathf.Clamp(normalizedSpeed, -1f, 1f));
         }
 
         public void SetAimDirection(

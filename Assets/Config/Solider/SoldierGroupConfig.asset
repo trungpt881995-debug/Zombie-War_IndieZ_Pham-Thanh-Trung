@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f991a84932445009bdae38ccf22342, type: 3}
   m_Name: SoldierGroupConfig
   m_EditorClassIdentifier: ZombieWar.Soldier::ZombieWar.Features.Soldier.Config.SoldierGroupConfig
-  sharedMaxHealth: 100
+  sharedMaxHealth: 1000
   level1Slots:
   - {x: 0, y: 0, z: 0}
   level2Slots:

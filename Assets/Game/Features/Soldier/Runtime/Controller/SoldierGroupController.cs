@@ -30,42 +30,52 @@ namespace ZombieWar.Features.Soldier.Controller
         private readonly SoldierSettings _settings;
 
         public EntityId GroupId => _model.GroupId;
-
         public SoldierGroupLevel Level => _model.Level;
-
         public int ActiveSoldierCount => _model.RequiredSoldierCount;
-
         public bool GameplayEnabled => _model.GameplayEnabled;
 
-        public SoldierGroupController( SoldierGroupModel model, ISoldierGroupView view, SoldierController[] soldiers, ISoldierMovementSolver movementSolver, ISoldierGroupInputBuffer inputBuffer, IFormationProvider formationProvider, ITargetRangeProvider targetRangeProvider, IEventBus eventBus, in SoldierSettings settings)
+        public SoldierGroupController(
+            SoldierGroupModel model,
+            ISoldierGroupView view,
+            SoldierController[] soldiers,
+            ISoldierMovementSolver movementSolver,
+            ISoldierGroupInputBuffer inputBuffer,
+            IFormationProvider formationProvider,
+            ITargetRangeProvider targetRangeProvider,
+            IEventBus eventBus,
+            in SoldierSettings settings)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
-
             _view = view ?? throw new ArgumentNullException(nameof(view));
-
             _soldiers = soldiers ?? throw new ArgumentNullException(nameof(soldiers));
 
             if (_soldiers.Length != MaxSoldiers)
             {
-                throw new ArgumentException($"SoldierGroup requires exactly {MaxSoldiers} Soldier controllers.", nameof(soldiers));
+                throw new ArgumentException(
+                    $"SoldierGroup requires exactly {MaxSoldiers} Soldier controllers.",
+                    nameof(soldiers));
             }
 
             for (int i = 0; i < _soldiers.Length; i++)
             {
                 if (_soldiers[i] == null)
-                    throw new ArgumentException($"Soldier controller at index {i} is null.", nameof(soldiers));
+                {
+                    throw new ArgumentException(
+                        $"Soldier controller at index {i} is null.",
+                        nameof(soldiers));
+                }
             }
 
-            _movementSolver = movementSolver ?? throw new ArgumentNullException(nameof(movementSolver));
-
-            _inputBuffer = inputBuffer ?? throw new ArgumentNullException(nameof(inputBuffer));
-
-            _formationProvider = formationProvider ?? throw new ArgumentNullException(nameof(formationProvider));
-
-            _targetRangeProvider = targetRangeProvider ?? throw new ArgumentNullException(nameof(targetRangeProvider));
-
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-
+            _movementSolver = movementSolver ??
+                throw new ArgumentNullException(nameof(movementSolver));
+            _inputBuffer = inputBuffer ??
+                throw new ArgumentNullException(nameof(inputBuffer));
+            _formationProvider = formationProvider ??
+                throw new ArgumentNullException(nameof(formationProvider));
+            _targetRangeProvider = targetRangeProvider ??
+                throw new ArgumentNullException(nameof(targetRangeProvider));
+            _eventBus = eventBus ??
+                throw new ArgumentNullException(nameof(eventBus));
             _settings = settings;
 
             ApplyCurrentFormation(publishAddedEvents: true);
@@ -76,21 +86,31 @@ namespace ZombieWar.Features.Soldier.Controller
             if (!_model.GameplayEnabled)
                 return;
 
+            float safeDeltaTime = SanitizeDeltaTime(deltaTime);
             SoldierMoveInput input = _inputBuffer.Current;
 
             _model.SetMoveInput(in input);
 
-            SoldierMovementStep movement = _movementSolver.Solve(in input, _settings.MoveSpeed);
+            SoldierMovementStep movement =
+                _movementSolver.Solve(in input, _settings.MoveSpeed);
 
-            _view.Move(in movement, SanitizeDeltaTime(deltaTime));
+            _view.Move(in movement, safeDeltaTime);
 
-            float targetRange = SanitizeTargetRange(_targetRangeProvider.CurrentTargetRange);
+            SoldierDirection movementDirection =
+                CreateMovementDirection(in input);
+
+            float targetRange =
+                SanitizeTargetRange(_targetRangeProvider.CurrentTargetRange);
 
             int count = _model.RequiredSoldierCount;
 
             for (int i = 0; i < count; i++)
             {
-                _soldiers[i].Tick(targetRange,movement.NormalizedSpeed, SanitizeDeltaTime(deltaTime));
+                _soldiers[i].Tick(
+                    targetRange,
+                    in movementDirection,
+                    movement.NormalizedSpeed,
+                    safeDeltaTime);
             }
         }
 
@@ -103,7 +123,11 @@ namespace ZombieWar.Features.Soldier.Controller
 
             ApplyCurrentFormation(publishAddedEvents: true);
 
-            _eventBus.Publish(new SoldierGroupLevelChangedEvent(_model.GroupId,previous,_model.Level));
+            _eventBus.Publish(
+                new SoldierGroupLevelChangedEvent(
+                    _model.GroupId,
+                    previous,
+                    _model.Level));
 
             return true;
         }
@@ -119,7 +143,11 @@ namespace ZombieWar.Features.Soldier.Controller
 
             if (previous != _model.Level)
             {
-                _eventBus.Publish(new SoldierGroupLevelChangedEvent(_model.GroupId,previous,_model.Level));
+                _eventBus.Publish(
+                    new SoldierGroupLevelChangedEvent(
+                        _model.GroupId,
+                        previous,
+                        _model.Level));
             }
         }
 
@@ -135,9 +163,7 @@ namespace ZombieWar.Features.Soldier.Controller
                 _inputBuffer.Clear();
 
                 for (int i = 0; i < _model.RequiredSoldierCount; i++)
-                {
                     _soldiers[i].StopGameplay();
-                }
             }
         }
 
@@ -148,13 +174,16 @@ namespace ZombieWar.Features.Soldier.Controller
 
         private void ApplyCurrentFormation(bool publishAddedEvents)
         {
-            FormationLayout layout = _formationProvider.Get(_model.Level);
+            FormationLayout layout =
+                _formationProvider.Get(_model.Level);
 
             int activeCount = _model.RequiredSoldierCount;
 
             if (layout.Count != activeCount)
             {
-                throw new InvalidOperationException($"Formation {_model.Level} exposes {layout.Count} slot(s), " + $"but the Soldier Group requires {activeCount}.");
+                throw new InvalidOperationException(
+                    $"Formation {_model.Level} exposes {layout.Count} slot(s), " +
+                    $"but the Soldier Group requires {activeCount}.");
             }
 
             for (int i = 0; i < _soldiers.Length; i++)
@@ -163,7 +192,8 @@ namespace ZombieWar.Features.Soldier.Controller
 
                 if (i < activeCount)
                 {
-                    SoldierPoint localPosition = layout[i].LocalPosition;
+                    SoldierPoint localPosition =
+                        layout[i].LocalPosition;
 
                     if (!soldier.Active)
                     {
@@ -171,12 +201,19 @@ namespace ZombieWar.Features.Soldier.Controller
 
                         if (publishAddedEvents)
                         {
-                            _eventBus.Publish(new SoldierAddedEvent(_model.GroupId, soldier.EntityId,i,_model.Level));
+                            _eventBus.Publish(
+                                new SoldierAddedEvent(
+                                    _model.GroupId,
+                                    soldier.EntityId,
+                                    i,
+                                    _model.Level));
                         }
                     }
                     else
                     {
-                        soldier.SetFormationPosition(i,in localPosition);
+                        soldier.SetFormationPosition(
+                            i,
+                            in localPosition);
                     }
                 }
                 else
@@ -186,12 +223,32 @@ namespace ZombieWar.Features.Soldier.Controller
             }
         }
 
+        private static SoldierDirection CreateMovementDirection(
+            in SoldierMoveInput input)
+        {
+            if (!input.HasInput)
+                return SoldierDirection.Zero;
+
+            float x = input.X;
+            float z = input.Y;
+            float sqrMagnitude = (x * x) + (z * z);
+
+            if (sqrMagnitude <= 0.000001f)
+                return SoldierDirection.Zero;
+
+            float inverseLength =
+                1f / (float)Math.Sqrt(sqrMagnitude);
+
+            return new SoldierDirection(
+                x * inverseLength,
+                0f,
+                z * inverseLength);
+        }
+
         private static float SanitizeDeltaTime(float value)
         {
             if (float.IsNaN(value) || float.IsInfinity(value) || value <= 0f)
-            {
                 return 0f;
-            }
 
             return value;
         }
@@ -199,9 +256,7 @@ namespace ZombieWar.Features.Soldier.Controller
         private static float SanitizeTargetRange(float value)
         {
             if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
-            {
                 return 0f;
-            }
 
             return value;
         }

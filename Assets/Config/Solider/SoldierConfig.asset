@@ -15,3 +15,5 @@ MonoBehaviour:
   moveSpeed: 4
   moveRotationDegreesPerSecond: 720
   aimRotationDegreesPerSecond: 720
+  bodyTurnEnterAimAngleDegrees: 150
+  bodyTurnReleaseAimAngleDegrees: 0

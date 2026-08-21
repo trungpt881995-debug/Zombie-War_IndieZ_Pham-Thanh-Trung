@@ -55,16 +55,35 @@ namespace ZombieWar.Integration.Weapon
                 sourceTarget.Y,
                 sourceTarget.Z);
 
-            var projectileRequest = new ProjectileLaunchRequest(
-                request.OwnerId,
-                impactMode,
-                in origin,
-                in direction,
-                request.Damage,
-                request.MaxRange,
-                in target,
-                request.HasTargetPoint,
-                request.ExplosionRadius);
+            ProjectileLaunchRequest projectileRequest;
+
+            if (request.HasTargetEntity)
+            {
+                projectileRequest = new ProjectileLaunchRequest(
+                    request.OwnerId,
+                    request.TargetId,
+                    impactMode,
+                    in origin,
+                    in direction,
+                    request.Damage,
+                    request.MaxRange,
+                    in target,
+                    request.HasTargetPoint,
+                    request.ExplosionRadius);
+            }
+            else
+            {
+                projectileRequest = new ProjectileLaunchRequest(
+                    request.OwnerId,
+                    impactMode,
+                    in origin,
+                    in direction,
+                    request.Damage,
+                    request.MaxRange,
+                    in target,
+                    request.HasTargetPoint,
+                    request.ExplosionRadius);
+            }
 
             return _launcher.TryLaunch(
                 in projectileRequest,

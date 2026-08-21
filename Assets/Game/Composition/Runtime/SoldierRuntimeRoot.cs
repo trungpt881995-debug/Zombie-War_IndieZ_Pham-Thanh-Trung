@@ -25,11 +25,11 @@ using ZombieWar.Integration.Zombie;
 
 namespace ZombieWar.Composition
 {
-    
-    // Scene-owned composition root for the concrete Soldier Group runtime.
-    // Pure gameplay objects are created through the existing Soldier/Health factories;
-    // this MonoBehaviour only owns scene references, lifecycle and cross-feature binding.
-    
+    /// <summary>
+    /// Scene-owned composition root for the concrete Soldier Group runtime.
+    /// Pure gameplay objects are created through the existing Soldier/Health factories;
+    /// this MonoBehaviour only owns scene references, lifecycle and cross-feature binding.
+    /// </summary>
     [DisallowMultipleComponent]
     public sealed class SoldierRuntimeRoot : MonoBehaviour
     {
@@ -66,14 +66,10 @@ namespace ZombieWar.Composition
         private IZombieAttackBinding _zombieAttackBinding;
         private IBossAttackBinding _bossAttackBinding;
         private IUIHealthBinding _uiHealthBinding;
-        private ISoldierGroupInputBuffer _inputBuffer;
         private IDisposable _gameLevelStartedSubscription;
         private Transform _formationRoot;
         private Transform _worldGroupRoot;
         private CharacterController _groupCharacterController;
-        private SoldierDirection _lastMovementDirection;
-        private float _moveRotationDegreesPerSecond;
-        private bool _hasLastMovementDirection;
         private bool _vfxAnchorBound;
 
         public bool IsInitialized { get; private set; }
@@ -97,40 +93,47 @@ namespace ZombieWar.Composition
             ResolveSoldierGroupHierarchy();
             LockFormationRootLocalIdentity();
 
-            ISoldierGroupFactory groupFactory = resolver.Resolve<ISoldierGroupFactory>();
+            ISoldierGroupFactory groupFactory =
+                resolver.Resolve<ISoldierGroupFactory>();
 
-            var viewPorts = new ISoldierView[RequiredSoldierViewCount];
+            var viewPorts =
+                new ISoldierView[RequiredSoldierViewCount];
 
             for (int i = 0; i < viewPorts.Length; i++)
             {
                 viewPorts[i] = soldierViews[i];
             }
 
-            SoldierSettings settings = soldierConfig.CreateSettings();
+            SoldierSettings settings =
+                soldierConfig.CreateSettings();
 
-            _moveRotationDegreesPerSecond = settings.MoveRotationDegreesPerSecond;
-
-            _inputBuffer = resolver.Resolve<ISoldierGroupInputBuffer>();
-
-            IFormationProvider formationProvider = soldierGroupConfig.CreateFormationProvider();
+            IFormationProvider formationProvider =
+                soldierGroupConfig.CreateFormationProvider();
 
             // Create only after Zombie/Boss/Animation roots have subscribed to
             // SoldierAddedEvent. SoldierGroupController publishes the Level-1
             // SoldierAddedEvent during construction.
-            _runtime =groupFactory.Create(
+            _runtime =
+                groupFactory.Create(
                     soldierGroupView,
                     viewPorts,
                     in settings,
                     formationProvider);
 
-            IHealthFactory healthFactory = resolver.Resolve<IHealthFactory>();
+            IHealthFactory healthFactory =
+                resolver.Resolve<IHealthFactory>();
 
-            _sharedHealth = healthFactory.Create(_runtime.GroupId, soldierGroupConfig.SharedMaxHealth);
+            _sharedHealth =
+                healthFactory.Create(
+                    _runtime.GroupId,
+                    soldierGroupConfig.SharedMaxHealth);
 
             BindGameplay(resolver);
             BindPresentation(resolver);
 
-            _gameLevelStartedSubscription = resolver.Resolve<IEventSubscriber>().Subscribe<GameLevelStartedEvent>(OnGameLevelStarted);
+            _gameLevelStartedSubscription =
+                resolver.Resolve<IEventSubscriber>()
+                    .Subscribe<GameLevelStartedEvent>(OnGameLevelStarted);
 
             IsInitialized = true;
         }
@@ -142,57 +145,10 @@ namespace ZombieWar.Composition
                 return;
             }
 
-            float deltaTime = Time.deltaTime;
-
-            UpdateMovementFacing(deltaTime);
-            _runtime.Tick(deltaTime);
-        }
-
-        private void UpdateMovementFacing(
-            float deltaTime)
-        {
-            if (_inputBuffer == null || _runtime == null || !_runtime.GameplayEnabled || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime) || deltaTime <= 0f)
-            {
-                return;
-            }
-
-            SoldierMoveInput input = _inputBuffer.Current;
-
-            if (input.HasInput)
-            {
-                float x = input.X;
-                float z = input.Y;
-                float sqrMagnitude = (x * x) + (z * z);
-
-                if (sqrMagnitude > 0.000001f)
-                {
-                    float inverseLength = 1f / Mathf.Sqrt(sqrMagnitude);
-
-                    _lastMovementDirection = new SoldierDirection(x * inverseLength, 0f, z * inverseLength);
-
-                    _hasLastMovementDirection = true;
-                }
-            }
-
-            // Keep finishing the smooth turn after the joystick is released.
-            // This also lets newly activated Soldiers inherit the last group-facing
-            // direction without rotating the formation/camera root itself.
-            if (!_hasLastMovementDirection)
-                return;
-
-            int activeCount = Mathf.Min(_runtime.ActiveSoldierCount,soldierViews.Length);
-
-            for (int i = 0; i < activeCount; i++)
-            {
-                SoldierView soldierView =soldierViews[i];
-
-                if (soldierView == null || !soldierView.gameObject.activeInHierarchy)
-                {
-                    continue;
-                }
-
-                soldierView.SetMovementFacing(in _lastMovementDirection, _moveRotationDegreesPerSecond, deltaTime);
-            }
+            // Per-Soldier body-facing is owned by SoldierController because each
+            // Soldier can have a different Zombie target. The composition root no
+            // longer forces all bodies toward the same joystick direction.
+            _runtime.Tick(Time.deltaTime);
         }
 
         private void LateUpdate()
@@ -213,19 +169,21 @@ namespace ZombieWar.Composition
             _sharedHealth?.ResetHealth();
         }
 
-        private void OnGameLevelStarted(GameLevelStartedEvent evt)
+        private void OnGameLevelStarted(
+            GameLevelStartedEvent evt)
         {
             _sharedHealth?.ResetHealth();
             LockFormationRootLocalIdentity();
         }
 
-        
-        // Hard-coded scene-edge teleport used by the current Map02 transition.
-        // The actual formation root is derived from the four SoldierView references
-        // owned by this runtime, so no FindFirstObjectByType&lt;SoldierGroupView&gt; guess
-        // is involved.
-        
-        public void TeleportGroup(Vector3 worldPosition)
+        /// <summary>
+        /// Hard-coded scene-edge teleport used by the current Map02 transition.
+        /// The actual formation root is derived from the four SoldierView references
+        /// owned by this runtime, so no FindFirstObjectByType&lt;SoldierGroupView&gt; guess
+        /// is involved.
+        /// </summary>
+        public void TeleportGroup(
+            Vector3 worldPosition)
         {
             if (!IsInitialized)
             {
@@ -241,16 +199,20 @@ namespace ZombieWar.Composition
                     "SoldierRuntimeRoot could not resolve the world SoldierGroup root.");
             }
 
-            bool controllerWasEnabled = _groupCharacterController != null && _groupCharacterController.enabled;
+            bool controllerWasEnabled =
+                _groupCharacterController != null &&
+                _groupCharacterController.enabled;
 
             if (controllerWasEnabled)
             {
                 _groupCharacterController.enabled = false;
             }
 
-            Vector3 oldWorldPosition = _worldGroupRoot.position;
+            Vector3 oldWorldPosition =
+                _worldGroupRoot.position;
 
-            _worldGroupRoot.position = worldPosition;
+            _worldGroupRoot.position =
+                worldPosition;
 
             LockFormationRootLocalIdentity();
             soldierGroupView.ResetVerticalVelocity();
@@ -270,7 +232,8 @@ namespace ZombieWar.Composition
 
         private void ResolveSoldierGroupHierarchy()
         {
-            Transform nearestCommon = FindNearestCommonAncestor();
+            Transform nearestCommon =
+                FindNearestCommonAncestor();
 
             if (nearestCommon == null)
             {
@@ -279,25 +242,35 @@ namespace ZombieWar.Composition
                     "for the four SoldierView references.");
             }
 
-            Transform namedRoot = FindSharedNamedAncestor(SoldierGroupRootName);
+            Transform namedRoot =
+                FindSharedNamedAncestor(
+                    SoldierGroupRootName);
 
-            _formationRoot = namedRoot != null ? namedRoot : nearestCommon;
+            _formationRoot =
+                namedRoot != null
+                    ? namedRoot
+                    : nearestCommon;
 
-            if (_formationRoot.name == SoldierGroupRootName && _formationRoot.parent != null)
+            if (_formationRoot.name == SoldierGroupRootName &&
+                _formationRoot.parent != null)
             {
-                _worldGroupRoot = _formationRoot.parent;
+                _worldGroupRoot =
+                    _formationRoot.parent;
             }
             else
             {
-                _worldGroupRoot = _formationRoot;
+                _worldGroupRoot =
+                    _formationRoot;
             }
 
-            _groupCharacterController = soldierGroupView.GetComponent<CharacterController>();
+            _groupCharacterController =
+                soldierGroupView.GetComponent<CharacterController>();
         }
 
         private Transform FindNearestCommonAncestor()
         {
-            Transform cursor = soldierViews[0].transform.parent;
+            Transform cursor =
+                soldierViews[0].transform.parent;
 
             while (cursor != null)
             {
@@ -306,36 +279,47 @@ namespace ZombieWar.Composition
                     return cursor;
                 }
 
-                cursor = cursor.parent;
+                cursor =
+                    cursor.parent;
             }
 
             return null;
         }
 
-        private Transform FindSharedNamedAncestor(string targetName)
+        private Transform FindSharedNamedAncestor(
+            string targetName)
         {
-            Transform cursor = soldierViews[0].transform.parent;
+            Transform cursor =
+                soldierViews[0].transform.parent;
 
             while (cursor != null)
             {
-                if (string.Equals(cursor.name,targetName,StringComparison.Ordinal) && ContainsAllSoldierViews(cursor))
+                if (string.Equals(
+                        cursor.name,
+                        targetName,
+                        StringComparison.Ordinal) &&
+                    ContainsAllSoldierViews(cursor))
                 {
                     return cursor;
                 }
 
-                cursor =cursor.parent;
+                cursor =
+                    cursor.parent;
             }
 
             return null;
         }
 
-        private bool ContainsAllSoldierViews(Transform candidate)
+        private bool ContainsAllSoldierViews(
+            Transform candidate)
         {
             for (int i = 0; i < soldierViews.Length; i++)
             {
-                Transform soldier = soldierViews[i].transform;
+                Transform soldier =
+                    soldierViews[i].transform;
 
-                if (soldier != candidate && !soldier.IsChildOf(candidate))
+                if (soldier != candidate &&
+                    !soldier.IsChildOf(candidate))
                 {
                     return false;
                 }
@@ -357,56 +341,72 @@ namespace ZombieWar.Composition
                 return;
             }
 
-            _formationRoot.localPosition = Vector3.zero;
+            _formationRoot.localPosition =
+                Vector3.zero;
 
-            _formationRoot.localRotation = Quaternion.identity;
+            _formationRoot.localRotation =
+                Quaternion.identity;
 
-            _formationRoot.localScale = Vector3.one;
+            _formationRoot.localScale =
+                Vector3.one;
         }
 
         private void BindGameplay(IObjectResolver resolver)
         {
-            _levelBinding = resolver.Resolve<ILevelSoldierBinding>();
+            _levelBinding =
+                resolver.Resolve<ILevelSoldierBinding>();
 
             _levelBinding.Bind(_runtime);
 
-            _gameStateBinding = resolver.Resolve<IGameStateSoldierBinding>();
+            _gameStateBinding =
+                resolver.Resolve<IGameStateSoldierBinding>();
 
             _gameStateBinding.Bind(_runtime);
 
-            _zombieAttackBinding = resolver.Resolve<IZombieAttackBinding>();
+            _zombieAttackBinding =
+                resolver.Resolve<IZombieAttackBinding>();
 
-            _zombieAttackBinding.BindSharedSoldierGroup(_sharedHealth);
+            _zombieAttackBinding.BindSharedSoldierGroup(
+                _sharedHealth);
 
-            _bossAttackBinding = resolver.Resolve<IBossAttackBinding>();
+            _bossAttackBinding =
+                resolver.Resolve<IBossAttackBinding>();
 
-            _bossAttackBinding.BindSharedSoldierGroup(_sharedHealth);
+            _bossAttackBinding.BindSharedSoldierGroup(
+                _sharedHealth);
         }
 
         private void BindPresentation(IObjectResolver resolver)
         {
-            _feedbackBinding = resolver.Resolve<IFeedbackSoldierBinding>();
+            _feedbackBinding =
+                resolver.Resolve<IFeedbackSoldierBinding>();
 
             _feedbackBinding.Bind(_runtime.GroupId);
 
-            _audioBinding = resolver.Resolve<IAudioSoldierBinding>();
+            _audioBinding =
+                resolver.Resolve<IAudioSoldierBinding>();
 
             _audioBinding.Bind(_runtime.GroupId);
 
-            // The concrete Shared Health is scene-owned, so bind it to the
-            // persistent UI integration only after Soldier runtime creation.
-            _uiHealthBinding = resolver.Resolve<IUIHealthBinding>();
+            // Shared Soldier Group Health is scene-owned. Bind it to the persistent
+            // Gameplay HUD after the Soldier runtime and HealthController exist.
+            _uiHealthBinding =
+                resolver.Resolve<IUIHealthBinding>();
 
-            _uiHealthBinding.Bind(_runtime.GroupId, _sharedHealth);
+            _uiHealthBinding.Bind(
+                _runtime.GroupId,
+                _sharedHealth);
 
-            _vfxBinding = resolver.Resolve<ISoldierVFXAnchorBinding>();
+            _vfxBinding =
+                resolver.Resolve<ISoldierVFXAnchorBinding>();
 
             if (damageVfxAnchorBehaviour == null)
             {
                 return;
             }
 
-            IVFXAnchor anchor = damageVfxAnchorBehaviour as IVFXAnchor;
+            IVFXAnchor anchor =
+                damageVfxAnchorBehaviour as IVFXAnchor;
 
             if (anchor == null)
             {
@@ -414,20 +414,29 @@ namespace ZombieWar.Composition
                     "Damage VFX Anchor Behaviour must implement IVFXAnchor.");
             }
 
-            _vfxBinding.Bind(_runtime.GroupId,anchor);
+            _vfxBinding.Bind(
+                _runtime.GroupId,
+                anchor);
 
             _vfxAnchorBound = true;
         }
 
         private void ValidateReferences()
         {
-            RequireReference(soldierConfig, nameof(soldierConfig));
+            RequireReference(
+                soldierConfig,
+                nameof(soldierConfig));
 
-            RequireReference(soldierGroupConfig, nameof(soldierGroupConfig));
+            RequireReference(
+                soldierGroupConfig,
+                nameof(soldierGroupConfig));
 
-            RequireReference(soldierGroupView, nameof(soldierGroupView));
+            RequireReference(
+                soldierGroupView,
+                nameof(soldierGroupView));
 
-            if (soldierViews == null || soldierViews.Length != RequiredSoldierViewCount)
+            if (soldierViews == null ||
+                soldierViews.Length != RequiredSoldierViewCount)
             {
                 throw new InvalidOperationException(
                     "SoldierRuntimeRoot requires exactly four SoldierView references.");
@@ -443,7 +452,10 @@ namespace ZombieWar.Composition
             }
         }
 
-        private static void RequireReference<T>(T reference, string fieldName) where T : UnityEngine.Object
+        private static void RequireReference<T>(
+            T reference,
+            string fieldName)
+            where T : UnityEngine.Object
         {
             if (reference != null)
             {
@@ -480,13 +492,9 @@ namespace ZombieWar.Composition
             _runtime = null;
             _sharedHealth = null;
             _uiHealthBinding = null;
-            _inputBuffer = null;
             _formationRoot = null;
             _worldGroupRoot = null;
             _groupCharacterController = null;
-            _lastMovementDirection = SoldierDirection.Zero;
-            _moveRotationDegreesPerSecond = 0f;
-            _hasLastMovementDirection = false;
             IsInitialized = false;
         }
     }
