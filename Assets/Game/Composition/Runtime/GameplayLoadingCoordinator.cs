@@ -30,13 +30,6 @@ namespace ZombieWar.Composition
     [DisallowMultipleComponent]
     public sealed class GameplayLoadingCoordinator : MonoBehaviour
     {
-        // Temporary game-specific hard-coded Map02 spawn.
-        // No Unity Terrain dependency is used here because the Composition assembly
-        // does not reference UnityEngine.TerrainModule in the current project.
-        // Tune X/Y/Z directly to a safe point above the Map02 ground.
-        private const float Map02SoldierSpawnX = 0f;
-        private const float Map02SoldierSpawnY = 20f;
-        private const float Map02SoldierSpawnZ = 0f;
 
         [Header("Gameplay Scene")]
         [SerializeField]
@@ -257,10 +250,9 @@ namespace ZombieWar.Composition
                 yield break;
             }
 
-            // Map02 currently has a different world layout from Map01.
-            // Keep this intentionally simple: hard-code a safe Map02 world position
-            // before gameplay/gravity are enabled again. Replay on Map02 uses the same reset.
-            if (targetMap == MapId.Map02 && !TeleportSoldierGroupForMap02())
+            // Every map owns its Soldier spawn point through MapRuntimeContext.
+            // Play, Replay and Next therefore all reposition the Soldier Group consistently.
+            if (!TeleportSoldierGroupToCurrentMapSpawn(targetMap))
             {
                 FinishRoutine();
                 yield break;
@@ -344,12 +336,12 @@ namespace ZombieWar.Composition
             }
         }
 
-        private bool TeleportSoldierGroupForMap02()
+        private bool TeleportSoldierGroupToCurrentMapSpawn(MapId targetMap)
         {
             if (_soldierRuntimeRoot == null)
             {
                 Debug.LogError(
-                    "[Loading] Cannot reposition Soldier Group for Map02: " +
+                    $"[Loading] Cannot reposition Soldier Group for {targetMap}: " +
                     "the scene SoldierRuntimeRoot was not resolved.",
                     this);
                 return false;
@@ -358,22 +350,52 @@ namespace ZombieWar.Composition
             if (!_soldierRuntimeRoot.IsInitialized)
             {
                 Debug.LogError(
-                    "[Loading] Cannot reposition Soldier Group for Map02: " +
+                    $"[Loading] Cannot reposition Soldier Group for {targetMap}: " +
                     "SoldierRuntimeRoot is not initialized.",
                     _soldierRuntimeRoot);
                 return false;
             }
 
+            if (mapRuntimeRoot.Runtime == null ||
+                !mapRuntimeRoot.Runtime.TryGetCurrentContext(out MapRuntimeContext context) ||
+                context == null)
+            {
+                Debug.LogError(
+                    $"[Loading] Cannot reposition Soldier Group for {targetMap}: " +
+                    "the loaded MapRuntimeContext is unavailable.",
+                    mapRuntimeRoot);
+                return false;
+            }
+
+            if (context.MapId != targetMap)
+            {
+                Debug.LogError(
+                    $"[Loading] Cannot reposition Soldier Group. " +
+                    $"Requested map={targetMap}, context map={context.MapId}.",
+                    mapRuntimeRoot);
+                return false;
+            }
+
+            if (!context.HasSoldierSpawnPoint)
+            {
+                Debug.LogError(
+                    $"[Loading] {targetMap} does not provide a SoldierSpawnPoint. " +
+                    "Add MapSoldierSpawnPoint to the map prefab and assign it on MapView.",
+                    mapRuntimeRoot);
+                return false;
+            }
+
+            MapPoint spawnPoint = context.SoldierSpawnPoint;
             Vector3 spawnPosition = new Vector3(
-                    Map02SoldierSpawnX,
-                    Map02SoldierSpawnY,
-                    Map02SoldierSpawnZ);
+                spawnPoint.X,
+                spawnPoint.Y,
+                spawnPoint.Z);
 
             _soldierRuntimeRoot.TeleportGroup(spawnPosition);
 
             Debug.Log(
-                $"[Loading] Soldier Group teleported for Map02 through " +
-                $"SoldierRuntimeRoot: {spawnPosition}.",
+                $"[Loading] Soldier Group teleported for {targetMap} through " +
+                $"MapRuntimeContext.SoldierSpawnPoint: {spawnPosition}.",
                 this);
 
             return true;

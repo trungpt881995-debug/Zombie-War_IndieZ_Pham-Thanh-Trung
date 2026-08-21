@@ -35,6 +35,8 @@ namespace ZombieWar.Features.Map.Tests
         [Test] public void Context_RequiresFourSectors() => Assert.Throws<ArgumentException>(() => new MapRuntimeContext(MapId.Map01, in ValidBounds, in ValidBounds, new MapSpawnSector[3], in Zero, false));
         [Test] public void Context_RejectsDuplicateSector() => Assert.Throws<ArgumentException>(() => new MapRuntimeContext(MapId.Map01, in ValidBounds, in ValidBounds, new[] { Sector(MapSpawnSectorId.Top), Sector(MapSpawnSectorId.Top), Sector(MapSpawnSectorId.Left), Sector(MapSpawnSectorId.Right) }, in Zero, false));
         [Test] public void Context_ExposesAllFourSectors() { var c = Context(MapId.Map01); Assert.AreEqual(4, c.SpawnSectors.Count); }
+        [Test] public void Context_ExposesSoldierSpawnPoint() { var c = Context(MapId.Map01); Assert.IsTrue(c.HasSoldierSpawnPoint); Assert.AreEqual(SoldierSpawn, c.SoldierSpawnPoint); }
+        [Test] public void Context_LegacyConstructor_DoesNotClaimSoldierSpawnPoint() { var c = new MapRuntimeContext(MapId.Map01, in ValidBounds, in ValidBounds, FourSectors(), in Zero, false); Assert.IsFalse(c.HasSoldierSpawnPoint); }
         [TestCase(MapSpawnSectorId.Top)]
         [TestCase(MapSpawnSectorId.Bottom)]
         [TestCase(MapSpawnSectorId.Left)]
@@ -238,6 +240,7 @@ namespace ZombieWar.Features.Map.Tests
 
         private static readonly MapBounds ValidBounds = new MapBounds(-10, 10, -10, 10);
         private static readonly MapPoint Zero = new MapPoint(0, 0, 0);
+        private static readonly MapPoint SoldierSpawn = new MapPoint(2, 0, -3);
 
         private static MapDefinition Def(MapId id) => new MapDefinition(id, id.ToString());
         private static MapSpawnSector Sector(MapSpawnSectorId id)
@@ -245,7 +248,8 @@ namespace ZombieWar.Features.Map.Tests
             var area = new MapArea(-1, 1, -1, 1);
             return new MapSpawnSector(id, in area);
         }
-        private static MapRuntimeContext Context(MapId id) => new MapRuntimeContext(id, in ValidBounds, in ValidBounds, new[] { Sector(MapSpawnSectorId.Top), Sector(MapSpawnSectorId.Bottom), Sector(MapSpawnSectorId.Left), Sector(MapSpawnSectorId.Right) }, in Zero, true);
+        private static MapSpawnSector[] FourSectors() => new[] { Sector(MapSpawnSectorId.Top), Sector(MapSpawnSectorId.Bottom), Sector(MapSpawnSectorId.Left), Sector(MapSpawnSectorId.Right) };
+        private static MapRuntimeContext Context(MapId id) => new MapRuntimeContext(id, in ValidBounds, in ValidBounds, FourSectors(), in SoldierSpawn, in Zero, true);
         private static IMapCatalog Catalog() => new MapCatalog(new[] { Def(MapId.Map01), Def(MapId.Map02) });
 
         private static SetupResult Setup(IMapCatalog catalog = null, FakeLoader loader = null)

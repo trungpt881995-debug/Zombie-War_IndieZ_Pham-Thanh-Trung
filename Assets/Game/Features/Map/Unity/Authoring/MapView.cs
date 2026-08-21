@@ -11,6 +11,7 @@ namespace ZombieWar.Features.Map.Unity.Authoring
         [SerializeField] private MapBoundsVolume gameplayBounds;
         [SerializeField] private MapBoundsVolume cameraBounds;
         [SerializeField] private MapSpawnSectorVolume[] spawnSectors = new MapSpawnSectorVolume[4];
+        [SerializeField] private MapSoldierSpawnPoint soldierSpawnPoint;
         [SerializeField] private MapBossSpawnPoint bossSpawnPoint;
         [SerializeField] private MapNavigationReference navigationReference;
 
@@ -24,6 +25,7 @@ namespace ZombieWar.Features.Map.Unity.Authoring
             if (mapId == MapId.None) { error = "MapView MapId cannot be None."; return false; }
             if (gameplayBounds == null) { error = "GameplayBounds is not assigned."; return false; }
             if (cameraBounds == null) { error = "CameraBounds is not assigned."; return false; }
+            if (soldierSpawnPoint == null) { error = "SoldierSpawnPoint is not assigned."; return false; }
             if (bossSpawnPoint == null) { error = "BossSpawnPoint is not assigned."; return false; }
             if (spawnSectors == null || spawnSectors.Length != 4) { error = "Exactly four spawn sector volumes are required."; return false; }
 
@@ -52,12 +54,20 @@ namespace ZombieWar.Features.Map.Unity.Authoring
                 return false;
             }
 
+            MapPoint soldierPoint = soldierSpawnPoint.Position;
+            if (!gameplay.Contains(in soldierPoint))
+            {
+                error = $"SoldierSpawnPoint {soldierPoint} is outside GameplayBounds.";
+                return false;
+            }
+
             MapPoint bossPoint = bossSpawnPoint.Position;
             context = new MapRuntimeContext(
                 mapId,
                 in gameplay,
                 in camera,
                 sectors,
+                in soldierPoint,
                 in bossPoint,
                 navigationReference != null && navigationReference.IsAssigned);
             return true;

@@ -4637,6 +4637,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1822229650568916378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3079924632478971794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3534493708865561297}
+  - component: {fileID: 7139865454604796122}
+  m_Layer: 0
+  m_Name: SoldierSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3534493708865561297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079924632478971794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3771519952351467219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7139865454604796122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079924632478971794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d162d769807e244099a5c70b679a6654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZombieWar.Map.Unity::ZombieWar.Features.Map.Unity.Authoring.MapSoldierSpawnPoint
 --- !u!1 &3131912837386169475
 GameObject:
   m_ObjectHideFlags: 0
@@ -12364,6 +12408,7 @@ Transform:
   - {fileID: 3634394287655785370}
   - {fileID: 9141105647942740330}
   - {fileID: 8946974799541961471}
+  - {fileID: 3534493708865561297}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5183346977315058094
@@ -12386,6 +12431,7 @@ MonoBehaviour:
   - {fileID: 6177353995277728614}
   - {fileID: 5600813502888926482}
   - {fileID: 2480630075710709313}
+  soldierSpawnPoint: {fileID: 7139865454604796122}
   bossSpawnPoint: {fileID: 6522615700727875101}
   navigationReference: {fileID: 5561768753986210047}
 --- !u!114 &6522615700727875101
