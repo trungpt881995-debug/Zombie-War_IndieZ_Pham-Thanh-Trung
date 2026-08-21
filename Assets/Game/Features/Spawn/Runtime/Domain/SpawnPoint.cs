@@ -8,8 +8,12 @@ namespace ZombieWar.Features.Spawn.Domain
         public float Z { get; }
         public SpawnPoint(float x, float y, float z)
         {
-            if (!IsFinite(x) || !IsFinite(y) || !IsFinite(z)) throw new ArgumentOutOfRangeException(nameof(x), "SpawnPoint values must be finite.");
-            X = x; Y = y; Z = z;
+            if (!IsFinite(x) || !IsFinite(y) || !IsFinite(z)) 
+            throw new ArgumentOutOfRangeException(nameof(x), "SpawnPoint values must be finite.");
+            
+            X = x; 
+            Y = y; 
+            Z = z;
         }
         private static bool IsFinite(float v) => !float.IsNaN(v) && !float.IsInfinity(v);
         public bool Equals(SpawnPoint other) => X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);

@@ -7,6 +7,11 @@ namespace ZombieWar.Features.Spawn.Domain
         public int Spawned { get; }
         public SpawnRejectReason LastRejectReason { get; }
         public SpawnBatchResult(int desired,int capacityLimited,int spawned,SpawnRejectReason lastRejectReason)
-        { Desired=desired; CapacityLimited=capacityLimited; Spawned=spawned; LastRejectReason=lastRejectReason; }
+        { 
+            Desired=desired; 
+            CapacityLimited=capacityLimited; 
+            Spawned=spawned; 
+            LastRejectReason=lastRejectReason; 
+        }
     }
 }

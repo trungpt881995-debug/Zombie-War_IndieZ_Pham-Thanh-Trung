@@ -9,7 +9,8 @@ namespace ZombieWar.Features.Spawn.Domain
         {
             if (gameLevel <= 0) throw new ArgumentOutOfRangeException(nameof(gameLevel));
             if (soldierGroupLevel <= 0) throw new ArgumentOutOfRangeException(nameof(soldierGroupLevel));
-            GameLevel=gameLevel; SoldierGroupLevel=soldierGroupLevel;
+            GameLevel=gameLevel; 
+            SoldierGroupLevel=soldierGroupLevel;
         }
         public bool Equals(SpawnDifficultyKey other) => GameLevel==other.GameLevel && SoldierGroupLevel==other.SoldierGroupLevel;
         public override bool Equals(object obj) => obj is SpawnDifficultyKey other && Equals(other);

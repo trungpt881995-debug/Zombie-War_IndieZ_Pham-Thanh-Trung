@@ -1,2 +1,12 @@
-using System; using GeneralCore.Architecture; using ZombieWar.Features.Spawn.Services;
-namespace ZombieWar.Features.Spawn.Commands { public sealed class StopZombieSpawningCommandHandler:ICommandHandler<StopZombieSpawningCommand>{private readonly ISpawnRuntime _runtime; public StopZombieSpawningCommandHandler(ISpawnRuntime runtime)=>_runtime=runtime??throw new ArgumentNullException(nameof(runtime)); public void Handle(StopZombieSpawningCommand command)=>_runtime.Stop(command.Reason);} }
+using System; 
+using GeneralCore.Architecture; 
+using ZombieWar.Features.Spawn.Services;
+namespace ZombieWar.Features.Spawn.Commands 
+{ 
+  public sealed class StopZombieSpawningCommandHandler:ICommandHandler<StopZombieSpawningCommand>
+  {
+    private readonly ISpawnRuntime _runtime; 
+    public StopZombieSpawningCommandHandler(ISpawnRuntime runtime)=> _runtime = runtime??throw new ArgumentNullException(nameof(runtime)); 
+    public void Handle(StopZombieSpawningCommand command) => _runtime.Stop(command.Reason);
+  } 
+}
