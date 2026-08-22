@@ -1,2 +1,22 @@
-using System; using UnityEngine; using UnityEngine.UI; using ZombieWar.Features.UI.Domain; using ZombieWar.Features.UI.Unity.Components; using ZombieWar.Features.UI.View;
-namespace ZombieWar.Features.UI.Unity.Views { public sealed class PauseView:CanvasGroupScreenView,IPauseView { [SerializeField] Button replayButton,continueButton,menuButton; public override UIScreenId ScreenId=>UIScreenId.Pause; public event Action ReplayClicked,ContinueClicked,MenuClicked; private void Awake(){if(replayButton!=null)replayButton.onClick.AddListener(()=>ReplayClicked?.Invoke());if(continueButton!=null)continueButton.onClick.AddListener(()=>ContinueClicked?.Invoke());if(menuButton!=null)menuButton.onClick.AddListener(()=>MenuClicked?.Invoke());} } }
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+using ZombieWar.Features.UI.Domain;
+using ZombieWar.Features.UI.Unity.Components;
+using ZombieWar.Features.UI.View;
+
+namespace ZombieWar.Features.UI.Unity.Views
+{
+    public sealed class PauseView : CanvasGroupScreenView, IPauseView
+    {
+        [SerializeField] Button replayButton, continueButton, menuButton;
+        public override UIScreenId ScreenId => UIScreenId.Pause;
+        public event Action ReplayClicked, ContinueClicked, MenuClicked;
+        private void Awake()
+        {
+            if (replayButton != null) replayButton.onClick.AddListener(() => ReplayClicked?.Invoke());
+            if (continueButton != null) continueButton.onClick.AddListener(() => ContinueClicked?.Invoke());
+            if (menuButton != null) menuButton.onClick.AddListener(() => MenuClicked?.Invoke());
+        }
+    }
+}
